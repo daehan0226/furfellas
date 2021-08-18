@@ -1,16 +1,12 @@
 import styled from "styled-components";
 import Nav from "../components/Nav";
-
-const Title = styled.h1`
-  font-size: 50px;
-  color: ${({ theme }) => theme.colors.primary};
-`;
+import Desc from "../components/Desc";
 
 export default function Home() {
   return (
     <>
       <Nav />
-      <Title>My page</Title>
+      <Desc />
     </>
   );
 }
