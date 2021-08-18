@@ -23,10 +23,18 @@ Object.keys(sizes).reduce((acc, label) => {
 }, media);
 
 const colors = {
-  blue: "#2054ae",
-  pink: "#c43683",
-  black: "#24272a",
-  primary: "#0070f3",
+  primary: {
+    light: "#757ce8",
+    main: "#3f50b5",
+    dark: "#002884",
+    text: "#fff",
+  },
+  secondary: {
+    light: "#ff7961",
+    main: "#f44336",
+    dark: "#ba000d",
+    text: "#000",
+  },
 };
 
 const theme = {
