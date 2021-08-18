@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 const Spacer = styled.div`
+  height: 80px;
   ${(props) => props.theme.media.desktop`
     height: 80px;
   `}
