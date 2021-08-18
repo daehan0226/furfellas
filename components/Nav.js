@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FlexCenterBox } from "../styles/common-styles";
 
 const Spacer = styled.div`
   height: 80px;
@@ -14,9 +15,7 @@ const Spacer = styled.div`
 `;
 
 const Container = styled(Spacer)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  ${FlexCenterBox}
   width: 100%;
   position: fixed;
   background-color: ${({ theme }) => theme.colors.primary.dark};
