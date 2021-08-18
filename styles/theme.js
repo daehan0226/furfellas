@@ -1,4 +1,4 @@
-import baseStyled, { css } from 'styled-components';
+import baseStyled, { css } from "styled-components";
 
 const sizes = {
   desktop: 1167,
@@ -20,20 +20,19 @@ Object.keys(sizes).reduce((acc, label) => {
     }
   `;
   return acc;
-},                        media);
+}, media);
 
 const colors = {
-  blue: '#2054ae',
-  pink: '#c43683',
-  black: '#24272a',
-  primary: '#0070f3',
+  blue: "#2054ae",
+  pink: "#c43683",
+  black: "#24272a",
+  primary: "#0070f3",
 };
 
 const theme = {
   colors,
   media,
-  sizes,
 };
 
-export const styled = baseStyled
-export default theme
+export const styled = baseStyled;
+export default theme;
