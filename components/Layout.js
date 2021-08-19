@@ -1,15 +1,17 @@
-import Nav from ".//Nav";
-import Meta from "./Meta";
-import Footer from "./Footer";
+import styled from "styled-components";
+import {Nav, Meta, Footer} from "./index"
+
+const Main = styled.main`
+  width: 100%;
+  min-height: 800px;
+`
 
 const Layout = ({ children }) => {
   return (
     <>
       <Meta />
       <Nav />
-      <div>
-        <main>{children}</main>
-      </div>
+      <Main>{children}</Main>
       <Footer />
     </>
   );
