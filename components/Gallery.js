@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import useSelect from "../hooks/useSelect";
 import { Select } from "./common";
 
 const Section = styled.section`
@@ -41,43 +42,22 @@ const SelectOptions = {
 };
 
 const Gallery = ({ images = null }) => {
-  const [types, setTypes] = useState([]);
-  const [actions, setActions] = useState([]);
-  const [sort, setSort] = useState([]);
-
-  useEffect(() => {
-    console.log(types);
-    console.log(actions);
-  }, [types, actions]);
+  const tyleSelect = useSelect("who", SelectOptions.type);
+  const actionSelect = useSelect("what", SelectOptions.action);
+  const sortSelect = useSelect("sort", SelectOptions.sort);
 
   return (
     <Section>
       <Title>Gallery</Title>
       <Container>
         <SelectWrap>
-          <Select
-            placeholder="Who?"
-            options={SelectOptions.type}
-            selectedItems={types}
-            setSelectedItem={setTypes}
-          />
+          <Select {...tyleSelect} />
         </SelectWrap>
         <SelectWrap>
-          <Select
-            placeholder="What?"
-            options={SelectOptions.action}
-            selectedItems={actions}
-            setSelectedItem={setActions}
-          />
+          <Select {...actionSelect} />
         </SelectWrap>
         <SelectWrap>
-          <Select
-            placeholder="Sort"
-            options={SelectOptions.sort}
-            selectedItems={sort}
-            setSelectedItem={setSort}
-            multipleChoices={false}
-          />
+          <Select {...sortSelect} multipleChoices={false} />
         </SelectWrap>
       </Container>
       <ImageContainer></ImageContainer>
