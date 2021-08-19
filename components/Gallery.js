@@ -23,22 +23,27 @@ const ImageContainer = styled.div`
   display: flex;
 `;
 
-const SelectContainer = styled.div`
+const Container = styled.div`
   width: 100%;
   display: flex;
   justify-contents: flex-start;
   margin: 10px;
   background-color: ${({ theme }) => theme.colors.primary.text};
 `;
+const SelectWrap = styled.div`
+  width: 120px;
+`;
 
 const SelectOptions = {
   type: ["Together", "Sevi", "Aibi"],
   action: ["Playing", "Sleeping", "Rubbing", "Eating", "Barking", "Laying"],
+  sort: ["Ascending", "Descending"],
 };
 
 const Gallery = ({ images = null }) => {
   const [types, setTypes] = useState([]);
   const [actions, setActions] = useState([]);
+  const [sort, setSort] = useState([]);
 
   useEffect(() => {
     console.log(types);
@@ -48,24 +53,33 @@ const Gallery = ({ images = null }) => {
   return (
     <Section>
       <Title>Gallery</Title>
-      <SelectContainer>
-        <div>
+      <Container>
+        <SelectWrap>
           <Select
             placeholder="Who?"
             options={SelectOptions.type}
             selectedItems={types}
             setSelectedItem={setTypes}
           />
-        </div>
-        <div>
+        </SelectWrap>
+        <SelectWrap>
           <Select
             placeholder="What?"
             options={SelectOptions.action}
             selectedItems={actions}
             setSelectedItem={setActions}
           />
-        </div>
-      </SelectContainer>
+        </SelectWrap>
+        <SelectWrap>
+          <Select
+            placeholder="Sort"
+            options={SelectOptions.sort}
+            selectedItems={sort}
+            setSelectedItem={setSort}
+            multipleChoices={false}
+          />
+        </SelectWrap>
+      </Container>
       <ImageContainer></ImageContainer>
     </Section>
   );

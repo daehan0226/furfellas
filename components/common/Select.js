@@ -52,13 +52,23 @@ const ListItem = styled.li`
   `};
 `;
 
-const Select = ({ placeholder, options, selectedItems, setSelectedItem }) => {
+const Select = ({
+  placeholder,
+  options,
+  selectedItems,
+  setSelectedItem,
+  multipleChoices = true,
+}) => {
   const [show, setShow] = useState(false);
   const handleClick = (option) => {
-    if (selectedItems.includes(option)) {
-      setSelectedItem(selectedItems.filter((item) => item !== option));
+    if (multipleChoices) {
+      if (selectedItems.includes(option)) {
+        setSelectedItem(selectedItems.filter((item) => item !== option));
+      } else {
+        setSelectedItem([...selectedItems, option]);
+      }
     } else {
-      setSelectedItem([...selectedItems, option]);
+      setSelectedItem([option]);
     }
   };
 
