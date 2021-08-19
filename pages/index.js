@@ -5,7 +5,6 @@ import Desc from "../components/Desc";
 export default function Home() {
   return (
     <>
-      <Nav />
       <Desc />
     </>
   );
