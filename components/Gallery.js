@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Select } from "./common";
 
@@ -22,25 +23,49 @@ const ImageContainer = styled.div`
   display: flex;
 `;
 
+const SelectContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-contents: flex-start;
+  margin: 10px;
+  background-color: ${({ theme }) => theme.colors.primary.text};
+`;
+
 const SelectOptions = {
-  type: [
-    [0, "Together"],
-    [1, "Sevi"],
-    [2, "Aibi"],
-  ],
-  action: [
-    [0, "Playing"],
-    [1, "Sleeping"],
-    [2, "Aibi"],
-  ],
+  type: ["Together", "Sevi", "Aibi"],
+  action: ["Playing", "Sleeping", "Rubbing", "Eating", "Barking", "Laying"],
 };
 
 const Gallery = ({ images = null }) => {
+  const [types, setTypes] = useState([]);
+  const [actions, setActions] = useState([]);
+
+  useEffect(() => {
+    console.log(types);
+    console.log(actions);
+  }, [types, actions]);
+
   return (
     <Section>
       <Title>Gallery</Title>
-      <Select options={SelectOptions.type} />
-      <Select options={SelectOptions.action} />
+      <SelectContainer>
+        <div>
+          <Select
+            placeholder="Who?"
+            options={SelectOptions.type}
+            selectedItems={types}
+            setSelectedItem={setTypes}
+          />
+        </div>
+        <div>
+          <Select
+            placeholder="What?"
+            options={SelectOptions.action}
+            selectedItems={actions}
+            setSelectedItem={setActions}
+          />
+        </div>
+      </SelectContainer>
       <ImageContainer></ImageContainer>
     </Section>
   );
