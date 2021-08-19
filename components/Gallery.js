@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
+import useSelect from "../hooks/useSelect";
 import { Select } from "./common";
 
 const Section = styled.section`
@@ -23,49 +24,42 @@ const ImageContainer = styled.div`
   display: flex;
 `;
 
-const SelectContainer = styled.div`
+const Container = styled.div`
   width: 100%;
   display: flex;
   justify-contents: flex-start;
   margin: 10px;
   background-color: ${({ theme }) => theme.colors.primary.text};
 `;
+const SelectWrap = styled.div`
+  width: 120px;
+`;
 
 const SelectOptions = {
   type: ["Together", "Sevi", "Aibi"],
   action: ["Playing", "Sleeping", "Rubbing", "Eating", "Barking", "Laying"],
+  sort: ["Ascending", "Descending"],
 };
 
 const Gallery = ({ images = null }) => {
-  const [types, setTypes] = useState([]);
-  const [actions, setActions] = useState([]);
-
-  useEffect(() => {
-    console.log(types);
-    console.log(actions);
-  }, [types, actions]);
+  const tyleSelect = useSelect("who", SelectOptions.type);
+  const actionSelect = useSelect("what", SelectOptions.action);
+  const sortSelect = useSelect("sort", SelectOptions.sort);
 
   return (
     <Section>
       <Title>Gallery</Title>
-      <SelectContainer>
-        <div>
-          <Select
-            placeholder="Who?"
-            options={SelectOptions.type}
-            selectedItems={types}
-            setSelectedItem={setTypes}
-          />
-        </div>
-        <div>
-          <Select
-            placeholder="What?"
-            options={SelectOptions.action}
-            selectedItems={actions}
-            setSelectedItem={setActions}
-          />
-        </div>
-      </SelectContainer>
+      <Container>
+        <SelectWrap>
+          <Select {...tyleSelect} />
+        </SelectWrap>
+        <SelectWrap>
+          <Select {...actionSelect} />
+        </SelectWrap>
+        <SelectWrap>
+          <Select {...sortSelect} multipleChoices={false} />
+        </SelectWrap>
+      </Container>
       <ImageContainer></ImageContainer>
     </Section>
   );
