@@ -1,14 +1,10 @@
-
-import {
-  Desc,
-  RecentPhotoesGallery,
-} from "../components";
+import { Desc, RecentPhotoGallery } from "../components";
 
 export default function Home() {
   return (
     <>
       <Desc />
-      <RecentPhotoesGallery />
+      <RecentPhotoGallery />
     </>
   );
 }

@@ -6,7 +6,7 @@ const Section = styled.section`
   box-sizing: boder-box;
   margin: 0px 80px;
   background-color: ${({ theme }) => theme.colors.primary.text};
-`
+`;
 const Title = styled.h2`
   width: 100%;
   height: 80px;
@@ -15,13 +15,12 @@ const Title = styled.h2`
   ${(props) => props.theme.media.phone`
   text-align: center;
   `}
-`
+`;
 
 const ArticleContainer = styled.div`
   display: flex;
   overflow-x: scroll;
-`
-
+`;
 
 const Article = styled.article`
   min-width: 240px;
@@ -30,9 +29,9 @@ const Article = styled.article`
   border-width: 1px;
   border-style: solid;
   margin-right: 10px;
-`
+`;
 
-const RecentPhotoesGallery = ({ images=null}) => {
+const RecentPhotoGallery = ({ images = null }) => {
   return (
     <Section>
       <Title>New photos</Title>
@@ -47,8 +46,7 @@ const RecentPhotoesGallery = ({ images=null}) => {
         <Article>image8</Article>
       </ArticleContainer>
     </Section>
-
   );
 };
 
-export default RecentPhotoesGallery;
+export default RecentPhotoGallery;
