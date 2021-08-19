@@ -1,6 +1,5 @@
-import styled from "styled-components";
-import Nav from "../components/Nav";
-import Desc from "../components/Desc";
+
+import {Desc} from "../components";
 
 export default function Home() {
   return (
