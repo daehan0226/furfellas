@@ -105,7 +105,6 @@ const Select = ({
   const [show, setShow] = useState(false);
   const ref = useRef();
   useOnClickOutside(ref, (e) => {
-    console.log(e.target.name)
     if (e.target.name === `modal-btn-${placeholder}`) {
       return;
     }
