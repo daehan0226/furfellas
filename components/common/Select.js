@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { FlexCenterBox } from "../../styles/common-styles";
 
 const Title = styled.h4`
   text-align: center;
@@ -26,6 +27,41 @@ const Modal = styled.div`
 
 const List = styled.ul`
   width: calc(100% + 17px);
+`;
+
+const Close = styled.div`
+  margin-left: 10px;
+  ::before {
+    content: 'x'; // here is your X(cross) sign.
+    color: black;
+    font-weight: 300;
+    font-family: Arial, sans-serif;
+  }
+`
+
+const TagList = styled.div`
+${FlexCenterBox}
+`
+
+const Tag = styled.span`
+  ${FlexCenterBox}
+  color: #1d39c4;
+  background: #f0f5ff;
+  border-color: #adc6ff;
+  box-sizing: border-box;
+  margin: 0 8px 0 0;
+  color: #000000d9;
+  font-size: 14px;
+  height: auto;
+  padding: 0 7px;
+  font-size: 12px;
+  line-height: 20px;
+  white-space: nowrap;
+  background: #fafafa;
+  border: 1px solid #d9d9d9;
+  border-radius: 2px;
+  opacity: 1;
+  transition: all .3s;
 `;
 
 const ListItem = styled.li`
@@ -72,12 +108,18 @@ const Select = ({
     }
   };
 
+  const handleRemove = (option) => {
+    setSelectedItem(selectedItems.filter((item) => item !== option));
+  }
+
   return (
     <Container>
       <div>
         <Title>{placeholder}</Title>
-        {selectedItems.lenght !== 0 &&
-          selectedItems.map((item) => <p key={item}>{item}</p>)}
+        <TagList>
+          {selectedItems.lenght !== 0 &&
+            selectedItems.map((item) =><Tag key={item}>{item}<Close onClick={()=>handleRemove(item)} /></Tag>)}
+        </TagList>
         <button onClick={() => setShow(!show)}>
           {show ? "close" : "open"}
         </button>
