@@ -75,7 +75,7 @@ const ListItem = styled.li`
   letter-spacing: 0.00938em;
   box-sizing: border-box;
   padding: 6px;
-  pointer: cursor;
+  cursor: pointer;
 
   :hover {
     background-color: rgba(0, 0, 0, 0.04);

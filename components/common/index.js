@@ -1,3 +1,4 @@
 import Select from "./Select";
+import Button from "./Button";
 
-export { Select };
+export { Select, Button };
