@@ -1,24 +1,6 @@
-import { useState, useEffect } from "react";
 import styled from "styled-components";
 import useSelect from "../hooks/useSelect";
-import { Select } from "./common";
-
-const Section = styled.section`
-  width: 100%;
-  min-height: 400px;
-  box-sizing: boder-box;
-  margin: 0px 80px;
-  background-color: ${({ theme }) => theme.colors.primary.text};
-`;
-const Title = styled.h2`
-  width: 100%;
-  height: 80px;
-  line-height: 80px;
-  color: ${({ theme }) => theme.colors.primary.dark};
-  ${(props) => props.theme.media.phone`
-  text-align: center;
-  `}
-`;
+import { SectionContainer, SectionTitle, Select } from "./common";
 
 const ImageContainer = styled.div`
   display: flex;
@@ -47,8 +29,8 @@ const Gallery = ({ images = null }) => {
   const sortSelect = useSelect("sort", SelectOptions.sort);
 
   return (
-    <Section>
-      <Title>Gallery</Title>
+    <SectionContainer>
+      <SectionTitle text={"Gallery"} />
       <Container>
         <SelectWrap>
           <Select {...tyleSelect} />
@@ -61,7 +43,7 @@ const Gallery = ({ images = null }) => {
         </SelectWrap>
       </Container>
       <ImageContainer></ImageContainer>
-    </Section>
+    </SectionContainer>
   );
 };
 

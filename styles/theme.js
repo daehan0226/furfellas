@@ -28,6 +28,8 @@ const colors = {
     main: "#3f50b5",
     dark: "#002884",
     text: "#fff",
+    btnLight: "#40a9ff",
+    btnMain: "#1890ff",
   },
   secondary: {
     light: "#ff7961",

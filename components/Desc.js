@@ -19,7 +19,7 @@ const data = {
   },
 };
 
-const Container = styled.div`
+const CardContainer = styled.div`
   ${FlexCenterBox}
   flex-wrap: wrap;
   justify-content: space-around;
@@ -30,10 +30,10 @@ const Container = styled.div`
 
 const Desc = () => {
   return (
-    <Container>
-      <Card data={data.sevi} />
-      <Card data={data.aibi} />
-    </Container>
+      <CardContainer>
+        <Card data={data.sevi} />
+        <Card data={data.aibi} />
+      </CardContainer>
   );
 };
 
