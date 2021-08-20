@@ -13,8 +13,13 @@ const Title = styled.h4`
 const Container = styled.div`
   position: relative;
 `;
+const Header = styled.div`
+  ${FlexCenterBox}
+`
 
 const Modal = styled.div`
+  z-index:100;
+  background: #fff;
   position: absolute;
   outline: 0;
   width: 100px;
@@ -99,7 +104,12 @@ const Select = ({
 }) => {
   const [show, setShow] = useState(false);
   const ref = useRef();
-  useOnClickOutside(ref, () => setShow(false));
+  useOnClickOutside(ref, (e) => {
+    console.log(e.target.name)
+    if (e.target.name === `modal-btn-${placeholder}`) {
+      return;
+    }
+    setShow(false)});
 
   const handleClick = (option) => {
     if (multipleChoices) {
@@ -116,15 +126,18 @@ const Select = ({
   const handleRemove = (option) => {
     setSelectedItem(selectedItems.filter((item) => item !== option));
   }
+
   return (
     <Container>
       <div>
-        <Title>{placeholder}</Title>
+        <Header>
+          <Title>{placeholder}</Title>
+          <Button name={`modal-btn-${placeholder}`} onClick={() => setShow(!show)} text={show ? "close" : "open"} />
+        </Header>    
         <TagList>
           {selectedItems.lenght !== 0 &&
             selectedItems.map((item) =><Tag key={item}>{item}<Close onClick={()=>handleRemove(item)} /></Tag>)}
         </TagList>
-        {!show && (<Button  onClick={() => setShow(!show)} text={"open"} />)}
       </div>
 
       {show && (
