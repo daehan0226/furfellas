@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import styled from "styled-components";
 import { FlexCenterBox } from "../../styles/common-styles";
 import { useOnClickOutside } from "../../hooks";
+import Button from "./Button";
 
 const Title = styled.h4`
   text-align: center;
@@ -123,9 +124,7 @@ const Select = ({
           {selectedItems.lenght !== 0 &&
             selectedItems.map((item) =><Tag key={item}>{item}<Close onClick={()=>handleRemove(item)} /></Tag>)}
         </TagList>
-        <button onClick={() => setShow(!show)}>
-          {show ? "close" : "open"}
-        </button>
+        {!show && (<Button  onClick={() => setShow(!show)} text={"open"} />)}
       </div>
 
       {show && (

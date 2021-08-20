@@ -1,21 +1,5 @@
 import styled from "styled-components";
-
-const Section = styled.section`
-  width: 100%;
-  min-height: 400px;
-  box-sizing: boder-box;
-  margin: 0px 80px;
-  background-color: ${({ theme }) => theme.colors.primary.text};
-`;
-const Title = styled.h2`
-  width: 100%;
-  height: 80px;
-  line-height: 80px;
-  color: ${({ theme }) => theme.colors.primary.dark};
-  ${(props) => props.theme.media.phone`
-  text-align: center;
-  `}
-`;
+import { SectionContainer, SectionTitle } from "./common";
 
 const ArticleContainer = styled.div`
   display: flex;
@@ -33,8 +17,8 @@ const Article = styled.article`
 
 const RecentPhotoGallery = ({ images = null }) => {
   return (
-    <Section>
-      <Title>New photos</Title>
+    <SectionContainer>
+      <SectionTitle text={"New photos"} />
       <ArticleContainer>
         <Article>image1</Article>
         <Article>image2</Article>
@@ -45,7 +29,7 @@ const RecentPhotoGallery = ({ images = null }) => {
         <Article>image7</Article>
         <Article>image8</Article>
       </ArticleContainer>
-    </Section>
+    </SectionContainer>
   );
 };
 
