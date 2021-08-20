@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import styled from "styled-components";
 import { FlexCenterBox } from "../../styles/common-styles";
+import { useOnClickOutside } from "../../hooks";
 
 const Title = styled.h4`
   text-align: center;
@@ -96,6 +97,9 @@ const Select = ({
   multipleChoices = true,
 }) => {
   const [show, setShow] = useState(false);
+  const ref = useRef();
+  useOnClickOutside(ref, () => setShow(false));
+
   const handleClick = (option) => {
     if (multipleChoices) {
       if (selectedItems.includes(option)) {
@@ -111,7 +115,6 @@ const Select = ({
   const handleRemove = (option) => {
     setSelectedItem(selectedItems.filter((item) => item !== option));
   }
-
   return (
     <Container>
       <div>
@@ -126,7 +129,7 @@ const Select = ({
       </div>
 
       {show && (
-        <Modal>
+        <Modal ref={ref}>
           <List>
             {options.map((option) => (
               <ListItem
