@@ -20,8 +20,8 @@ const Btn =  styled.button`
     }
 `
 
-const Button = ({text, onClick}) => {
-    return <Btn onClick={()=>onClick()}>{text}</Btn>
+const Button = ({text, onClick, name=""}) => {
+    return <Btn name={name} onClick={()=>onClick()}>{text}</Btn>
 }
 
 export default Button;
