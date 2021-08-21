@@ -15,10 +15,10 @@ const Container = styled.div`
 `;
 const Header = styled.div`
   ${FlexCenterBox}
-`
+`;
 
 const Modal = styled.div`
-  z-index:100;
+  z-index: 100;
   background: #fff;
   position: absolute;
   outline: 0;
@@ -39,16 +39,17 @@ const List = styled.ul`
 const Close = styled.div`
   margin-left: 10px;
   ::before {
-    content: 'x'; // here is your X(cross) sign.
+    content: "x"; // here is your X(cross) sign.
     color: black;
     font-weight: 300;
     font-family: Arial, sans-serif;
   }
-`
+`;
 
 const TagList = styled.div`
-${FlexCenterBox}
-`
+  ${FlexCenterBox}
+  flex-direction: column;
+`;
 
 const Tag = styled.span`
   ${FlexCenterBox}
@@ -56,7 +57,7 @@ const Tag = styled.span`
   background: #f0f5ff;
   border-color: #adc6ff;
   box-sizing: border-box;
-  margin: 0 8px 0 0;
+  margin: 4px 0px;
   color: #000000d9;
   font-size: 14px;
   height: auto;
@@ -68,7 +69,7 @@ const Tag = styled.span`
   border: 1px solid #d9d9d9;
   border-radius: 2px;
   opacity: 1;
-  transition: all .3s;
+  transition: all 0.3s;
 `;
 
 const ListItem = styled.li`
@@ -105,11 +106,11 @@ const Select = ({
   const [show, setShow] = useState(false);
   const ref = useRef();
   useOnClickOutside(ref, (e) => {
-    console.log(e.target.name)
     if (e.target.name === `modal-btn-${placeholder}`) {
       return;
     }
-    setShow(false)});
+    setShow(false);
+  });
 
   const handleClick = (option) => {
     if (multipleChoices) {
@@ -125,18 +126,27 @@ const Select = ({
 
   const handleRemove = (option) => {
     setSelectedItem(selectedItems.filter((item) => item !== option));
-  }
+  };
 
   return (
     <Container>
       <div>
         <Header>
           <Title>{placeholder}</Title>
-          <Button name={`modal-btn-${placeholder}`} onClick={() => setShow(!show)} text={show ? "close" : "open"} />
-        </Header>    
+          <Button
+            name={`modal-btn-${placeholder}`}
+            onClick={() => setShow(!show)}
+            text={show ? "close" : "open"}
+          />
+        </Header>
         <TagList>
           {selectedItems.lenght !== 0 &&
-            selectedItems.map((item) =><Tag key={item}>{item}<Close onClick={()=>handleRemove(item)} /></Tag>)}
+            selectedItems.map((item) => (
+              <Tag key={item}>
+                {item}
+                <Close onClick={() => handleRemove(item)} />
+              </Tag>
+            ))}
         </TagList>
       </div>
 
