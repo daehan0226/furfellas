@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Link from "next/link";
 import { FlexCenterBox } from "../styles/common-styles";
 
 const Spacer = styled.div`
@@ -38,7 +39,9 @@ const Title = styled.h1`
 const Nav = () => (
   <>
     <Container>
-      <Title>Fox Lee Fur Fellas</Title>
+      <Title>
+        <Link href="/">Fox Lee Fur Fellas</Link>
+      </Title>
     </Container>
     <Spacer />
   </>
