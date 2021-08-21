@@ -18,12 +18,9 @@ const Span = styled.span`
   ${PrimaryBtn}
 `;
 
-const InputFile = () => {
-  const [file, setFile] = useState({});
-
+const InputFile = ({ file, setFile }) => {
   const onChange = (e) => {
     setFile(e.target.files[0]);
-    console.log(e.target.files[0]);
   };
 
   const onDelete = () => {

@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Button, InputFile, Select } from "../common";
 import { useSelect } from "../../hooks";
 import { FlexCenterBox } from "../../styles/common-styles";
+import uploadService from "../../utils/uploadService";
 
 const Container = styled.section`
   min-height: 400px;
@@ -22,19 +23,28 @@ const SelectOptions = {
 };
 
 const PhotoForm = ({ closeForm }) => {
-  const tyleSelect = useSelect("who", SelectOptions.type);
+  const typeSelect = useSelect("who", SelectOptions.type);
   const actionSelect = useSelect("what", SelectOptions.action);
+  const [file, setFile] = useState({});
 
   const handleSubmit = () => {
-    closeForm();
+    uploadService({
+      type: typeSelect.selectedItems,
+      action: actionSelect.selectedItems,
+      file,
+      successCallback: closeForm,
+      failCallback: () => {
+        console.log("fail");
+      },
+    });
   };
 
   return (
     <Container>
       <Selects>
-        <Select {...tyleSelect} />
+        <Select {...typeSelect} />
         <Select {...actionSelect} />
-        <InputFile />
+        <InputFile file={file} setFile={setFile} />
       </Selects>
       <Button text={"Submit"} onClick={handleSubmit} />
     </Container>
