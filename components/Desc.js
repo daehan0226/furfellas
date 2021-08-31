@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Card } from "./card";
 import { FlexCenterBox } from "../styles/common-styles";
-import profileSeviPic from '../public/sevi.jpg'
-import profileAibiPic from '../public/aibi.jpg'
+import profileSeviPic from "../public/sevi.jpg";
+import profileAibiPic from "../public/aibi.jpg";
 
 const data = {
   sevi: {
@@ -11,7 +11,7 @@ const data = {
     color: "Black tan",
     personality: ["Smart", "Energeric", "Chaos", "Sensitive"],
     weight: 15,
-    profilePic: profileSeviPic
+    profilePic: "/sevi.jpg",
   },
   aibi: {
     name: "Aibi",
@@ -19,7 +19,7 @@ const data = {
     color: "White",
     personality: ["Kind", "Fearful", "Huggy"],
     weight: 18,
-    profilePic: profileAibiPic
+    profilePic: "/aibi.jpg",
   },
 };
 
@@ -34,10 +34,10 @@ const CardContainer = styled.div`
 
 const Desc = () => {
   return (
-      <CardContainer>
-        <Card data={data.sevi} />
-        <Card data={data.aibi} />
-      </CardContainer>
+    <CardContainer>
+      <Card data={data.sevi} />
+      <Card data={data.aibi} />
+    </CardContainer>
   );
 };
 
