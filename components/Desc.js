@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { Card } from "./card";
 import { FlexCenterBox } from "../styles/common-styles";
+import profileSeviPic from '../public/sevi.jpg'
+import profileAibiPic from '../public/aibi.jpg'
 
 const data = {
   sevi: {
@@ -9,6 +11,7 @@ const data = {
     color: "Black tan",
     personality: ["Smart", "Energeric", "Chaos", "Sensitive"],
     weight: 15,
+    profilePic: profileSeviPic
   },
   aibi: {
     name: "Aibi",
@@ -16,6 +19,7 @@ const data = {
     color: "White",
     personality: ["Kind", "Fearful", "Huggy"],
     weight: 18,
+    profilePic: profileAibiPic
   },
 };
 
