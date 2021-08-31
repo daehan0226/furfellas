@@ -20,7 +20,8 @@ const Container = styled(Spacer)`
   width: 100%;
   position: fixed;
   background-color: ${({ theme }) => theme.colors.primary.dark};
-`;
+  z-index: 100;
+  `;
 
 const Title = styled.h1`
   font-size: 30px;
