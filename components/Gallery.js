@@ -66,9 +66,8 @@ const Gallery = ({ images = null }) => {
         {fetchPhotos.data &&
           fetchPhotos.data.length > 0 &&
           fetchPhotos.data.map(({ id, name }) => (
-            <ImageWrapper>
+            <ImageWrapper key={id}>
               <img
-                key={id}
                 src={`https://drive.google.com/thumbnail?id=${id}`}
                 alt={name}
               />
