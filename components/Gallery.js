@@ -4,7 +4,9 @@ import { useSelect, useFetch } from "../hooks";
 import { SectionContainer, SectionTitle, Select } from "./common";
 
 const ImageContainer = styled.div`
-  display: flex;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 `;
 
 const Container = styled.div`
