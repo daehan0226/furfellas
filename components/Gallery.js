@@ -44,10 +44,6 @@ const Gallery = ({ images = null }) => {
     doFfetchPhotos("photos/");
   }, []);
 
-  useEffect(() => {
-    console.log(fetchPhotos);
-  }, [fetchPhotos]);
-
   return (
     <SectionContainer>
       <SectionTitle text={"Gallery"} />
