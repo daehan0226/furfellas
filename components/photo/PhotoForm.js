@@ -5,9 +5,7 @@ import { useSelect } from "../../hooks";
 import { FlexCenterBox } from "../../styles/common-styles";
 import uploadService from "../../utils/uploadService";
 
-const Container = styled.section`
-  min-height: 400px;
-`;
+const Container = styled.section``;
 
 const Selects = styled.div`
   ${FlexCenterBox}
@@ -20,19 +18,23 @@ const Selects = styled.div`
 const SelectOptions = {
   type: ["Together", "Sevi", "Aibi"],
   action: ["Playing", "Sleeping", "Rubbing", "Eating", "Barking", "Laying"],
+  location: ["House", "Dog park"],
 };
 
-const PhotoForm = ({ closeForm }) => {
-  const typeSelect = useSelect("who", SelectOptions.type);
-  const actionSelect = useSelect("what", SelectOptions.action);
+const PhotoForm = ({ data }) => {
+  const typeSelect = useSelect("Who", SelectOptions.type);
+  const actionSelect = useSelect("What", SelectOptions.action);
+  const locationSelect = useSelect("Where", SelectOptions.location);
   const [file, setFile] = useState({});
 
   const handleSubmit = () => {
     uploadService({
+      id: data ? data.id : null,
       type: typeSelect.selectedItems,
       action: actionSelect.selectedItems,
+      location: locationSelect.selectedItems,
       file,
-      successCallback: closeForm,
+      successCallback: () => {},
       failCallback: () => {
         console.log("fail");
       },
@@ -44,9 +46,17 @@ const PhotoForm = ({ closeForm }) => {
       <Selects>
         <Select {...typeSelect} />
         <Select {...actionSelect} />
-        <InputFile file={file} setFile={setFile} />
+        <Select {...locationSelect} />
+        {data ? (
+          <img
+            src={`https://drive.google.com/thumbnail?id=${data.id}`}
+            alt={data.name}
+          />
+        ) : (
+          <InputFile file={file} setFile={setFile} />
+        )}
       </Selects>
-      <Button text={"Submit"} onClick={handleSubmit} />
+      <Button text={data ? "Edit" : "Submit"} onClick={handleSubmit} />
     </Container>
   );
 };
