@@ -20,7 +20,12 @@ const RecentPhotoGallery = ({ images = null }) => {
     <SectionContainer>
       <SectionTitle text={"New photos"} />
       <ArticleContainer>
-        <Article>image1</Article>
+        <Article>
+          <img
+            src="https://drive.google.com/thumbnail?id=11CPVvh3wg0qkdtrg7fstTA-LUs7eLYdM"
+            alt="b"
+          />
+        </Article>
         <Article>image2</Article>
         <Article>image3</Article>
         <Article>image4</Article>

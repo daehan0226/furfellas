@@ -1,4 +1,5 @@
 import useSelect from "./useSelect";
-import useOnClickOutside from "./useOnClickOutside"
+import useOnClickOutside from "./useOnClickOutside";
+import useFetch from "./useFetch";
 
-export { useSelect, useOnClickOutside };
+export { useSelect, useOnClickOutside, useFetch };

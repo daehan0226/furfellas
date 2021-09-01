@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { Card } from "./card";
 import { FlexCenterBox } from "../styles/common-styles";
-import profileSeviPic from "../public/sevi.jpg";
-import profileAibiPic from "../public/aibi.jpg";
 
 const data = {
   sevi: {

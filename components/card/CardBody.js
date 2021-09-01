@@ -35,7 +35,11 @@ const CardBody = ({ data }) => {
         ))}
       </Wrapper>
       <ImageWrapper>
-        <Image src={data.profilePic} alt={`${data.name}'s photo`} />
+        <Image
+          src="https://drive.google.com/uc?export=view&id=1k4TnfBzTIF3uvC3DTgow8h05slUtd1ec"
+          alt="image"
+        />
+        {/* <Image src={data.profilePic} alt={`${data.name}'s photo`} /> */}
       </ImageWrapper>
     </Container>
   );

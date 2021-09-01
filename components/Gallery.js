@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import styled from "styled-components";
-import useSelect from "../hooks/useSelect";
+import { useSelect, useFetch } from "../hooks";
 import { SectionContainer, SectionTitle, Select } from "./common";
 
 const ImageContainer = styled.div`
@@ -28,6 +29,16 @@ const Gallery = ({ images = null }) => {
   const actionSelect = useSelect("what", SelectOptions.action);
   const sortSelect = useSelect("sort", SelectOptions.sort);
 
+  const [fetchPhotos, doFfetchPhotos] = useFetch([]);
+
+  useEffect(() => {
+    doFfetchPhotos("photos/");
+  }, []);
+
+  useEffect(() => {
+    console.log(fetchPhotos);
+  }, [fetchPhotos]);
+
   return (
     <SectionContainer>
       <SectionTitle text={"Gallery"} />
@@ -42,7 +53,17 @@ const Gallery = ({ images = null }) => {
           <Select {...sortSelect} multipleChoices={false} />
         </SelectWrap>
       </Container>
-      <ImageContainer></ImageContainer>
+      <ImageContainer>
+        {fetchPhotos.data &&
+          fetchPhotos.data.length > 0 &&
+          fetchPhotos.data.map(({ id, name }) => (
+            <img
+              key={id}
+              src={`https://drive.google.com/thumbnail?id=${id}`}
+              alt={name}
+            />
+          ))}
+      </ImageContainer>
     </SectionContainer>
   );
 };
