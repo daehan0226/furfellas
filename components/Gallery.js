@@ -2,11 +2,18 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { useSelect, useFetch } from "../hooks";
 import { SectionContainer, SectionTitle, Select } from "./common";
+import { FlexCenterBox } from "../styles/common-styles";
 
 const ImageContainer = styled.div`
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+`;
+
+const ImageWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  ${FlexCenterBox}
 `;
 
 const Container = styled.div`
@@ -59,11 +66,13 @@ const Gallery = ({ images = null }) => {
         {fetchPhotos.data &&
           fetchPhotos.data.length > 0 &&
           fetchPhotos.data.map(({ id, name }) => (
-            <img
-              key={id}
-              src={`https://drive.google.com/thumbnail?id=${id}`}
-              alt={name}
-            />
+            <ImageWrapper>
+              <img
+                key={id}
+                src={`https://drive.google.com/thumbnail?id=${id}`}
+                alt={name}
+              />
+            </ImageWrapper>
           ))}
       </ImageContainer>
     </SectionContainer>
