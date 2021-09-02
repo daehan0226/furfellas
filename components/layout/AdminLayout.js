@@ -1,20 +1,20 @@
 import styled from "styled-components";
-import {Nav, Meta, Footer} from "./index"
+import { Footer } from "../index";
+import { AdminNav } from "../nav";
 
 const Main = styled.main`
   width: 100%;
   min-height: 800px;
-`
+`;
 
-const Layout = ({ children }) => {
+const AdminLayout = ({ children }) => {
   return (
     <>
-      <Meta />
-      <Nav />
+      <AdminNav />
       <Main>{children}</Main>
       <Footer />
     </>
   );
 };
 
-export default Layout;
+export default AdminLayout;

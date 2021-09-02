@@ -12,7 +12,7 @@ const Container = styled.div`
   flex-direction: column;
 `;
 
-export default function Action() {
+export default function Location() {
   const [fetchActions, doFfetchActions] = useFetch([]);
 
   useEffect(() => {

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Link from "next/link";
-import { FlexCenterBox } from "../styles/common-styles";
+import { FlexCenterBox } from "../../styles/common-styles";
 
 const Spacer = styled.div`
   height: 80px;
@@ -21,20 +21,11 @@ const Container = styled(Spacer)`
   position: fixed;
   background-color: ${({ theme }) => theme.colors.primary.dark};
   z-index: 100;
-  `;
+`;
 
 const Title = styled.h1`
-  font-size: 30px;
   color: ${({ theme }) => theme.colors.primary.text};
-  ${(props) => props.theme.media.desktop`
-    font-size: 30px;
-  `}
-  ${(props) => props.theme.media.tablet`
-    font-size: 25px;
-  `}
-  ${(props) => props.theme.media.phone`
-    font-size: 20px;
-  `}
+  margin-bottom: 0px;
 `;
 
 const Nav = () => (
