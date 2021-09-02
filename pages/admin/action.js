@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import Link from "next/link";
 
 import { useFetch } from "../../hooks";
 import { ActionForm } from "../../components/action";
@@ -21,6 +22,8 @@ export default function Action() {
 
   return (
     <Container>
+        
+      <Link href={"/admin"}>Admin</Link>
         <ActionForm />
         {fetchActions.data && 
             fetchActions.data.length > 0 &&

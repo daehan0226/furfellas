@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import Link from "next/link";
 
 import { useFetch } from "../../hooks";
 import { PhotoForm } from "../../components/photo";
@@ -18,6 +19,7 @@ export default function Index() {
 
   return (
     <Container>
+      <Link href={"/admin/action"}>Action</Link>
       <PhotoForm></PhotoForm>
       <PhotoForm />
       {fetchPhotos.data &&
