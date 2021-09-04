@@ -3,7 +3,19 @@ import { ThemeProvider } from "../styles/themed-components";
 import theme from "../styles/theme";
 import { Layout, AdminLayout } from "../components/layout";
 
-export default function App({ Component, pageProps, router: { route } }) {
+import { LocationContextProvider, ActionContextProvider } from "../contexts";
+
+function withContext(Component) {
+  return (props) => (
+    <LocationContextProvider>
+      <ActionContextProvider>
+        <Component {...props} />
+      </ActionContextProvider>
+    </LocationContextProvider>
+  );
+}
+
+function App({ Component, pageProps, router: { route } }) {
   const getLayout = (page) => {
     let LayoutComponent = Layout;
     if (route.includes("admin")) {
@@ -21,3 +33,5 @@ export default function App({ Component, pageProps, router: { route } }) {
     </>
   );
 }
+
+export default withContext(App);

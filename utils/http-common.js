@@ -1,8 +1,28 @@
 import axios from "axios";
+import Cookies from "universal-cookie";
+import { server } from "../config";
+
+const checkIfSessionExists = () => {
+  const cookies = new Cookies();
+  const session = cookies.get("EID_SES");
+  if (session) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+export const setHeaders = () => {
+  const headers = { "Content-Type": "application/json" };
+  const cookies = new Cookies();
+  const session = cookies.get("EID_SES");
+  if (session) {
+    headers["Authorization"] = session;
+  }
+  return headers;
+};
 
 export default axios.create({
-  baseURL: "http://localhost:8003/api",
-  headers: {
-    "Content-type": "application/json",
-  },
+  baseURL: `${server}/api/`,
+  headers: setHeaders(),
 });
