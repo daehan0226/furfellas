@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation } from "../../contexts";
 import { FlexCenterBox } from "../../styles/common-styles";
-import { createResources, updateResources } from "../../utils";
+import { createResources, updateResources, deleteResources } from "../../utils";
 import { Button } from "../common";
 
 const Container = styled.div``;
@@ -61,6 +61,19 @@ const LocationForm = ({ data }) => {
     }
   };
 
+  const handleDelete = (id) => {
+    deleteResources({
+      resource: "locations",
+      id,
+      successCallback: () => {
+        refreshLocations();
+      },
+      failCallback: () => {
+        setErrMsg("Something went wrong - delete fail");
+      },
+    });
+  };
+
   return (
     <Container>
       {edit ? (
@@ -78,8 +91,15 @@ const LocationForm = ({ data }) => {
               setEdit(true);
             }}
           />
+          <Button
+            text={"Delete"}
+            onClick={() => {
+              handleDelete(data.id);
+            }}
+          />
         </ItemBox>
       )}
+      {errMsg && <p>{errMsg}</p>}
     </Container>
   );
 };

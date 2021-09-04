@@ -5,6 +5,7 @@ import { useSelect } from "../../hooks";
 import { useAction, useLocation } from "../../contexts";
 import { FlexCenterBox } from "../../styles/common-styles";
 import uploadService from "../../utils/uploadService";
+import { deleteResources } from "../../utils";
 
 const Container = styled.section``;
 
@@ -16,7 +17,7 @@ const Selects = styled.div`
   padding: 6px;
 `;
 
-const PhotoForm = ({ data }) => {
+const PhotoForm = ({ data, refreshPhotos = () => {} }) => {
   const { actions } = useAction();
   const { locations } = useLocation();
   const typeSelect = useSelect("who");
@@ -37,9 +38,20 @@ const PhotoForm = ({ data }) => {
         typeSelect.setSelectedItems([]);
         actionSelect.setSelectedItems([]);
         locationSelect.setSelectedItems([]);
+        refreshPhotos();
       },
       failCallback: () => {
         console.log("fail");
+      },
+    });
+  };
+
+  const handleDelete = (id) => {
+    deleteResources({
+      id,
+      resource: "photos",
+      successCallback: () => {
+        refreshPhotos;
       },
     });
   };
@@ -80,6 +92,7 @@ const PhotoForm = ({ data }) => {
         )}
       </Selects>
       <Button text={data ? "Edit" : "Submit"} onClick={handleSubmit} />
+      {data && <Button text={"Delete"} onClick={() => handleDelete(data.id)} />}
     </Container>
   );
 };

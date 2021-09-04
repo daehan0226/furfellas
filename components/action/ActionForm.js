@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAction } from "../../contexts";
 import { FlexCenterBox } from "../../styles/common-styles";
-import { createResources, updateResources } from "../../utils";
+import { createResources, updateResources, deleteResources } from "../../utils";
 import { Button } from "../common";
 
 const Container = styled.div``;
@@ -44,7 +44,7 @@ const ActionForm = ({ data }) => {
       refreshActions();
     };
     const failCallback = () => {
-      setErrMsg("Something went wrong");
+      setErrMsg("Something went wrong - create/update fail");
     };
 
     const resourceApiCall = {
@@ -61,13 +61,25 @@ const ActionForm = ({ data }) => {
     }
   };
 
+  const handleDelete = (id) => {
+    deleteResources({
+      resource: "actions",
+      id,
+      successCallback: () => {
+        refreshActions();
+      },
+      failCallback: () => {
+        setErrMsg("Something went wrong - delete fail");
+      },
+    });
+  };
+
   return (
     <Container>
       {edit ? (
         <ItemBox>
           <Input value={name} onChange={(e) => setName(e.target.value)} />
           <Button text={data ? "Update" : "Add"} onClick={handleSubmit} />
-          {errMsg && <p>{errMsg}</p>}
         </ItemBox>
       ) : (
         <ItemBox>
@@ -78,8 +90,15 @@ const ActionForm = ({ data }) => {
               setEdit(true);
             }}
           />
+          <Button
+            text={"Delete"}
+            onClick={() => {
+              handleDelete(data.id);
+            }}
+          />
         </ItemBox>
       )}
+      {errMsg && <p>{errMsg}</p>}
     </Container>
   );
 };

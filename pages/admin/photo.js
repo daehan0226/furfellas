@@ -12,17 +12,25 @@ const Container = styled.div`
 export default function Photo() {
   const [fetchPhotos, doFfetchPhotos] = useFetch([]);
 
-  useEffect(() => {
+  const refreshPhotos = () => {
     doFfetchPhotos("photos/");
+  };
+
+  useEffect(() => {
+    refreshPhotos();
   }, []);
 
   return (
     <Container>
-      <PhotoForm></PhotoForm>
+      <PhotoForm refreshPhotos={refreshPhotos} />
       {fetchPhotos.data &&
         fetchPhotos.data.length > 0 &&
         fetchPhotos.data.map((photo) => (
-          <PhotoForm key={photo.id} data={photo} />
+          <PhotoForm
+            key={photo.id}
+            data={photo}
+            refreshPhotos={refreshPhotos}
+          />
         ))}
       <></>
     </Container>
