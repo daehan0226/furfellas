@@ -114,8 +114,10 @@ const Select = ({
 
   const handleClick = (curItem) => {
     if (multipleChoices) {
-      if (selectedItems.find(item=>item.id===curItem.id)) {
-        setSelectedItems(selectedItems.filter((item) => item.id !== curItem.id));
+      if (selectedItems.find((item) => item.id === curItem.id)) {
+        setSelectedItems(
+          selectedItems.filter((item) => item.id !== curItem.id)
+        );
       } else {
         setSelectedItems([...selectedItems, curItem]);
       }
@@ -133,15 +135,16 @@ const Select = ({
       <div>
         <Header>
           <Title>{placeholder}</Title>
-          <Button
+          <span
             name={`modal-btn-${placeholder}`}
             onClick={() => setShow(!show)}
-            text={show ? "close" : "open"}
-          />
+          >
+            {show ? "close" : "open"}
+          </span>
         </Header>
         <TagList>
           {selectedItems.lenght !== 0 &&
-            selectedItems.map(({id, name}) => (
+            selectedItems.map(({ id, name }) => (
               <Tag key={id}>
                 {name}
                 <Close onClick={() => handleRemove(id)} />
@@ -156,7 +159,7 @@ const Select = ({
             {items.map((curItem) => (
               <ListItem
                 key={curItem.id}
-                active={selectedItems.find(item=>item.id===curItem.id)}
+                active={selectedItems.find((item) => item.id === curItem.id)}
                 onClick={() => handleClick(curItem)}
               >
                 {curItem.name}

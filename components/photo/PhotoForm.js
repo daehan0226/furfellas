@@ -7,13 +7,15 @@ import { FlexCenterBox } from "../../styles/common-styles";
 import uploadService from "../../utils/uploadService";
 import { deleteResources } from "../../utils";
 
-const Container = styled.section``;
+const Container = styled.section`
+  display: flex;
+  flex-direction: column;
+`;
 
 const Selects = styled.div`
   ${FlexCenterBox}
   justify-content: flex-start;
-  border: 1px solid black;
-  box-sizing: border-box;
+  flex-wrap: wrap;
   padding: 6px;
 `;
 
@@ -82,15 +84,15 @@ const PhotoForm = ({ data, refreshPhotos = () => {} }) => {
         <Select {...typeSelect} multipleChoices={false} />
         <Select {...actionSelect} />
         <Select {...locationSelect} multipleChoices={false} />
-        {data ? (
-          <img
-            src={`https://drive.google.com/thumbnail?id=${data.image_id}`}
-            alt={data.name}
-          />
-        ) : (
-          <InputFile file={file} setFile={setFile} />
-        )}
       </Selects>
+      {data ? (
+        <img
+          src={`https://drive.google.com/thumbnail?id=${data.image_id}`}
+          alt={data.name}
+        />
+      ) : (
+        <InputFile file={file} setFile={setFile} />
+      )}
       <Button text={data ? "Edit" : "Submit"} onClick={handleSubmit} />
       {data && <Button text={"Delete"} onClick={() => handleDelete(data.id)} />}
     </Container>

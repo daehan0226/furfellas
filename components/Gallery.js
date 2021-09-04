@@ -21,6 +21,7 @@ const Container = styled.div`
   width: 100%;
   display: flex;
   justify-contents: flex-start;
+  flex-wrap: wrap;
   margin: 10px;
   background-color: ${({ theme }) => theme.colors.primary.text};
 `;

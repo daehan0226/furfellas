@@ -6,6 +6,7 @@ import Button from "./Button";
 
 const Container = styled.div`
   ${FlexCenterBox}
+  justify-content: flex-start;
 `;
 
 const Input = styled.input`
