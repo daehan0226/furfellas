@@ -2,9 +2,9 @@ import http from "./http-common";
 
 const uploadService = async ({
   file,
-  types,
+  type,
   actions,
-  locations,
+  location,
   description,
   successCallback,
   failCallback,
@@ -12,9 +12,9 @@ const uploadService = async ({
   let formData = new FormData();
 
   formData.append("file", file);
-  formData.append("types", types);
+  formData.append("type", type);
   formData.append("actions", actions);
-  formData.append("locations", locations);
+  formData.append("location", location);
   formData.append("description", description);
 
   try {

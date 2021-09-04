@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { useFetch } from "../../hooks";
 import { ActionForm } from "../../components/action";
 import { FlexCenterBox } from "../../styles/common-styles";
+import { useAction } from "../../contexts";
 
 const Container = styled.div`
   min-height: 80px;
@@ -13,20 +12,13 @@ const Container = styled.div`
 `;
 
 export default function Action() {
-  const [fetchActions, doFfetchActions] = useFetch([]);
-
-  useEffect(() => {
-    doFfetchActions("actions/");
-  }, []);
+  const { actions } = useAction();
 
   return (
     <Container>
       <ActionForm />
-      {fetchActions.data &&
-        fetchActions.data.length > 0 &&
-        fetchActions.data.map((action) => (
-          <ActionForm key={action.id} data={action} />
-        ))}
+      {actions.length > 0 &&
+        actions.map((action) => <ActionForm key={action.id} data={action} />)}
     </Container>
   );
 }

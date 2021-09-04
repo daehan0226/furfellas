@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useAction } from "../../contexts";
+import { useLocation } from "../../contexts";
 import { FlexCenterBox } from "../../styles/common-styles";
 import { createResources, updateResources } from "../../utils";
 import { Button } from "../common";
@@ -19,11 +19,11 @@ const Text = styled.p`
   width: 200px;
 `;
 
-const ActionForm = ({ data }) => {
+const LocationForm = ({ data }) => {
   const [name, setName] = useState("");
   const [edit, setEdit] = useState(false);
   const [errMsg, setErrMsg] = useState("");
-  const { refreshActions } = useAction();
+  const { refreshLocations } = useLocation();
 
   useEffect(() => {
     if (data) {
@@ -34,14 +34,14 @@ const ActionForm = ({ data }) => {
   }, []);
 
   const handleSubmit = () => {
-    const resource = "actions";
+    const resource = "locations";
     const successCallback = () => {
       if (data && data.id) {
         setEdit(false);
       } else {
         setName("");
       }
-      refreshActions();
+      refreshLocations();
     };
     const failCallback = () => {
       setErrMsg("Something went wrong");
@@ -84,4 +84,4 @@ const ActionForm = ({ data }) => {
   );
 };
 
-export default ActionForm;
+export default LocationForm;

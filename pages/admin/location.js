@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
 import styled from "styled-components";
 
-import { useFetch } from "../../hooks";
-import { ActionForm } from "../../components/action";
+import { LocationForm } from "../../components/location";
 import { FlexCenterBox } from "../../styles/common-styles";
+import { useLocation } from "../../contexts";
 
 const Container = styled.div`
   min-height: 80px;
@@ -13,19 +12,14 @@ const Container = styled.div`
 `;
 
 export default function Location() {
-  const [fetchActions, doFfetchActions] = useFetch([]);
-
-  useEffect(() => {
-    doFfetchActions("actions/");
-  }, []);
+  const { locations } = useLocation();
 
   return (
     <Container>
-      <ActionForm />
-      {fetchActions.data &&
-        fetchActions.data.length > 0 &&
-        fetchActions.data.map((action) => (
-          <ActionForm key={action.id} data={action} />
+      <LocationForm />
+      {locations.length > 0 &&
+        locations.map((location) => (
+          <LocationForm key={location.id} data={location} />
         ))}
     </Container>
   );

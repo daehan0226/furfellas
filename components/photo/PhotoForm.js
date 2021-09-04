@@ -28,11 +28,16 @@ const PhotoForm = ({ data }) => {
     uploadService({
       id: data ? data.id : null,
       file,
-      types: typeSelect.getSelectedIds(),
+      type: typeSelect.getSelectedIds(),
       actions: actionSelect.getSelectedIds(),
-      locations: locationSelect.getSelectedIds(),
+      location: locationSelect.getSelectedIds(),
       description: "",
-      successCallback: () => {},
+      successCallback: () => {
+        setFile({});
+        typeSelect.setSelectedItems([]);
+        actionSelect.setSelectedItems([]);
+        locationSelect.setSelectedItems([]);
+      },
       failCallback: () => {
         console.log("fail");
       },
@@ -67,7 +72,7 @@ const PhotoForm = ({ data }) => {
         <Select {...locationSelect} multipleChoices={false} />
         {data ? (
           <img
-            src={`https://drive.google.com/thumbnail?id=${data.id}`}
+            src={`https://drive.google.com/thumbnail?id=${data.image_id}`}
             alt={data.name}
           />
         ) : (

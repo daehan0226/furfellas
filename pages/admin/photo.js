@@ -19,7 +19,6 @@ export default function Photo() {
   return (
     <Container>
       <PhotoForm></PhotoForm>
-      <PhotoForm />
       {fetchPhotos.data &&
         fetchPhotos.data.length > 0 &&
         fetchPhotos.data.map((photo) => (

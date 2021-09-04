@@ -29,10 +29,10 @@ const PhotoList = ({}) => {
       <ImageList>
         {fetchPhotos.data &&
           fetchPhotos.data.length > 0 &&
-          fetchPhotos.data.map(({ id, name }) => (
+          fetchPhotos.data.map(({ id, image_id, name }) => (
             <ImageWrapper key={id}>
               <img
-                src={`https://drive.google.com/thumbnail?id=${id}`}
+                src={`https://drive.google.com/thumbnail?id=${image_id}`}
                 alt={name}
               />
             </ImageWrapper>
