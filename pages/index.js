@@ -1,11 +1,16 @@
+
+import React from 'react'
+import {LocationContextProvider, ActionContextProvider} from "../contexts"
 import { Desc, RecentPhotoGallery, Gallery } from "../components";
 
 export default function Home() {
   return (
-    <>
-      <Desc />
-      <RecentPhotoGallery />
-      <Gallery />
-    </>
+    <LocationContextProvider>
+      <ActionContextProvider>
+        <Desc />
+        <RecentPhotoGallery />
+        <Gallery />
+      </ActionContextProvider>
+    </LocationContextProvider>
   );
 }

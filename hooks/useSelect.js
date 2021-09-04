@@ -1,13 +1,15 @@
 import { useState } from "react";
 
-const useSelect = (placeholder, options) => {
-  const [item, setItems] = useState([]);
+const useSelect = (placeholder) => {
+  const [items, setItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState([]);
 
   return {
     placeholder,
-    options,
-    selectedItems: item,
-    setSelectedItem: setItems,
+    items,
+    setItems,
+    selectedItems,
+    setSelectedItems,
   };
 };
 

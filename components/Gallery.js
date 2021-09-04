@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 import { useSelect, useFetch } from "../hooks";
+import {useAction, useLocation} from "../contexts"
 import { SectionContainer, SectionTitle, Select } from "./common";
 import { FlexCenterBox } from "../styles/common-styles";
 
@@ -30,13 +31,16 @@ const SelectWrap = styled.div`
 const SelectOptions = {
   type: ["Together", "Sevi", "Aibi"],
   action: ["Playing", "Sleeping", "Rubbing", "Eating", "Barking", "Laying"],
-  sort: ["Ascending", "Descending"],
+  sort: ["Ascending", "Descending"]
 };
 
 const Gallery = ({ images = null }) => {
-  const tyleSelect = useSelect("who", SelectOptions.type);
-  const actionSelect = useSelect("what", SelectOptions.action);
-  const sortSelect = useSelect("sort", SelectOptions.sort);
+  const {actions} = useAction();
+  const {locations} = useLocation();
+  const typeSelect = useSelect("who");
+  const actionSelect = useSelect("what");
+  const locationSelect = useSelect("where");
+  const sortSelect = useSelect("sort");
 
   const [fetchPhotos, doFfetchPhotos] = useFetch([]);
 
@@ -44,15 +48,47 @@ const Gallery = ({ images = null }) => {
     doFfetchPhotos("photos/");
   }, []);
 
+  useEffect(() => {
+    if (locations.length > 0) {
+      locationSelect.setItems([...locations])
+    }
+  }, [locations]);
+
+  useEffect(() => {
+    sortSelect.setItems([
+        {id:0, name:'New'},
+        {id:1, name:'Old'},
+      ])
+  }, []);
+
+  useEffect(() => {
+    typeSelect.setItems([
+      {id:0, name:'Together'},
+      {id:1, name:'Aibi'},
+      {id:2, name:'Sevi'}
+    ])
+}, []);
+
+
+  
+  useEffect(() => {
+    if (actions.length > 0) {
+      actionSelect.setItems([...actions])
+    }
+  }, [actions]);
+
   return (
     <SectionContainer>
       <SectionTitle text={"Gallery"} />
       <Container>
         <SelectWrap>
-          <Select {...tyleSelect} />
+          <Select {...typeSelect} />
         </SelectWrap>
         <SelectWrap>
           <Select {...actionSelect} />
+        </SelectWrap>
+        <SelectWrap>
+          <Select {...locationSelect} />
         </SelectWrap>
         <SelectWrap>
           <Select {...sortSelect} multipleChoices={false} />
@@ -61,10 +97,10 @@ const Gallery = ({ images = null }) => {
       <ImageContainer>
         {fetchPhotos.data &&
           fetchPhotos.data.length > 0 &&
-          fetchPhotos.data.map(({ id, name }) => (
+          fetchPhotos.data.map(({ id, image_id, name }) => (
             <ImageWrapper key={id}>
               <img
-                src={`https://drive.google.com/thumbnail?id=${id}`}
+                src={`https://drive.google.com/thumbnail?id=${image_id}`}
                 alt={name}
               />
             </ImageWrapper>

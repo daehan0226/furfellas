@@ -98,9 +98,9 @@ const ListItem = styled.li`
 
 const Select = ({
   placeholder,
-  options,
+  items,
   selectedItems,
-  setSelectedItem,
+  setSelectedItems,
   multipleChoices = true,
 }) => {
   const [show, setShow] = useState(false);
@@ -112,20 +112,20 @@ const Select = ({
     setShow(false);
   });
 
-  const handleClick = (option) => {
+  const handleClick = (curItem) => {
     if (multipleChoices) {
-      if (selectedItems.includes(option)) {
-        setSelectedItem(selectedItems.filter((item) => item !== option));
+      if (selectedItems.find(item=>item.id===curItem.id)) {
+        setSelectedItems(selectedItems.filter((item) => item.id !== curItem.id));
       } else {
-        setSelectedItem([...selectedItems, option]);
+        setSelectedItems([...selectedItems, curItem]);
       }
     } else {
-      setSelectedItem([option]);
+      setSelectedItems([curItem]);
     }
   };
 
-  const handleRemove = (option) => {
-    setSelectedItem(selectedItems.filter((item) => item !== option));
+  const handleRemove = (curItemId) => {
+    setSelectedItems(selectedItems.filter((item) => item.id !== curItemId));
   };
 
   return (
@@ -141,10 +141,10 @@ const Select = ({
         </Header>
         <TagList>
           {selectedItems.lenght !== 0 &&
-            selectedItems.map((item) => (
-              <Tag key={item}>
-                {item}
-                <Close onClick={() => handleRemove(item)} />
+            selectedItems.map(({id, name}) => (
+              <Tag key={id}>
+                {name}
+                <Close onClick={() => handleRemove(id)} />
               </Tag>
             ))}
         </TagList>
@@ -153,13 +153,13 @@ const Select = ({
       {show && (
         <Modal ref={ref}>
           <List>
-            {options.map((option) => (
+            {items.map((curItem) => (
               <ListItem
-                key={option}
-                active={selectedItems.includes(option)}
-                onClick={() => handleClick(option)}
+                key={curItem.id}
+                active={selectedItems.find(item=>item.id===curItem.id)}
+                onClick={() => handleClick(curItem)}
               >
-                {option}
+                {curItem.name}
               </ListItem>
             ))}
           </List>
