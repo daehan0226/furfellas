@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import styled from "styled-components";
 import { useSelect, useFetch } from "../hooks";
-import { useAction, useLocation } from "../contexts";
+import { useAction, useLocation, usePhotoType } from "../contexts";
 import { SectionContainer, SectionTitle, Select } from "./common";
 import { FlexCenterBox } from "../styles/common-styles";
 
@@ -27,12 +27,10 @@ const SelectWrap = styled.div`
 `;
 
 const Gallery = ({ images = null }) => {
-  const { actions } = useAction();
-  const { locations } = useLocation();
-  const typeSelect = useSelect("who");
-  const actionSelect = useSelect("what");
-  const locationSelect = useSelect("where");
-  const sortSelect = useSelect("sort");
+  const typeSelect = useSelect("who", usePhotoType);
+  const actionSelect = useSelect("what", useAction);
+  const locationSelect = useSelect("where", useLocation);
+  const sortSelect = useSelect("sort", () => []);
 
   const [fetchPhotos, doFfetchPhotos] = useFetch([]);
 
@@ -41,31 +39,11 @@ const Gallery = ({ images = null }) => {
   }, []);
 
   useEffect(() => {
-    if (locations.length > 0) {
-      locationSelect.setItems([...locations]);
-    }
-  }, [locations]);
-
-  useEffect(() => {
     sortSelect.setItems([
       { id: 0, name: "New" },
       { id: 1, name: "Old" },
     ]);
   }, []);
-
-  useEffect(() => {
-    typeSelect.setItems([
-      { id: 0, name: "Together" },
-      { id: 1, name: "Aibi" },
-      { id: 2, name: "Sevi" },
-    ]);
-  }, []);
-
-  useEffect(() => {
-    if (actions.length > 0) {
-      actionSelect.setItems([...actions]);
-    }
-  }, [actions]);
 
   return (
     <SectionContainer>

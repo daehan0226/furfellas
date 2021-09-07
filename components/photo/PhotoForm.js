@@ -2,8 +2,7 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button, InputFile, Select } from "../common";
 import { useSelect } from "../../hooks";
-import { useAction, useLocation } from "../../contexts";
-import { FlexCenterBox } from "../../styles/common-styles";
+import { useAction, useLocation, usePhotoType } from "../../contexts";
 import uploadService from "../../utils/uploadService";
 import { deleteResources } from "../../utils";
 
@@ -22,11 +21,9 @@ const Image = styled.img`
 `;
 
 const PhotoForm = ({ data, refreshPhotos = () => {} }) => {
-  const { actions } = useAction();
-  const { locations } = useLocation();
-  const typeSelect = useSelect("who");
-  const actionSelect = useSelect("what");
-  const locationSelect = useSelect("where");
+  const typeSelect = useSelect("who", usePhotoType);
+  const actionSelect = useSelect("what", useAction);
+  const locationSelect = useSelect("where", useLocation);
   const [file, setFile] = useState({});
 
   const handleSubmit = () => {
@@ -59,26 +56,6 @@ const PhotoForm = ({ data, refreshPhotos = () => {} }) => {
       },
     });
   };
-
-  useEffect(() => {
-    if (locations.length > 0) {
-      locationSelect.setItems([...locations]);
-    }
-  }, [locations]);
-
-  useEffect(() => {
-    typeSelect.setItems([
-      { id: 0, name: "Together" },
-      { id: 1, name: "Aibi" },
-      { id: 2, name: "Sevi" },
-    ]);
-  }, []);
-
-  useEffect(() => {
-    if (actions.length > 0) {
-      actionSelect.setItems([...actions]);
-    }
-  }, [actions]);
 
   return (
     <Container>
