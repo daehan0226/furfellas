@@ -2,7 +2,8 @@ import { useState, useRef } from "react";
 import styled from "styled-components";
 import { FlexCenterBox } from "../../styles/common-styles";
 import { useOnClickOutside } from "../../hooks";
-import Button from "./Button";
+import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
 const Title = styled.h4`
   text-align: center;
@@ -15,6 +16,12 @@ const Container = styled.div`
 `;
 const Header = styled.div`
   ${FlexCenterBox}
+`;
+
+const Span = styled.span`
+  margin-bottom: 0px;
+  margin-left: 6px;
+  cursor: pointer;
 `;
 
 const Modal = styled.div`
@@ -135,12 +142,12 @@ const Select = ({
       <div>
         <Header>
           <Title>{placeholder}</Title>
-          <span
+          <Span
             name={`modal-btn-${placeholder}`}
             onClick={() => setShow(!show)}
           >
-            {show ? "close" : "open"}
-          </span>
+            {show ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
+          </Span>
         </Header>
         <TagList>
           {selectedItems.lenght !== 0 &&
