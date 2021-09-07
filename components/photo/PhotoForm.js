@@ -13,9 +13,6 @@ const Container = styled.section`
 `;
 
 const Selects = styled.div`
-  ${FlexCenterBox}
-  justify-content: flex-start;
-  flex-wrap: wrap;
   padding: 6px;
 `;
 

@@ -1,30 +1,42 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { FlexCenterBox } from "../../styles/common-styles";
 import { useOnClickOutside } from "../../hooks";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
-import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 
-const Title = styled.h4`
+const Title = styled.h6`
   text-align: center;
-  font-size: 12px;
-  font-weight: 500;
   margin: 10px 0px;
+  width: 60px;
 `;
 const Container = styled.div`
   position: relative;
+  ${FlexCenterBox}
+  justify-content: flex-start;
 `;
 const Header = styled.div`
   ${FlexCenterBox}
+  justify-content: flex-start;
+  margin-right: 20px;
 `;
 
-const Span = styled.span`
-  margin-bottom: 0px;
-  margin-left: 6px;
-  cursor: pointer;
+const ArrowIcon = styled(ArrowDownwardIcon)`
+  && {
+    margin-bottom: 0px;
+    margin-left: 6px;
+    cursor: pointer;
+
+    transition-duration: 0.4s;
+    transition-property: transform;
+    ${({ up }) =>
+      up &&
+      `transform: rotate(180deg);
+    `};
+  }
 `;
 
 const Modal = styled.div`
+  top: 0px;
   z-index: 100;
   background: #fff;
   position: absolute;
@@ -55,7 +67,6 @@ const Close = styled.div`
 
 const TagList = styled.div`
   ${FlexCenterBox}
-  flex-direction: column;
 `;
 
 const Tag = styled.span`
@@ -113,12 +124,12 @@ const Select = ({
   const [show, setShow] = useState(false);
   const ref = useRef();
   useOnClickOutside(ref, (e) => {
+    console.log(e);
     if (e.target.name === `modal-btn-${placeholder}`) {
       return;
     }
     setShow(false);
   });
-
   const handleClick = (curItem) => {
     if (multipleChoices) {
       if (selectedItems.find((item) => item.id === curItem.id)) {
@@ -139,26 +150,23 @@ const Select = ({
 
   return (
     <Container>
-      <div>
-        <Header>
-          <Title>{placeholder}</Title>
-          <Span
-            name={`modal-btn-${placeholder}`}
-            onClick={() => setShow(!show)}
-          >
-            {show ? <ArrowUpwardIcon /> : <ArrowDownwardIcon />}
-          </Span>
-        </Header>
-        <TagList>
-          {selectedItems.lenght !== 0 &&
-            selectedItems.map(({ id, name }) => (
-              <Tag key={id}>
-                {name}
-                <Close onClick={() => handleRemove(id)} />
-              </Tag>
-            ))}
-        </TagList>
-      </div>
+      <Header>
+        <Title>{placeholder}</Title>
+        <ArrowIcon
+          onClick={() => setShow(true)}
+          name={`modal-btn-${placeholder}`}
+          up={show}
+        ></ArrowIcon>
+      </Header>
+      <TagList>
+        {selectedItems.lenght !== 0 &&
+          selectedItems.map(({ id, name }) => (
+            <Tag key={id}>
+              {name}
+              <Close onClick={() => handleRemove(id)} />
+            </Tag>
+          ))}
+      </TagList>
 
       {show && (
         <Modal ref={ref}>

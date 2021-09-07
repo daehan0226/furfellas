@@ -19,14 +19,11 @@ const ImageWrapper = styled.div`
 
 const Container = styled.div`
   width: 100%;
-  display: flex;
-  justify-contents: flex-start;
-  flex-wrap: wrap;
-  margin: 10px;
+  margin: 20px;
   background-color: ${({ theme }) => theme.colors.primary.text};
 `;
 const SelectWrap = styled.div`
-  width: 120px;
+  width: 300px;
 `;
 
 const Gallery = ({ images = null }) => {
