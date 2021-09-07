@@ -19,6 +19,11 @@ const Selects = styled.div`
   padding: 6px;
 `;
 
+const Image = styled.img`
+  width: 200px;
+  height: auto;
+`;
+
 const PhotoForm = ({ data, refreshPhotos = () => {} }) => {
   const { actions } = useAction();
   const { locations } = useLocation();
@@ -86,7 +91,7 @@ const PhotoForm = ({ data, refreshPhotos = () => {} }) => {
         <Select {...locationSelect} multipleChoices={false} />
       </Selects>
       {data ? (
-        <img
+        <Image
           src={`https://drive.google.com/thumbnail?id=${data.image_id}`}
           alt={data.name}
         />

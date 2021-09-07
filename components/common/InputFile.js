@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import styled from "styled-components";
 import { FlexCenterBox, PrimaryBtn } from "../../styles/common-styles";
 import Button from "./Button";

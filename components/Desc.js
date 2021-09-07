@@ -8,7 +8,7 @@ const data = {
     birthdate: "07. 22. 20",
     color: "Black tan",
     personality: ["Smart", "Energeric", "Chaos", "Sensitive"],
-    weight: 15,
+    weight: 16,
     profilePic: "/sevi.jpg",
   },
   aibi: {
