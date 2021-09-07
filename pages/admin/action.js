@@ -12,13 +12,13 @@ const Container = styled.div`
 `;
 
 export default function Action() {
-  const { actions } = useAction();
+  const { data } = useAction();
 
   return (
     <Container>
       <ActionForm />
-      {actions.length > 0 &&
-        actions.map((action) => <ActionForm key={action.id} data={action} />)}
+      {data.length > 0 &&
+        data.map((action) => <ActionForm key={action.id} data={action} />)}
     </Container>
   );
 }

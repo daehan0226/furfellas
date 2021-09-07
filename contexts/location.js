@@ -22,7 +22,7 @@ export const LocationContextProvider = (props) => {
   }, [fetchData.data]);
 
   return (
-    <LocationContext.Provider value={{ locations, refreshLocations }}>
+    <LocationContext.Provider value={{ data: locations, refreshLocations }}>
       {props.children}
     </LocationContext.Provider>
   );

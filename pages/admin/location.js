@@ -12,13 +12,13 @@ const Container = styled.div`
 `;
 
 export default function Location() {
-  const { locations } = useLocation();
+  const { data } = useLocation();
 
   return (
     <Container>
       <LocationForm />
-      {locations.length > 0 &&
-        locations.map((location) => (
+      {data.length > 0 &&
+        data.map((location) => (
           <LocationForm key={location.id} data={location} />
         ))}
     </Container>

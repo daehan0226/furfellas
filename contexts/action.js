@@ -22,7 +22,7 @@ export const ActionContextProvider = (props) => {
   }, [fetchData.data]);
 
   return (
-    <ActionContext.Provider value={{ actions, refreshActions }}>
+    <ActionContext.Provider value={{ data: actions, refreshActions }}>
       {props.children}
     </ActionContext.Provider>
   );

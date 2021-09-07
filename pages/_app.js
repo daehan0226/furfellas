@@ -3,13 +3,19 @@ import { ThemeProvider } from "../styles/themed-components";
 import theme from "../styles/theme";
 import { Layout, AdminLayout } from "../components/layout";
 
-import { LocationContextProvider, ActionContextProvider } from "../contexts";
+import {
+  LocationContextProvider,
+  ActionContextProvider,
+  PhotoTypeContextProvider,
+} from "../contexts";
 
 function withContext(Component) {
   return (props) => (
     <LocationContextProvider>
       <ActionContextProvider>
-        <Component {...props} />
+        <PhotoTypeContextProvider>
+          <Component {...props} />
+        </PhotoTypeContextProvider>
       </ActionContextProvider>
     </LocationContextProvider>
   );

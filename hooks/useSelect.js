@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const useSelect = (placeholder) => {
+const useSelect = (placeholder, optionContext) => {
+  const { data } = optionContext();
   const [items, setItems] = useState([]);
   const [selectedItems, setSelectedItems] = useState([]);
 
@@ -8,6 +9,12 @@ const useSelect = (placeholder) => {
     const ids = selectedItems.map((item) => item.id);
     return ids.join(",");
   };
+
+  useEffect(() => {
+    if (data && data.length > 0) {
+      setItems([...data]);
+    }
+  }, [data]);
 
   return {
     placeholder,
