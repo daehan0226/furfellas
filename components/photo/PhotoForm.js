@@ -24,7 +24,7 @@ const PhotoForm = ({ data, refreshPhotos = () => {} }) => {
   const typeSelect = useSelect("who", usePhotoType);
   const actionSelect = useSelect("what", useAction);
   const locationSelect = useSelect("where", useLocation);
-  const [file, setFile] = useState({});
+  const [file, setFile] = useState(null);
   const [descInput, descInputErr] = useInput();
 
   const validateInput = () => {
@@ -47,7 +47,7 @@ const PhotoForm = ({ data, refreshPhotos = () => {} }) => {
       location: locationSelect.getSelectedIds(),
       description: descInput.value,
       successCallback: () => {
-        setFile({});
+        setFile(null);
         typeSelect.setSelectedItems([]);
         actionSelect.setSelectedItems([]);
         locationSelect.setSelectedItems([]);
