@@ -28,16 +28,24 @@ const PhotoForm = ({ data, refreshPhotos = () => {} }) => {
   const [file, setFile] = useState(null);
   const [descInput, descInputErr] = useInput("Description");
 
-  const validateInput = () => {
-    if (descInput.value === "") {
-      descInputErr.setMsg("too short");
-      return;
+  useEffect(() => {
+    if (data) {
+      typeSelect.setSelectedItems([data.type]);
+      actionSelect.setSelectedItems(data.actions);
+      locationSelect.setSelectedItems([data.location]);
+      descInput.onChange(data.description);
     }
-    if (descInput.value.length > 10) {
+  }, [data]);
+
+  useEffect(() => {
+    if (descInput.value.length > 20) {
+      setOpenSubmit(false);
       descInputErr.setMsg("too long");
-      return;
+    } else {
+      setOpenSubmit(true);
+      descInputErr.setMsg("");
     }
-  };
+  }, [descInput.value]);
 
   useEffect(() => {
     setOpenSubmit(false);
@@ -53,6 +61,7 @@ const PhotoForm = ({ data, refreshPhotos = () => {} }) => {
     if (!file) {
       return;
     }
+
     setOpenSubmit(true);
   }, [
     typeSelect.selectedItems,

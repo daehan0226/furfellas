@@ -38,18 +38,6 @@ const routes = [
     href: "/admin",
     text: "Admin",
   },
-  {
-    href: "/admin/photo",
-    text: "Photo",
-  },
-  {
-    href: "/admin/action",
-    text: "Action",
-  },
-  {
-    href: "/admin/location",
-    text: "Location",
-  },
 ];
 
 const AdminNav = () => (

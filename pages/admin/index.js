@@ -1,7 +1,12 @@
 import styled from "styled-components";
+import { LinkCards } from "../../components";
 
 const Container = styled.div``;
 
 export default function Index() {
-  return <Container></Container>;
+  return (
+    <Container>
+      <LinkCards />
+    </Container>
+  );
 }

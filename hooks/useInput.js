@@ -10,8 +10,10 @@ const useInput = (placeholder = "", initValue = "") => {
       onChange,
       placeholder,
     },
-    msg,
-    setMsg,
+    {
+      msg,
+      setMsg,
+    },
   ];
 };
 
