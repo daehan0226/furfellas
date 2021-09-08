@@ -4,16 +4,7 @@ const Container = styled.section`
   min-height: 200px;
   margin: 40px auto;
   background-color: ${({ theme }) => theme.colors.primary.text};
-  width: 1100px;
-  ${(props) => props.theme.media.desktop`
-  width: 1100px;
-  `}
-  ${(props) => props.theme.media.tablet`
-    width: 750px;
-  `}
-  ${(props) => props.theme.media.phone`
-    width: 320px;
-  `}
+  width: 90%;
 `;
 
 const SectionContainer = ({ children }) => {

@@ -10,12 +10,27 @@ const ImageContainer = styled.div`
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  ${(props) => props.theme.media.phone`
+    
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  `}
 `;
 
 const ImageWrapper = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 300px;
   ${FlexCenterBox}
+  ${(props) => props.theme.media.phone`
+    width: 140px;
+  `}
+`;
+
+const Image = styled.img`
+  width: 280px;
+  height: auto;
+  ${FlexCenterBox}
+  ${(props) => props.theme.media.phone`
+    width: 130px;
+  `}
 `;
 
 const Container = styled.div`
@@ -27,7 +42,7 @@ const SelectWrap = styled.div`
   width: 300px;
 `;
 
-const Gallery = ({ images = null }) => {
+const Gallery = () => {
   const typeSelect = useSelect("who", usePhotoType);
   const actionSelect = useSelect("what", useAction);
   const locationSelect = useSelect("where", useLocation);
@@ -87,7 +102,7 @@ const Gallery = ({ images = null }) => {
           fetchPhotos.data.length > 0 &&
           fetchPhotos.data.map(({ id, image_id, name }) => (
             <ImageWrapper key={id}>
-              <img
+              <Image
                 src={`https://drive.google.com/thumbnail?id=${image_id}`}
                 alt={name}
               />
