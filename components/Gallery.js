@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useSelect, useFetch } from "../hooks";
 import { useAction, useLocation, usePhotoType } from "../contexts";
 import { SectionContainer, SectionTitle, Select } from "./common";
+import { createQueryParams } from "../utils";
 import { FlexCenterBox } from "../styles/common-styles";
 
 const ImageContainer = styled.div`
@@ -37,6 +38,23 @@ const Gallery = ({ images = null }) => {
   useEffect(() => {
     doFfetchPhotos("photos/");
   }, []);
+
+  useEffect(() => {
+    console.log(typeSelect.getSelectedIds());
+    console.log(actionSelect.getSelectedIds());
+    console.log(locationSelect.getSelectedIds());
+    const params = createQueryParams({
+      types: typeSelect.getSelectedIds(),
+      actions: actionSelect.getSelectedIds(),
+      locations: locationSelect.getSelectedIds(),
+    });
+
+    doFfetchPhotos(`photos/?${params}`);
+  }, [
+    typeSelect.selectedItems,
+    actionSelect.selectedItems,
+    locationSelect.selectedItems,
+  ]);
 
   useEffect(() => {
     sortSelect.setItems([
