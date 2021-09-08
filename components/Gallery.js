@@ -35,21 +35,21 @@ const Gallery = ({ images = null }) => {
 
   const [fetchPhotos, doFfetchPhotos] = useFetch([]);
 
+  const getPhotos = (params = "") => {
+    doFfetchPhotos(`photos/?${params}`);
+  };
+
   useEffect(() => {
-    doFfetchPhotos("photos/");
+    getPhotos();
   }, []);
 
   useEffect(() => {
-    console.log(typeSelect.getSelectedIds());
-    console.log(actionSelect.getSelectedIds());
-    console.log(locationSelect.getSelectedIds());
     const params = createQueryParams({
       types: typeSelect.getSelectedIds(),
       actions: actionSelect.getSelectedIds(),
       locations: locationSelect.getSelectedIds(),
     });
-
-    doFfetchPhotos(`photos/?${params}`);
+    getPhotos(params);
   }, [
     typeSelect.selectedItems,
     actionSelect.selectedItems,
@@ -57,10 +57,12 @@ const Gallery = ({ images = null }) => {
   ]);
 
   useEffect(() => {
-    sortSelect.setItems([
+    const sorts = [
       { id: 0, name: "New" },
       { id: 1, name: "Old" },
-    ]);
+    ];
+    sortSelect.setItems(sorts);
+    sortSelect.setSelectedItems([sorts[0]]);
   }, []);
 
   return (

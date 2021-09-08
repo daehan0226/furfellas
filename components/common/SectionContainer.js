@@ -1,19 +1,23 @@
 import styled from "styled-components";
 
-const Container =  styled.section`
-  width: 100%;
-  min-height: 400px;
-  box-sizing: boder-box;
-  margin: 40px; 80px;
+const Container = styled.section`
+  min-height: 200px;
+  margin: 40px auto;
   background-color: ${({ theme }) => theme.colors.primary.text};
-  
+  width: 1100px;
+  ${(props) => props.theme.media.desktop`
+  width: 1100px;
+  `}
+  ${(props) => props.theme.media.tablet`
+    width: 750px;
+  `}
   ${(props) => props.theme.media.phone`
-      margin: 20px; 40px;
-`}
-`
+    width: 320px;
+  `}
+`;
 
-const SectionContainer = ({children}) => {
-    return <Container>{children}</Container>
-}
+const SectionContainer = ({ children }) => {
+  return <Container>{children}</Container>;
+};
 
 export default SectionContainer;
