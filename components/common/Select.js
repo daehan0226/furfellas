@@ -14,11 +14,16 @@ const Container = styled.div`
   position: relative;
   ${FlexCenterBox}
   justify-content: flex-start;
+  margin-bottom: 10px;
 `;
+
 const Header = styled.div`
   ${FlexCenterBox}
   justify-content: flex-start;
-  margin-right: 20px;
+  border-bottom: black;
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  cursor: pointer;
 `;
 
 const ArrowIcon = styled(ArrowDownwardIcon)`
@@ -115,15 +120,14 @@ const Select = ({
 
   return (
     <Container>
-      <Header>
-        <Title>{placeholder}</Title>
-        <ArrowIcon
-          onClick={() => setShow(true)}
-          name={`modal-btn-${placeholder}`}
-          up={show}
-        ></ArrowIcon>
+      <Header onClick={() => setShow(true)} name={`modal-btn-${placeholder}`}>
+        {selectedItems.length > 0 ? (
+          <Tags data={selectedItems} handleRemove={handleRemove} />
+        ) : (
+          <Title>{placeholder}</Title>
+        )}
+        <ArrowIcon up={show}></ArrowIcon>
       </Header>
-      <Tags data={selectedItems} handleRemove={handleRemove} />
       {show && (
         <Modal ref={ref}>
           <List>
