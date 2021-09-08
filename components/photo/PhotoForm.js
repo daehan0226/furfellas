@@ -24,8 +24,9 @@ const PhotoForm = ({ data, refreshPhotos = () => {} }) => {
   const typeSelect = useSelect("who", usePhotoType);
   const actionSelect = useSelect("what", useAction);
   const locationSelect = useSelect("where", useLocation);
+  const [openSubmit, setOpenSubmit] = useState(false);
   const [file, setFile] = useState(null);
-  const [descInput, descInputErr] = useInput();
+  const [descInput, descInputErr] = useInput("Description");
 
   const validateInput = () => {
     if (descInput.value === "") {
@@ -37,6 +38,28 @@ const PhotoForm = ({ data, refreshPhotos = () => {} }) => {
       return;
     }
   };
+
+  useEffect(() => {
+    setOpenSubmit(false);
+    if (typeSelect.selectedItems.length === 0) {
+      return;
+    }
+    if (actionSelect.selectedItems.length === 0) {
+      return;
+    }
+    if (locationSelect.selectedItems.length === 0) {
+      return;
+    }
+    if (!file) {
+      return;
+    }
+    setOpenSubmit(true);
+  }, [
+    typeSelect.selectedItems,
+    actionSelect.selectedItems,
+    locationSelect.selectedItems,
+    file,
+  ]);
 
   const handleSubmit = () => {
     uploadService({
@@ -85,7 +108,11 @@ const PhotoForm = ({ data, refreshPhotos = () => {} }) => {
         <InputFile file={file} setFile={setFile} />
       )}
       <Input {...descInput} errMsg={descInputErr.msg} />
-      <Button text={data ? "Edit" : "Submit"} onClick={handleSubmit} />
+      <Button
+        text={data ? "Edit" : "Submit"}
+        onClick={handleSubmit}
+        disabled={!openSubmit}
+      />
       {data && <Button text={"Delete"} onClick={() => handleDelete(data.id)} />}
     </Container>
   );
