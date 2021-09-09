@@ -1,28 +1,51 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { useFetch, useSelect } from "../hooks";
+import { useFetch, useSelect, useWindowDimensions } from "../hooks";
+import { FlexCenterBox } from "../styles/common-styles";
 import { createQueryParams } from "../utils";
 import { SectionContainer, SectionTitle, Select } from "./common";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 const ArticleContainer = styled.div`
   display: flex;
-  overflow-x: scroll;
+  overflow-x: hidden;
 `;
 
 const Article = styled.article`
-  min-width: 220px;
+  width: 100%;
+  max-width: 220px;
   height: 100%;
-  border-color: ${({ theme }) => theme.colors.primary.dark};
-  border-width: 1px;
-  border-style: solid;
   margin-right: 10px;
+  align-self: center;
+`;
+const Scroll = styled.div`
+  ${FlexCenterBox}
+`;
+
+const ArrowButton = styled.button`
+  opacity: 0.2;
+
+  ${({ active }) =>
+    active &&
+    `
+    cursor: pointer;
+    opacity: 1;
+  `};
 `;
 
 const RecentPhotoDate = 3;
 
 const RecentPhotoGallery = () => {
   const [fetchPhotos, doFfetchPhotos] = useFetch([]);
+  const { width } = useWindowDimensions();
+  const [showArrows, setShowArrows] = useState({ left: false, right: false });
+  const ref = useRef(null);
   const dateSelect = useSelect("dates", () => []);
+
+  const scroll = (scrollOffset) => {
+    ref.current.scrollLeft += scrollOffset;
+  };
 
   const getPhotos = (selectedDate) => {
     const date = new Date();
@@ -51,22 +74,64 @@ const RecentPhotoGallery = () => {
     dateSelect.setSelectedItems([dates[2]]);
   }, []);
 
+  const handleShowArrows = (event) => {
+    console.log(width);
+    console.log(ref.current.offsetWidth);
+
+    // left
+    if (width === 0) {
+      setShowArrows({ ...showArrows, left: false });
+    }
+
+    if (event) {
+      const { scrollLeft } = event.target;
+      // left
+      if (scrollLeft >= 100) {
+        console.log(scrollLeft);
+        setShowArrows({ ...showArrows, left: true });
+      } else {
+        setShowArrows({ ...showArrows, left: false });
+      }
+
+      // right
+      console.log(scrollLeft, ref.current.offsetWidth);
+      if (scrollLeft + 230 < ref.current.offsetWidth) {
+        setShowArrows({ ...showArrows, right: true });
+      } else {
+        setShowArrows({ ...showArrows, right: false });
+      }
+    }
+  };
+
+  useEffect(() => {
+    handleShowArrows();
+  }, [fetchPhotos.data]);
+
   return (
     <SectionContainer>
       <SectionTitle text={"New photos"} />
       <Select {...dateSelect} multipleChoices={false} />
-      <ArticleContainer>
-        {fetchPhotos.data &&
-          fetchPhotos.data.length > 0 &&
-          fetchPhotos.data.map(({ id, image_id, name }) => (
-            <Article key={id}>
-              <img
-                src={`https://drive.google.com/thumbnail?id=${image_id}`}
-                alt={name}
-              />
-            </Article>
-          ))}
-      </ArticleContainer>
+      <Scroll>
+        <ArrowButton active={true} onClick={() => scroll(-100)}>
+          <ArrowBackIosIcon />
+        </ArrowButton>
+        <ArticleContainer onScroll={handleShowArrows} ref={ref}>
+          {fetchPhotos.data &&
+            fetchPhotos.data.length > 0 &&
+            fetchPhotos.data.map(({ id, image_id, name }) => (
+              <Article key={id}>
+                <img
+                  src={`https://drive.google.com/thumbnail?id=${image_id}`}
+                  alt={name}
+                />
+              </Article>
+            ))}
+        </ArticleContainer>
+
+        <ArrowButton active={true} onClick={() => scroll(100)}>
+          <ArrowForwardIosIcon />
+        </ArrowButton>
+      </Scroll>
     </SectionContainer>
   );
 };
