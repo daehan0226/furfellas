@@ -135,7 +135,7 @@ const Select = ({
           {selectAll && (
               <ListItem
                 active={selectedItems.length === items.length} 
-                onClick={() => selectedItems.length > 0 ? setSelectedItems([]) : setSelectedItems([...items])}
+                onClick={() => selectedItems.length !== 0 ? setSelectedItems([...items]) : setSelectedItems([])}
               >
                 Select all
               </ListItem>
