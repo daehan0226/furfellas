@@ -117,7 +117,7 @@ const Select = ({
 
   return (
     <Container ref={ref}>
-      <Header name={`modal-btn-${placeholder}`} onClick={()=>setShow(!show)}>
+      <Header onClick={()=>setShow(!show)}>
         <Title onClick={() => setShow(true)}>
           {selectedItems.length === 0 ? placeholder : selectedItems.map(item=>item.name).join(', ')}</Title>
          <ArrowIcon up={show}></ArrowIcon>
