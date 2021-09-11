@@ -22,7 +22,7 @@ const useSelect = (placeholder, optionContext) => {
     setItems,
     selectedItems,
     setSelectedItems,
-    getSelectedIds,
+    getSelectedIds
   };
 };
 

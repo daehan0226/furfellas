@@ -89,6 +89,7 @@ const Select = ({
   selectedItems,
   setSelectedItems,
   multipleChoices = true,
+  selectAll = false,
 }) => {
   const [show, setShow] = useState(false);
   const ref = useRef();
@@ -102,7 +103,9 @@ const Select = ({
           selectedItems.filter((item) => item.id !== curItem.id)
         );
       } else {
-        setSelectedItems([...selectedItems, curItem]);
+        let newArray = [...selectedItems, curItem]
+        setSelectedItems(
+          newArray.sort((a, b) => a.id - b.id))
       }
     } else {
       setSelectedItems([curItem]);
@@ -110,9 +113,16 @@ const Select = ({
   };
 
   useEffect(()=>{
+    console.log(selectAll)
+  },[selectAll])
+
+  useEffect(()=>{
     if (!multipleChoices) {
       setShow(false)
     }
+    console.log(items)
+    console.log(selectedItems)
+    console.log(selectedItems===items)
   },[selectedItems])
 
   return (
@@ -125,6 +135,20 @@ const Select = ({
       {show && (
         <Modal>
           <List>
+          {selectAll && (
+            <>
+              <ListItem
+                onClick={() => setSelectedItems([...items])}
+              >
+                select all
+              </ListItem>  
+              <ListItem
+                onClick={() => setSelectedItems([])}
+              >
+                remove all
+              </ListItem>
+            </>
+          )}  
             {items.map((curItem) => (
               <ListItem
                 key={curItem.id}

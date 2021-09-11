@@ -75,8 +75,6 @@ const RecentPhotoGallery = () => {
   }, []);
 
   const handleShowArrows = (event) => {
-    console.log(width);
-    console.log(ref.current.offsetWidth);
 
     // left
     if (width === 0) {
@@ -87,14 +85,12 @@ const RecentPhotoGallery = () => {
       const { scrollLeft } = event.target;
       // left
       if (scrollLeft >= 100) {
-        console.log(scrollLeft);
         setShowArrows({ ...showArrows, left: true });
       } else {
         setShowArrows({ ...showArrows, left: false });
       }
 
       // right
-      console.log(scrollLeft, ref.current.offsetWidth);
       if (scrollLeft + 230 < ref.current.offsetWidth) {
         setShowArrows({ ...showArrows, right: true });
       } else {

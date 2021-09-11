@@ -85,13 +85,13 @@ const Gallery = () => {
       <SectionTitle text={"Gallery"} />
       <Container>
         <SelectWrap>
-          <Select {...typeSelect} />
+          <Select {...typeSelect} selectAll={true} />
         </SelectWrap>
         <SelectWrap>
-          <Select {...actionSelect} />
+          <Select {...actionSelect} selectAll={true} />
         </SelectWrap>
         <SelectWrap>
-          <Select {...locationSelect} />
+          <Select {...locationSelect} selectAll={true} />
         </SelectWrap>
         <SelectWrap>
           <Select {...sortSelect} multipleChoices={false} />
