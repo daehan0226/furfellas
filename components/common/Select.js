@@ -13,15 +13,17 @@ const Container = styled.div`
   display: inline-flex;
   justify-content: flex-start;
   margin-bottom: 10px;
-`;
+  `;
 
 const Header = styled.div`
   ${FlexCenterBox}
-  justify-content: flex-start;
+  justify-content: space-between;
+  padding-left: 6px;
   border-bottom: black;
   border-bottom-style: solid;
   border-bottom-width: 1px;
   cursor: pointer;
+  min-width: 80px;
 `;
 
 const ArrowIcon = styled(ArrowDownwardIcon)`
@@ -44,9 +46,11 @@ const Modal = styled.div`
   z-index: 100;
   background: #fff;
   position: absolute;
+  padding-left: 10px;
   outline: 0;
+  min-width: 100px;
   max-width: 300px;
-  min-height: 100px;
+  min-height: 60px;
   max-height: 150px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -113,16 +117,9 @@ const Select = ({
   };
 
   useEffect(()=>{
-    console.log(selectAll)
-  },[selectAll])
-
-  useEffect(()=>{
     if (!multipleChoices) {
       setShow(false)
     }
-    console.log(items)
-    console.log(selectedItems)
-    console.log(selectedItems===items)
   },[selectedItems])
 
   return (
@@ -136,18 +133,12 @@ const Select = ({
         <Modal>
           <List>
           {selectAll && (
-            <>
               <ListItem
-                onClick={() => setSelectedItems([...items])}
+                active={selectedItems.length === items.length} 
+                onClick={() => selectedItems.length > 0 ? setSelectedItems([]) : setSelectedItems([...items])}
               >
-                select all
-              </ListItem>  
-              <ListItem
-                onClick={() => setSelectedItems([])}
-              >
-                remove all
+                Select all
               </ListItem>
-            </>
           )}  
             {items.map((curItem) => (
               <ListItem

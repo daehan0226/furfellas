@@ -36,17 +36,19 @@ const Image = styled.img`
 const Container = styled.div`
   width: 100%;
   margin: 20px;
+  display: flex;
+  flex-wrap: wrap;
   background-color: ${({ theme }) => theme.colors.primary.text};
 `;
 const SelectWrap = styled.div`
-  width: 300px;
+  margin-right: 10px;
 `;
 
 const Gallery = () => {
-  const typeSelect = useSelect("who", usePhotoType);
-  const actionSelect = useSelect("what", useAction);
-  const locationSelect = useSelect("where", useLocation);
-  const sortSelect = useSelect("sort", () => []);
+  const typeSelect = useSelect("Who", usePhotoType);
+  const actionSelect = useSelect("What", useAction);
+  const locationSelect = useSelect("Where", useLocation);
+  const sortSelect = useSelect("Sort", () => []);
 
   const [fetchPhotos, doFfetchPhotos] = useFetch([]);
 
