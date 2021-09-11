@@ -3,16 +3,14 @@ import styled from "styled-components";
 import { FlexCenterBox } from "../../styles/common-styles";
 import { useOnClickOutside } from "../../hooks";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
-import Tags from "./Tags";
 
 const Title = styled.h6`
   text-align: center;
   margin: 10px 0px;
-  width: 60px;
 `;
 const Container = styled.div`
   position: relative;
-  ${FlexCenterBox}
+  display: inline-flex;
   justify-content: flex-start;
   margin-bottom: 10px;
 `;
@@ -47,7 +45,7 @@ const Modal = styled.div`
   background: #fff;
   position: absolute;
   outline: 0;
-  width: 100px;
+  max-width: 300px;
   min-height: 100px;
   max-height: 150px;
   overflow-x: hidden;
@@ -95,9 +93,6 @@ const Select = ({
   const [show, setShow] = useState(false);
   const ref = useRef();
   useOnClickOutside(ref, (e) => {
-    if (e.target.name === `modal-btn-${placeholder}`) {
-      return;
-    }
     setShow(false);
   });
   const handleClick = (curItem) => {
@@ -114,22 +109,21 @@ const Select = ({
     }
   };
 
-  const handleRemove = (curItemId) => {
-    setSelectedItems(selectedItems.filter((item) => item.id !== curItemId));
-  };
+  useEffect(()=>{
+    if (!multipleChoices) {
+      setShow(false)
+    }
+  },[selectedItems])
 
   return (
-    <Container>
-      <Header onClick={() => setShow(true)} name={`modal-btn-${placeholder}`}>
-        {selectedItems.length > 0 ? (
-          <Tags data={selectedItems} handleRemove={handleRemove} />
-        ) : (
-          <Title>{placeholder}</Title>
-        )}
-        <ArrowIcon up={show}></ArrowIcon>
+    <Container ref={ref}>
+      <Header name={`modal-btn-${placeholder}`} onClick={()=>setShow(!show)}>
+        <Title onClick={() => setShow(true)}>
+          {selectedItems.length === 0 ? placeholder : selectedItems.map(item=>item.name).join(', ')}</Title>
+         <ArrowIcon up={show}></ArrowIcon>
       </Header>
       {show && (
-        <Modal ref={ref}>
+        <Modal>
           <List>
             {items.map((curItem) => (
               <ListItem
