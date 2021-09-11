@@ -2,10 +2,10 @@ import styled from "styled-components";
 import CardBody from "./CardBody";
 import CardHead from "./CardHead";
 
-const CardContainer = styled.div`
+const Container = styled.div`
   width: 320px;
   min-height: 300px;
-  background-color: ${({ theme }) => theme.colors.primary.text};
+  background-color: ${({ theme }) => theme.colors.primary.white};
   margin: 20px;
   padding: 10px;
   border-radius: 10px;
@@ -13,10 +13,10 @@ const CardContainer = styled.div`
 
 const Card = ({ data }) => {
   return (
-    <CardContainer>
+    <Container>
       <CardHead title={data.name} />
       <CardBody data={data} />
-    </CardContainer>
+    </Container>
   );
 };
 

@@ -9,8 +9,9 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 
 const ArticleContainer = styled.div`
   display: flex;
-  overflow-x: hidden;
-`;
+  overflow-x: scroll;
+  touch-action: auto;
+  `;
 
 const Article = styled.article`
   width: 100%;

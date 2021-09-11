@@ -46,7 +46,6 @@ const Modal = styled.div`
   z-index: 100;
   background: #fff;
   position: absolute;
-  padding-left: 10px;
   outline: 0;
   min-width: 100px;
   max-width: 300px;
@@ -73,6 +72,7 @@ const ListItem = styled.li`
   letter-spacing: 0.00938em;
   box-sizing: border-box;
   padding: 6px;
+  padding-left: 10px;
   cursor: pointer;
 
   :hover {
