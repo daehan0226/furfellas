@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Button, InputFile, Select, Input } from "../common";
+import { Button, InputFile, Select, Input, Loading } from "../common";
 import { useSelect, useInput } from "../../hooks";
 import { useAction, useLocation, usePhotoType } from "../../contexts";
 import uploadService from "../../utils/uploadService";
@@ -20,10 +20,16 @@ const Image = styled.img`
   height: auto;
 `;
 
+const ButtonWrap = styled.div`
+  width: 100%;
+  height: 60px;
+`;
+
 const PhotoForm = ({ data, refreshPhotos = () => {} }) => {
   const typeSelect = useSelect("who", usePhotoType);
   const actionSelect = useSelect("what", useAction);
   const locationSelect = useSelect("where", useLocation);
+  const [loading, setLoading] = useState(false);
   const [openSubmit, setOpenSubmit] = useState(false);
   const [file, setFile] = useState(null);
   const [descInput, descInputErr] = useInput("Description");
@@ -71,6 +77,7 @@ const PhotoForm = ({ data, refreshPhotos = () => {} }) => {
   ]);
 
   const handleSubmit = () => {
+    setLoading(true);
     uploadService({
       id: data ? data.id : null,
       file,
@@ -84,19 +91,25 @@ const PhotoForm = ({ data, refreshPhotos = () => {} }) => {
         actionSelect.setSelectedItems([]);
         locationSelect.setSelectedItems([]);
         refreshPhotos();
+        setLoading(false);
       },
       failCallback: () => {
-        console.log("fail");
+        setLoading(false);
       },
     });
   };
 
   const handleDelete = (id) => {
+    setLoading(true);
     deleteResources({
       id,
       resource: "photos",
       successCallback: () => {
         refreshPhotos;
+        setLoading(false);
+      },
+      failCallback: () => {
+        setLoading(false);
       },
     });
   };
@@ -117,12 +130,22 @@ const PhotoForm = ({ data, refreshPhotos = () => {} }) => {
         <InputFile file={file} setFile={setFile} />
       )}
       <Input {...descInput} errMsg={descInputErr.msg} />
-      <Button
-        text={data ? "Edit" : "Submit"}
-        onClick={handleSubmit}
-        disabled={!openSubmit}
-      />
-      {data && <Button text={"Delete"} onClick={() => handleDelete(data.id)} />}
+      <ButtonWrap>
+        {loading ? (
+          <Loading />
+        ) : (
+          <>
+            <Button
+              text={data ? "Edit" : "Submit"}
+              onClick={handleSubmit}
+              disabled={!openSubmit}
+            />
+            {data && (
+              <Button text={"Delete"} onClick={() => handleDelete(data.id)} />
+            )}
+          </>
+        )}
+      </ButtonWrap>
     </Container>
   );
 };
