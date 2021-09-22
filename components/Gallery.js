@@ -7,30 +7,15 @@ import { createQueryParams } from "../utils";
 import { FlexCenterBox } from "../styles/common-styles";
 
 const ImageContainer = styled.div`
-  display: grid;
-  grid-gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  ${(props) => props.theme.media.phone`
-    
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  `}
+  display: flex;
+  flex-wrap: wrap;
 `;
 
-const ImageWrapper = styled.div`
-  width: 300px;
-  ${FlexCenterBox}
-  ${(props) => props.theme.media.phone`
-    width: 140px;
-  `}
-`;
+const ImageWrapper = styled.div``;
 
 const Image = styled.img`
-  width: 280px;
-  height: auto;
-  ${FlexCenterBox}
-  ${(props) => props.theme.media.phone`
-    width: 130px;
-  `}
+  width: auto;
+  height: 200px;
 `;
 
 const Container = styled.div`
