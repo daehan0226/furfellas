@@ -13,7 +13,7 @@ const Container = styled.div`
   display: inline-flex;
   justify-content: flex-start;
   margin-bottom: 10px;
-  `;
+`;
 
 const Header = styled.div`
   ${FlexCenterBox}
@@ -107,39 +107,45 @@ const Select = ({
           selectedItems.filter((item) => item.id !== curItem.id)
         );
       } else {
-        let newArray = [...selectedItems, curItem]
-        setSelectedItems(
-          newArray.sort((a, b) => a.id - b.id))
+        let newArray = [...selectedItems, curItem];
+        setSelectedItems(newArray.sort((a, b) => a.id - b.id));
       }
     } else {
       setSelectedItems([curItem]);
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     if (!multipleChoices) {
-      setShow(false)
+      setShow(false);
     }
-  },[selectedItems])
+  }, [selectedItems]);
 
   return (
     <Container ref={ref}>
-      <Header onClick={()=>setShow(!show)}>
+      <Header onClick={() => setShow(!show)}>
         <Title onClick={() => setShow(true)}>
-          {selectedItems.length === 0 ? placeholder : selectedItems.map(item=>item.name).join(', ')}</Title>
-         <ArrowIcon up={show}></ArrowIcon>
+          {selectedItems.length === 0
+            ? placeholder
+            : selectedItems.map((item) => item.name).join(", ")}
+        </Title>
+        <ArrowIcon up={show}></ArrowIcon>
       </Header>
       {show && (
         <Modal>
           <List>
-          {selectAll && (
+            {selectAll && (
               <ListItem
-                active={selectedItems.length === items.length} 
-                onClick={() => selectedItems.length !== 0 ? setSelectedItems([...items]) : setSelectedItems([])}
+                active={selectedItems.length === items.length}
+                onClick={() =>
+                  selectedItems.length === 0
+                    ? setSelectedItems([...items])
+                    : setSelectedItems([])
+                }
               >
                 Select all
               </ListItem>
-          )}  
+            )}
             {items.map((curItem) => (
               <ListItem
                 key={curItem.id}
