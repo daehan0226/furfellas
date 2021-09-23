@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import { FlexCenterBox } from "../../styles/common-styles";
 import { useOnClickOutside } from "../../hooks";
-import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+import ArrowIcon from "./ArrowIcon";
 
 const Title = styled.h6`
   text-align: center;
@@ -24,21 +24,6 @@ const Header = styled.div`
   border-bottom-width: 1px;
   cursor: pointer;
   min-width: 80px;
-`;
-
-const ArrowIcon = styled(ArrowDownwardIcon)`
-  && {
-    margin-bottom: 0px;
-    margin-left: 6px;
-    cursor: pointer;
-
-    transition-duration: 0.4s;
-    transition-property: transform;
-    ${({ up }) =>
-      up &&
-      `transform: rotate(180deg);
-    `};
-  }
 `;
 
 const Modal = styled.div`

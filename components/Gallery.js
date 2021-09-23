@@ -1,10 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelect, useFetch } from "../hooks";
 import { useAction, useLocation, usePhotoType } from "../contexts";
-import { SectionContainer, SectionTitle, Select } from "./common";
+import { SectionContainer, SectionTitle, Select, Sort } from "./common";
 import { createQueryParams } from "../utils";
-import { FlexCenterBox } from "../styles/common-styles";
 
 const ImageContainer = styled.div`
   display: flex;
@@ -30,10 +29,11 @@ const SelectWrap = styled.div`
 `;
 
 const Gallery = () => {
+  const [images, setImages] = useState([]);
+  const [sort, setSort] = useState("asc");
   const typeSelect = useSelect("Who", usePhotoType);
   const actionSelect = useSelect("What", useAction);
   const locationSelect = useSelect("Where", useLocation);
-  const sortSelect = useSelect("Sort", () => []);
 
   const [fetchPhotos, doFfetchPhotos] = useFetch([]);
 
@@ -59,13 +59,22 @@ const Gallery = () => {
   ]);
 
   useEffect(() => {
-    const sorts = [
-      { id: 0, name: "New" },
-      { id: 1, name: "Old" },
-    ];
-    sortSelect.setItems(sorts);
-    sortSelect.setSelectedItems([sorts[0]]);
-  }, []);
+    let sorted = [];
+    if (sort === "asc") {
+      sorted = images.sort((a, b) => (a.datetime > b.datetime ? 1 : -1));
+    } else {
+      sorted = images.sort((a, b) => (a.datetime < b.datetime ? 1 : -1));
+    }
+    setImages([...sorted]);
+  }, [sort]);
+
+  useEffect(() => {
+    if (fetchPhotos.data.length > 0) {
+      setImages([...fetchPhotos.data]);
+    } else {
+      setImages([]);
+    }
+  }, [fetchPhotos.data]);
 
   return (
     <SectionContainer>
@@ -80,21 +89,17 @@ const Gallery = () => {
         <SelectWrap>
           <Select {...locationSelect} selectAll={true} />
         </SelectWrap>
-        <SelectWrap>
-          <Select {...sortSelect} multipleChoices={false} />
-        </SelectWrap>
+        <Sort title={"Date time"} sort={sort} setSort={setSort} />
       </Container>
       <ImageContainer>
-        {fetchPhotos.data &&
-          fetchPhotos.data.length > 0 &&
-          fetchPhotos.data.map(({ id, image_id, name }) => (
-            <ImageWrapper key={id}>
-              <Image
-                src={`https://drive.google.com/thumbnail?id=${image_id}`}
-                alt={name}
-              />
-            </ImageWrapper>
-          ))}
+        {images.map(({ id, image_id, name }) => (
+          <ImageWrapper key={id}>
+            <Image
+              src={`https://drive.google.com/thumbnail?id=${image_id}`}
+              alt={name}
+            />
+          </ImageWrapper>
+        ))}
       </ImageContainer>
     </SectionContainer>
   );

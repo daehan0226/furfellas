@@ -5,6 +5,8 @@ import SectionContainer from "./SectionContainer";
 import InputFile from "./InputFile";
 import Input from "./Input";
 import Loading from "./Loading";
+import Sort from "./Sort";
+import ArrowIcon from "./ArrowIcon";
 
 export {
   Select,
@@ -14,4 +16,6 @@ export {
   InputFile,
   Input,
   Loading,
+  Sort,
+  ArrowIcon,
 };
