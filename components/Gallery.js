@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelect, useFetch } from "../hooks";
 import { useAction, useLocation, usePhotoType } from "../contexts";
-import { SectionContainer, SectionTitle, Select, Sort } from "./common";
+import { SectionContainer, SectionTitle, Select, Sort, Skeletons } from "./common";
 import { createQueryParams } from "../utils";
 
 const ImageContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
+  min-height: 200px;
 `;
 
 const ImageWrapper = styled.div``;
@@ -92,6 +93,9 @@ const Gallery = () => {
         <Sort title={"Date time"} sort={sort} setSort={setSort} />
       </Container>
       <ImageContainer>
+        {fetchPhotos.loading && (
+          <Skeletons />
+        )}
         {images.map(({ id, image_id, name }) => (
           <ImageWrapper key={id}>
             <Image

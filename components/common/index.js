@@ -7,6 +7,7 @@ import Input from "./Input";
 import Loading from "./Loading";
 import Sort from "./Sort";
 import ArrowIcon from "./ArrowIcon";
+import Skeletons from "./Skeletons";
 
 export {
   Select,
@@ -18,4 +19,5 @@ export {
   Loading,
   Sort,
   ArrowIcon,
+  Skeletons
 };
