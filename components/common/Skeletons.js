@@ -1,18 +1,33 @@
 import styled from "styled-components";
 
 
-const Skeleton = styled.div`
+const Skeleton = styled.span`
   width: 240px;
   height: 200px;
-  background-color: rgba(0, 0, 0, 0.11);
-  -webkit-animation: animation-c7515d 1.5s ease-in-out 0.5s infinite;
-  animation: animation-c7515d 1.5s ease-in-out 0.5s infinite;
+  display: block;
+  background: linear-gradient(        
+    to right,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0.7) 50%,
+    rgba(255, 255, 255, 0) 80%
+  ),
+  lightgray;
+  background-repeat: repeat-y;        
+  background-size: 50px 200px;        
+  background-position: 0 0; 
+  animation: shine 1s infinite;
+  
+  @keyframes shine {
+    to {
+      background-position: 100% 0, 0 0;
+    }
+  }
 `
 
 const Skeletons = ({ }) => {
   return (
     <>
-      { [...Array(3)].map((_, index) => <Skeleton key={index}/>) } 
+      { [...Array(5)].map((_, index) => <Skeleton key={index}/>) } 
     </>
   );
 };
