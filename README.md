@@ -1,5 +1,4 @@
 ### Furfellas
-* Sevi and Aibi's homepage
 ![furfellas](https://github.com/daehan0226/daehan0226/blob/main/images/furfellas_s.png?raw=true)
 ## 소개
 * Sevi 와 Aibi의 소개 및 사진과 해야할 일들을 기록하는 프로젝트
