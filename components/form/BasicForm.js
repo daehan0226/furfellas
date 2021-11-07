@@ -17,9 +17,10 @@ const Input = styled.input`
 `;
 const Text = styled.p`
   width: 200px;
+  margin-right: auto;
 `;
 
-const BasicForm = ({ data, resource, refresh }) => {
+const BasicForm = ({ data, resource, refresh, setSearchKey }) => {
   const [name, setName] = useState("");
   const [edit, setEdit] = useState(false);
   const [errMsg, setErrMsg] = useState("");
@@ -31,6 +32,10 @@ const BasicForm = ({ data, resource, refresh }) => {
       setEdit(true);
     }
   }, []);
+
+  useEffect(() => {
+    setSearchKey && setSearchKey(name);
+  }, [name])
 
   const handleSubmit = () => {
     setErrMsg("")
