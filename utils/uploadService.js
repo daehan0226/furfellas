@@ -1,3 +1,4 @@
+import { setHeaders } from "./apis";
 import http from "./http-common";
 
 const uploadService = async ({
@@ -12,16 +13,14 @@ const uploadService = async ({
   let formData = new FormData();
 
   formData.append("file", file);
-  formData.append("type", type);
-  formData.append("actions", actions);
-  formData.append("location", location);
+  formData.append("type_id", type);
+  formData.append("action_ids", actions);
+  formData.append("location_id", location);
   formData.append("description", description);
 
   try {
     const res = await http.post(`photos/`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
+      headers: setHeaders()
     });
     successCallback();
   } catch (err) {
