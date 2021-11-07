@@ -33,6 +33,7 @@ const BasicForm = ({ data, resource, refresh }) => {
   }, []);
 
   const handleSubmit = () => {
+    setErrMsg("")
     const successCallback = () => {
       if (data && data.id) {
         setEdit(false);
@@ -60,6 +61,7 @@ const BasicForm = ({ data, resource, refresh }) => {
   };
 
   const handleDelete = (id) => {
+    setErrMsg("")
     deleteResources({
       resource,
       id,
