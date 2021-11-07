@@ -93,10 +93,18 @@ const ListBox = styled.div`
 const Title = styled.h4`
 `
 
+const Comment = styled.span`
+
+`
+
 
 export default function BasicFormList({ resource, items, refresh }) {
   const [show, setShow] = useState(false);
   const [searchKey, setSearchKey] = useState("");
+
+  const includesSting = (src, target) => {
+    return src.toLowerCase().includes(target.toLowerCase())
+  }
 
   return (
     <Container>
@@ -108,9 +116,10 @@ export default function BasicFormList({ resource, items, refresh }) {
         {show && (
           <ListBox>
             <BasicForm resource={resource} refresh={refresh} setSearchKey={setSearchKey} />
+            {searchKey !== "" && items.find(item => (includesSting(item.name, searchKey))) && (<Comment>Already have this(these) with keword: "{searchKey}"</Comment>)}
             <List>
               {items.length > 0 &&
-                items.filter(item => (item.name.toLowerCase().includes(searchKey.toLowerCase()))).map((item) => (
+                items.filter(item => (includesSting(item.name, searchKey))).map((item) => (
                   <BasicForm key={item.id} data={item} resource={resource} refresh={refresh} />
                 ))}
             </List>
