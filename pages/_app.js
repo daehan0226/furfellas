@@ -1,4 +1,6 @@
 import GlobalStyle from "../styles/global-styles";
+import { Provider } from "react-redux";
+import { useStore } from "../redux";
 import { ThemeProvider } from "../styles/themed-components";
 import theme from "../styles/theme";
 import { Layout, AdminLayout } from "../components/layout";
@@ -22,6 +24,7 @@ function withContext(Component) {
 }
 
 function App({ Component, pageProps, router: { route } }) {
+  const store = useStore(pageProps.initialReduxState);
   const getLayout = (page) => {
     let LayoutComponent = Layout;
     if (route.includes("admin")) {
@@ -33,9 +36,11 @@ function App({ Component, pageProps, router: { route } }) {
   return (
     <>
       <GlobalStyle />
-      <ThemeProvider theme={theme}>
-        {getLayout(<Component {...pageProps} />)}
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          {getLayout(<Component {...pageProps} />)}
+        </ThemeProvider>
+      </Provider>
     </>
   );
 }
