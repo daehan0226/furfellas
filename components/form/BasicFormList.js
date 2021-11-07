@@ -1,7 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import BasicForm from "./BasicForm";
-
+import { ArrowIcon } from "../common";
+import { FlexCenterBox } from "../../styles/common-styles";
 
 const Container = styled.div`
   width: 100%;
@@ -22,6 +23,7 @@ const SubContainer = styled.div`
 `
 const Span = styled.span`
   cursor: pointer;
+  margin-right: 6px;
 `
 
 const List = styled.div`
@@ -35,6 +37,11 @@ const List = styled.div`
   height: 0;
   }
 `
+const TitleBox = styled.div`
+  align-items: center;
+  display: flex;
+`
+
 
 const Title = styled.h4`
 `
@@ -45,8 +52,10 @@ export default function BasicFormList({ resource, items, refresh }) {
   return (
     <Container>
       <SubContainer>
-        <Title>{resource}</Title>
-        <Span onClick={() => { setShow(!show) }}>{show ? "hide" : "show"}</Span>
+        <TitleBox>
+          <Span onClick={() => { setShow(!show) }}>{show ? <ArrowIcon /> : <ArrowIcon up={show} />}</Span>
+          <Title>{resource}</Title>
+        </TitleBox>
         {show && (
           <>
             <BasicForm resource={resource} refresh={refresh} />
