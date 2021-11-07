@@ -1,11 +1,10 @@
 import React from "react";
-import { Desc, RecentPhotoGallery, Gallery } from "../components";
+import { Desc, Gallery } from "../components";
 
 export default function Home() {
   return (
     <>
       <Desc />
-      <RecentPhotoGallery />
       <Gallery />
     </>
   );

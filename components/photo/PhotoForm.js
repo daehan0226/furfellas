@@ -25,7 +25,7 @@ const ButtonWrap = styled.div`
   height: 60px;
 `;
 
-const PhotoForm = ({ data, refreshPhotos = () => {} }) => {
+const PhotoForm = ({ data, refreshPhotos = () => { } }) => {
   const typeSelect = useSelect("who", usePhotoType);
   const actionSelect = useSelect("what", useAction);
   const locationSelect = useSelect("where", useLocation);
