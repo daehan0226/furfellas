@@ -5,24 +5,24 @@ const LocationContext = createContext();
 
 export const LocationContextProvider = (props) => {
   const [fetchData, doFetchData] = useFetch([]);
-  const [locations, setLocations] = useState([]);
+  const [data, setData] = useState([]);
 
-  const refreshLocations = () => {
+  const refresh = () => {
     doFetchData("locations/");
   };
 
   useEffect(() => {
-    refreshLocations();
+    refresh();
   }, []);
 
   useEffect(() => {
     if (fetchData.data && fetchData.data.length > 0) {
-      setLocations([...fetchData.data]);
+      setData([...fetchData.data]);
     }
   }, [fetchData.data]);
 
   return (
-    <LocationContext.Provider value={{ locations, refreshLocations }}>
+    <LocationContext.Provider value={{ data, refresh }}>
       {props.children}
     </LocationContext.Provider>
   );

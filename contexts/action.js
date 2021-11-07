@@ -5,24 +5,24 @@ const ActionContext = createContext();
 
 export const ActionContextProvider = (props) => {
   const [fetchData, doFetchData] = useFetch([]);
-  const [actions, setActions] = useState([]);
+  const [data, setData] = useState([]);
 
-  const refreshActions = () => {
+  const refresh = () => {
     doFetchData("actions/");
   };
 
   useEffect(() => {
-    refreshActions();
+    refresh();
   }, []);
 
   useEffect(() => {
     if (fetchData.data && fetchData.data.length > 0) {
-      setActions([...fetchData.data]);
+      setData([...fetchData.data]);
     }
   }, [fetchData.data]);
 
   return (
-    <ActionContext.Provider value={{ actions, refreshActions }}>
+    <ActionContext.Provider value={{ data, refresh }}>
       {props.children}
     </ActionContext.Provider>
   );

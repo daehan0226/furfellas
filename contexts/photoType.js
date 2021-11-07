@@ -5,24 +5,24 @@ const PhotoTypeContext = createContext();
 
 export const PhotoTypeContextProvider = (props) => {
   const [fetchData, doFetchData] = useFetch([]);
-  const [photoTypes, setphotoTypes] = useState([]);
+  const [data, setData] = useState([]);
 
-  const refreshPhotoTypes = () => {
+  const refresh = () => {
     doFetchData("photo-types/");
   };
 
   useEffect(() => {
-    refreshPhotoTypes()
+    refresh()
   }, []);
 
   useEffect(() => {
     if (fetchData.data && fetchData.data.length > 0) {
-      setphotoTypes([...fetchData.data]);
+      setData([...fetchData.data]);
     }
   }, [fetchData.data]);
 
   return (
-    <PhotoTypeContext.Provider value={{ photoTypes, refreshPhotoTypes }}>
+    <PhotoTypeContext.Provider value={{ data, refresh }}>
       {props.children}
     </PhotoTypeContext.Provider>
   );

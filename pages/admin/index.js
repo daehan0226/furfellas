@@ -17,10 +17,9 @@ const Container = styled.div`
 export default function Index() {
   const auth = useSelector((state) => state.auth);
   const router = useRouter();
-  const { actions, refreshActions } = useAction();
-  const { locations, refreshLocations } = useLocation();
-  const { photoTypes, refreshPhotoTypes } = usePhotoType();
-
+  const actions = useAction();
+  const locations = useLocation();
+  const photoTypes = usePhotoType();
 
   useEffect(() => {
     if (auth.is_admin === 1) {
@@ -34,18 +33,18 @@ export default function Index() {
     <Container>
       <BasicFormList
         resource="actions"
-        refresh={refreshActions}
-        items={actions}
+        refresh={actions.refresh}
+        items={actions.data}
       ></BasicFormList>
       <BasicFormList
         resource="locations"
-        refresh={refreshLocations}
-        items={locations}
+        refresh={locations.refresh}
+        items={locations.data}
       ></BasicFormList>
       <BasicFormList
         resource="photo-types"
-        refresh={refreshPhotoTypes}
-        items={photoTypes}
+        refresh={photoTypes.refresh}
+        items={photoTypes.data}
       ></BasicFormList>
       <PhotoFormList />
     </Container>
