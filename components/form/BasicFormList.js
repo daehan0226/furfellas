@@ -2,7 +2,6 @@ import { useState } from "react";
 import styled from "styled-components";
 import BasicForm from "./BasicForm";
 import { ArrowIcon } from "../common";
-import { FlexCenterBox } from "../../styles/common-styles";
 
 const Container = styled.div`
   width: 100%;
@@ -28,20 +27,68 @@ const Span = styled.span`
 
 const List = styled.div`
   overflow-y: scroll;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none;  /* Internet Explorer 10+ */
   height: 100px;
+  @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+    margin-right: -10px;
+    padding-top: 32px;
+    margin-top: -32px;
+    margin-bottom: -32px;
+    padding-bottom: 32px;
 
-  ::-webkit-scrollbar {
-    width: 0;
-  height: 0;
+    scrollbar-base-color: #efefef;
+    scrollbar-face-color: #666666;
+    scrollbar-3dlight-color: #666666;
+    scrollbar-highlight-color: #666666;
+    scrollbar-track-color: #efefef;
+    scrollbar-arrow-color: #666666;
+    scrollbar-shadow-color: #666666;
+    scrollbar-dark-shadow-color: #666666;
+
+    :after {
+      content: "";
+      height: 32px;
+      display: block;
+    }
   }
+
+  @supports (-ms-ime-align: auto) {
+    margin-right: -10px;
+    padding-top: 16px;
+    margin-top: -16px;
+    margin-bottom: -16px;
+    padding-bottom: 16px;
+
+    :after {
+      content: "";
+      height: 16px;
+      display: block;
+    }
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: #efefef;
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #666666;
+    border: 1px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
 `
 const TitleBox = styled.div`
   align-items: center;
   display: flex;
 `
 
+const ListBox = styled.div`
+  box-sizing: border-box;
+  padding-left: 16px;
+`
 
 const Title = styled.h4`
 `
@@ -49,6 +96,8 @@ const Title = styled.h4`
 
 export default function BasicFormList({ resource, items, refresh }) {
   const [show, setShow] = useState(false);
+  const [searchKey, setSearchKey] = useState("");
+
   return (
     <Container>
       <SubContainer>
@@ -57,15 +106,15 @@ export default function BasicFormList({ resource, items, refresh }) {
           <Title>{resource}</Title>
         </TitleBox>
         {show && (
-          <>
-            <BasicForm resource={resource} refresh={refresh} />
+          <ListBox>
+            <BasicForm resource={resource} refresh={refresh} setSearchKey={setSearchKey} />
             <List>
               {items.length > 0 &&
-                items.map((item) => (
+                items.filter(item => (item.name.toLowerCase().includes(searchKey.toLowerCase()))).map((item) => (
                   <BasicForm key={item.id} data={item} resource={resource} refresh={refresh} />
                 ))}
             </List>
-          </>
+          </ListBox>
         )}
       </SubContainer>
     </Container>
