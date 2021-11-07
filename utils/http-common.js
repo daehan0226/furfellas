@@ -2,16 +2,6 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import { server } from "../config";
 
-const checkIfSessionExists = () => {
-  const cookies = new Cookies();
-  const session = cookies.get("EID_SES");
-  if (session) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
 export const setHeaders = () => {
   const headers = { "Content-Type": "application/json" };
   const cookies = new Cookies();
@@ -22,7 +12,14 @@ export const setHeaders = () => {
   return headers;
 };
 
-export default axios.create({
+const httpClient = axios.create({
   baseURL: `${server}/api/`,
-  headers: setHeaders(),
 });
+
+httpClient.interceptors.request.use(function (config) {
+  config.headers = setHeaders()
+  return config;
+});
+
+
+export default httpClient
