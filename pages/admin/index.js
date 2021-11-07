@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { FlexCenterBox } from "../../styles/common-styles";
 import { useAction, usePhotoType, useLocation } from "../../contexts";
-import { BasicFormList } from "../../components/form";
+import { BasicFormList, PhotoFormList } from "../../components/form";
 
 const Container = styled.div`
   min-height: 80px;
@@ -47,6 +47,7 @@ export default function Index() {
         refresh={refreshPhotoTypes}
         items={photoTypes}
       ></BasicFormList>
+      <PhotoFormList />
     </Container>
   );
 }

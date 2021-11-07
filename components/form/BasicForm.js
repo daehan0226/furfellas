@@ -4,7 +4,8 @@ import { FlexCenterBox } from "../../styles/common-styles";
 import { createResources, updateResources, deleteResources } from "../../utils";
 import { Button } from "../common";
 
-const Container = styled.div``;
+const Container = styled.div`
+`;
 
 const ItemBox = styled.div`
   ${FlexCenterBox}
