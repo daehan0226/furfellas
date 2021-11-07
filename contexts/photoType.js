@@ -7,8 +7,12 @@ export const PhotoTypeContextProvider = (props) => {
   const [fetchData, doFetchData] = useFetch([]);
   const [photoTypes, setphotoTypes] = useState([]);
 
+  const refreshPhotoTypes = () => {
+    doFetchData("photo-types/");
+  };
+
   useEffect(() => {
-    doFetchData("photos/types");
+    refreshPhotoTypes()
   }, []);
 
   useEffect(() => {
@@ -18,7 +22,7 @@ export const PhotoTypeContextProvider = (props) => {
   }, [fetchData.data]);
 
   return (
-    <PhotoTypeContext.Provider value={{ data: photoTypes }}>
+    <PhotoTypeContext.Provider value={{ photoTypes, refreshPhotoTypes }}>
       {props.children}
     </PhotoTypeContext.Provider>
   );

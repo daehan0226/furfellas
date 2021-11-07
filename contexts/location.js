@@ -8,7 +8,7 @@ export const LocationContextProvider = (props) => {
   const [locations, setLocations] = useState([]);
 
   const refreshLocations = () => {
-    doFetchData("locations");
+    doFetchData("locations/");
   };
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export const LocationContextProvider = (props) => {
   }, [fetchData.data]);
 
   return (
-    <LocationContext.Provider value={{ data: locations, refreshLocations }}>
+    <LocationContext.Provider value={{ locations, refreshLocations }}>
       {props.children}
     </LocationContext.Provider>
   );

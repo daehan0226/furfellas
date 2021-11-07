@@ -23,7 +23,7 @@ const Footer = () => {
   return (
     <Container>
       <LinkBox>
-        <Link href={"/admin"}>Admin</Link>
+        <Link href={"/member/signin"}>Admin</Link>
       </LinkBox>
       <LinkBox>
         {`©${new Date().getFullYear()} Copyright : `}

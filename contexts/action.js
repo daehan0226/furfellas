@@ -8,7 +8,7 @@ export const ActionContextProvider = (props) => {
   const [actions, setActions] = useState([]);
 
   const refreshActions = () => {
-    doFetchData("actions");
+    doFetchData("actions/");
   };
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export const ActionContextProvider = (props) => {
   }, [fetchData.data]);
 
   return (
-    <ActionContext.Provider value={{ data: actions, refreshActions }}>
+    <ActionContext.Provider value={{ actions, refreshActions }}>
       {props.children}
     </ActionContext.Provider>
   );

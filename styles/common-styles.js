@@ -19,7 +19,7 @@ export const PrimaryBtn = css`
   white-space: nowrap;
   text-align: center;
   font-size: 14px;
-  width: 80px;
+  width: 100px;
 
   :hover {
     border-color: ${({ theme }) => theme.colors.primary.btnLight};

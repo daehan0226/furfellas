@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
-import { ActionForm } from "../../components/action";
 import { FlexCenterBox } from "../../styles/common-styles";
 import { useAction } from "../../contexts";
+import { BasicForm } from "../../components/form";
 
 const Container = styled.div`
   min-height: 80px;
@@ -12,13 +12,16 @@ const Container = styled.div`
 `;
 
 export default function Action() {
-  const { data } = useAction();
+  const { data, refreshActions } = useAction();
 
   return (
     <Container>
-      <ActionForm />
+      <BasicForm resource="actions" refresh={refreshActions} />
       {data.length > 0 &&
-        data.map((action) => <ActionForm key={action.id} data={action} />)}
+        data.map((action) => (
+          <BasicForm key={action.id} data={action} resource="actions" refresh={refreshActions} />
+        ))}
+
     </Container>
   );
 }
