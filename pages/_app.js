@@ -10,6 +10,7 @@ import {
   ActionContextProvider,
   PhotoTypeContextProvider,
 } from "../contexts";
+import "../styles/styles.css";
 
 function withContext(Component) {
   return (props) => (
