@@ -8,6 +8,7 @@ const uploadService = async ({
   actions,
   location,
   description,
+  datetime,
   successCallback,
   failCallback,
 }) => {
@@ -18,17 +19,20 @@ const uploadService = async ({
   formData.append("action_ids", actions);
   formData.append("location_id", location);
   formData.append("description", description);
+  formData.append("create_datetime", datetime)
 
   try {
     const headers = setHeaders()
+    console.log(id)
     if (id) {
       const res = await http.put(`photos/${id}`, formData, {
         headers,
       });
+    } else {
+      const res = await http.post(`photos/`, formData, {
+        headers,
+      });
     }
-    const res = await http.post(`photos/`, formData, {
-      headers,
-    });
     successCallback();
   } catch (err) {
     console.log(err);
