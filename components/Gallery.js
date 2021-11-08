@@ -90,8 +90,8 @@ const Gallery = () => {
         <SelectWrap>
           <Select {...locationSelect} selectAll={true} />
         </SelectWrap>
-        <Sort title={"Date time"} sort={sort} setSort={setSort} />
       </Container>
+      <Sort title={"Date time"} sort={sort} setSort={setSort} />
       <ImageContainer>
         {fetchPhotos.loading && (
           <Skeletons />

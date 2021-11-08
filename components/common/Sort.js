@@ -3,10 +3,10 @@ import ArrowIcon from "./ArrowIcon";
 
 const SortContainer = styled.div`
   display: flex;
-  margin-left: auto;
+  margin-left: 20px;
 `;
 
-const Sort = ({ title, sort = "asc", setSort = () => {} }) => {
+const Sort = ({ title, sort = "asc", setSort = () => { } }) => {
   return (
     <SortContainer>
       <h6>{title}</h6>
