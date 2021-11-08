@@ -44,7 +44,7 @@ const PhotoForm = ({ data, refreshPhotos = () => { } }) => {
   }, [data]);
 
   useEffect(() => {
-    if (descInput.value.length > 20) {
+    if (descInput.value.length > 40) {
       setOpenSubmit(false);
       descInputErr.setMsg("too long");
     } else {
@@ -64,10 +64,9 @@ const PhotoForm = ({ data, refreshPhotos = () => { } }) => {
     if (locationSelect.selectedItems.length === 0) {
       return;
     }
-    if (!file) {
-      return;
+    if (!data && !file) {
+      return
     }
-
     setOpenSubmit(true);
   }, [
     typeSelect.selectedItems,

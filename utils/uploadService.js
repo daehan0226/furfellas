@@ -2,6 +2,7 @@ import { setHeaders } from "./apis";
 import http from "./http-common";
 
 const uploadService = async ({
+  id,
   file,
   type,
   actions,
@@ -19,8 +20,14 @@ const uploadService = async ({
   formData.append("description", description);
 
   try {
+    const headers = setHeaders()
+    if (id) {
+      const res = await http.put(`photos/${id}`, formData, {
+        headers,
+      });
+    }
     const res = await http.post(`photos/`, formData, {
-      headers: setHeaders()
+      headers,
     });
     successCallback();
   } catch (err) {

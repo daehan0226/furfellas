@@ -48,9 +48,9 @@ const Gallery = () => {
 
   useEffect(() => {
     const params = createQueryParams({
-      types: typeSelect.getSelectedIds(),
-      actions: actionSelect.getSelectedIds(),
-      locations: locationSelect.getSelectedIds(),
+      type_ids: typeSelect.getSelectedIds(),
+      action_ids: actionSelect.getSelectedIds(),
+      location_ids: locationSelect.getSelectedIds(),
     });
     getPhotos(params);
   }, [
