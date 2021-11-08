@@ -116,7 +116,7 @@ export default function BasicFormList({ resource, items, refresh }) {
         {show && (
           <ListBox>
             <BasicForm resource={resource} refresh={refresh} setSearchKey={setSearchKey} />
-            {searchKey !== "" && items.find(item => (includesSting(item.name, searchKey))) && (<Comment>Already have this(these) with keword: "{searchKey}"</Comment>)}
+            {searchKey !== "" && items.find(item => (includesSting(item.name, searchKey))) && (<Comment>{`Already have this(these) with keword: "${searchKey}"`}</Comment>)}
             <List>
               {items.length > 0 &&
                 items.filter(item => (includesSting(item.name, searchKey))).map((item) => (
