@@ -1,12 +1,11 @@
 import { useState } from "react";
 import styled from "styled-components";
 import BasicForm from "./BasicForm";
-import { ArrowIcon } from "../common";
 
 const Container = styled.div`
   width: 100%;
   min-height: 80px;
-  margin: 30px;
+  margin: 15px;
   box-sizing: border-box;
   ${(props) => props.theme.media.tablet`  
     margin: 15px;
@@ -14,10 +13,10 @@ const Container = styled.div`
 `;
 
 const SubContainer = styled.div`
-  margin: 10px;
-  padding: 10px;
+  margin: 5px;
+  padding: 5px;
   box-sizing: border-box;
-  border: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
   border-radius: 2px 2px 0 0;
 `
 const Span = styled.span`
@@ -83,6 +82,7 @@ const List = styled.div`
 const TitleBox = styled.div`
   align-items: center;
   display: flex;
+  width: 300px;
 `
 
 const ListBox = styled.div`
@@ -91,9 +91,12 @@ const ListBox = styled.div`
 `
 
 const Title = styled.h4`
+  margin-bottom: 6px;
+  cursor: pointer;
 `
 
 const Comment = styled.span`
+  margin-bottom: 4px;
 
 `
 
@@ -110,8 +113,7 @@ export default function BasicFormList({ resource, items, refresh }) {
     <Container>
       <SubContainer>
         <TitleBox>
-          <Span onClick={() => { setShow(!show) }}>{show ? <ArrowIcon /> : <ArrowIcon up={show} />}</Span>
-          <Title>{resource}</Title>
+          <Title onClick={() => { setShow(!show) }}>{resource} {items.length}</Title>
         </TitleBox>
         {show && (
           <ListBox>
