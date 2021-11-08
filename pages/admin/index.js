@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { FlexCenterBox } from "../../styles/common-styles";
 import { useAction, usePhotoType, useLocation } from "../../contexts";
-import { BasicFormList, PhotoFormList } from "../../components/form";
+import { BasicFormList } from "../../components/form";
+import { PhotoFormList } from "../../components/photo";
 
 const Container = styled.div`
   min-height: 80px;

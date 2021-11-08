@@ -66,17 +66,23 @@ const BasicForm = ({ data, resource, refresh, setSearchKey }) => {
   };
 
   const handleDelete = (id) => {
-    setErrMsg("")
-    deleteResources({
-      resource,
-      id,
-      successCallback: () => {
-        refresh();
-      },
-      failCallback: () => {
-        setErrMsg("Something went wrong - delete fail");
-      },
-    });
+    const confirmAction = () => {
+      if (window.confirm(`Do you really want to delete '${data.name}'?`)) {
+        setErrMsg("")
+        deleteResources({
+          resource,
+          id,
+          successCallback: () => {
+            refresh();
+          },
+          failCallback: () => {
+            setErrMsg("Something went wrong - delete fail");
+          },
+        });
+      }
+    };
+    confirmAction();
+
   };
 
   return (

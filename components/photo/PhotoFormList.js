@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import styled from "styled-components";
 
 import { useFetch } from "../../hooks";
-import { PhotoForm } from "../photo";
+import { PhotoForm } from ".";
 
 const Container = styled.div`
   width: 100%;
@@ -14,7 +14,7 @@ const Title = styled.h4`
 `
 
 
-export default function PhotoFromList() {
+export default function PhotoFormList() {
   const [fetchPhotos, doFfetchPhotos] = useFetch([]);
 
   const refreshPhotos = () => {

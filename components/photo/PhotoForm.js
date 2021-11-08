@@ -1,18 +1,33 @@
 import { useState, useEffect } from "react";
+import moment from "moment";
 import styled from "styled-components";
 import { Button, InputFile, Select, Input, Loading } from "../common";
 import { useSelect, useInput } from "../../hooks";
 import { useAction, useLocation, usePhotoType } from "../../contexts";
 import uploadService from "../../utils/uploadService";
 import { deleteResources } from "../../utils";
+import { DatePicker } from 'antd';
+import { FlexCenterBox } from "../../styles/common-styles";
+
 
 const Container = styled.section`
   display: flex;
   flex-direction: column;
 `;
 
+
+const SubContainer = styled.section`
+  margin: 10px;
+`;
+
 const Selects = styled.div`
   padding: 6px;
+  ${FlexCenterBox};
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  > * {
+    margin: 10px 10px;
+}
 `;
 
 const Image = styled.img`
@@ -33,6 +48,7 @@ const PhotoForm = ({ data, refreshPhotos = () => { } }) => {
   const [openSubmit, setOpenSubmit] = useState(false);
   const [file, setFile] = useState(null);
   const [descInput, descInputErr] = useInput("Description");
+  const [datetime, setDatetime] = useState("");
 
   useEffect(() => {
     if (data) {
@@ -84,6 +100,7 @@ const PhotoForm = ({ data, refreshPhotos = () => { } }) => {
       actions: actionSelect.getSelectedIds(),
       location: locationSelect.getSelectedIds(),
       description: descInput.value,
+      datetime,
       successCallback: () => {
         setFile(null);
         typeSelect.setSelectedItems([]);
@@ -99,19 +116,30 @@ const PhotoForm = ({ data, refreshPhotos = () => { } }) => {
   };
 
   const handleDelete = (id) => {
-    setLoading(true);
-    deleteResources({
-      id,
-      resource: "photos",
-      successCallback: () => {
-        refreshPhotos;
-        setLoading(false);
-      },
-      failCallback: () => {
-        setLoading(false);
-      },
-    });
+    const confirmAction = () => {
+      if (window.confirm("Do you really want to delete this photo?")) {
+        setLoading(true);
+        deleteResources({
+          id,
+          resource: "photos",
+          successCallback: () => {
+            refreshPhotos;
+            setLoading(false);
+          },
+          failCallback: () => {
+            setLoading(false);
+          },
+        });
+      }
+    };
+    confirmAction();
   };
+
+  const onDatetimeChange = (date, dateString) => {
+    setDatetime(dateString)
+  }
+
+  const dateFormat = 'YYYY-MM-DD';
 
   return (
     <Container>
@@ -119,32 +147,35 @@ const PhotoForm = ({ data, refreshPhotos = () => { } }) => {
         <Select {...typeSelect} multipleChoices={false} />
         <Select {...actionSelect} />
         <Select {...locationSelect} multipleChoices={false} />
+        <DatePicker onChange={onDatetimeChange} defaultValue={data && moment(data.create_datetime, dateFormat)} />
       </Selects>
-      {data ? (
-        <Image
-          src={`https://drive.google.com/thumbnail?id=${data.image_id}`}
-          alt={data.name}
-        />
-      ) : (
-        <InputFile file={file} setFile={setFile} />
-      )}
-      <Input {...descInput} errMsg={descInputErr.msg} />
-      <ButtonWrap>
-        {loading ? (
-          <Loading />
+      <SubContainer>
+        {data ? (
+          <Image
+            src={`https://drive.google.com/thumbnail?id=${data.image_id}`}
+            alt={data.name}
+          />
         ) : (
-          <>
-            <Button
-              text={data ? "Edit" : "Submit"}
-              onClick={handleSubmit}
-              disabled={!openSubmit}
-            />
-            {data && (
-              <Button text={"Delete"} onClick={() => handleDelete(data.id)} />
-            )}
-          </>
+          <InputFile file={file} setFile={setFile} />
         )}
-      </ButtonWrap>
+        <Input {...descInput} errMsg={descInputErr.msg} />
+        <ButtonWrap>
+          {loading ? (
+            <Loading />
+          ) : (
+            <>
+              <Button
+                text={data ? "Edit" : "Submit"}
+                onClick={handleSubmit}
+                disabled={!openSubmit}
+              />
+              {data && (
+                <Button text={"Delete"} onClick={() => handleDelete(data.id)} />
+              )}
+            </>
+          )}
+        </ButtonWrap>
+      </SubContainer>
     </Container>
   );
 };
