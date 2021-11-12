@@ -12,6 +12,14 @@ export const getCurrentStringDatetime = () => {
   return date + 'T' + time;
 }
 
+
+export const getCurrentStringDate = () => {
+  const today = new Date();
+  const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+  return date;
+}
+
+
 export const capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
