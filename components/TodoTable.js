@@ -42,6 +42,7 @@ const TodoTable = () => {
     }, [datetiemFrom, datetiemTo])
 
     useEffect(() => {
+        setData([])
         if (fetchData.data.length > 0) {
             setData([...fetchData.data.map(item => {
                 return {
