@@ -1,10 +1,11 @@
 import React from "react";
-import { Desc, Gallery } from "../components";
+import { Desc, Gallery, TodoTable } from "../components";
 
 export default function Home() {
   return (
     <>
       <Desc />
+      <TodoTable />
       <Gallery />
     </>
   );
