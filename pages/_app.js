@@ -11,6 +11,7 @@ import {
   PhotoTypeContextProvider,
 } from "../contexts";
 import "../styles/styles.css";
+import "../styles/images.scss";
 
 function withContext(Component) {
   return (props) => (

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import ImageGallery from 'react-image-gallery';
 import { useSelect, useFetch } from "../hooks";
 import { useAction, useLocation, usePhotoType } from "../contexts";
 import { SectionContainer, SectionTitle, Select, Sort, Skeletons } from "./common";
@@ -12,6 +13,11 @@ const ImageContainer = styled.div`
 `;
 
 const ImageWrapper = styled.div``;
+
+
+const ImageGalleryWrapper = styled(ImageGallery)`
+  display: 'none';
+`;
 
 const Image = styled.img`
   width: auto;
@@ -59,6 +65,14 @@ const Gallery = () => {
     locationSelect.selectedItems,
   ]);
 
+  const addSlideProperties = (item) => {
+    return ({
+      ...item,
+      originalHeight: 400,
+      thumbnailHeight: 80
+    })
+  }
+
   useEffect(() => {
     let sorted = [];
     if (sort === "asc") {
@@ -71,7 +85,7 @@ const Gallery = () => {
 
   useEffect(() => {
     if (fetchPhotos.data.length > 0) {
-      setImages([...fetchPhotos.data]);
+      setImages([...fetchPhotos.data.map(addSlideProperties)]);
     } else {
       setImages([]);
     }
@@ -96,17 +110,24 @@ const Gallery = () => {
         {fetchPhotos.loading && (
           <Skeletons />
         )}
-        {images.map(({ id, image_id, name }) => (
+        {images && images.length > 0 && (
+          <ImageGalleryWrapper
+            items={images}
+          />
+        )}
+        {/* {images.map(({ id, image_id, name }) => (
           <ImageWrapper key={id}>
             <Image
               src={`https://drive.google.com/thumbnail?id=${image_id}`}
               alt={name}
             />
           </ImageWrapper>
-        ))}
+        ))} */}
       </ImageContainer>
     </SectionContainer>
   );
 };
 
 export default Gallery;
+
+
