@@ -71,12 +71,6 @@ const GlobalStyle = createGlobalStyle`
     line-height: 1.334;
     margin-bottom: 15px;
   }
-  span {
-    font-size : 14px;
-    font-weight: 300;
-    line-height: 1.334;
-    margin-bottom: 15px;
-  }
 
   @media only screen and (max-width: 768px) {
     body {
@@ -105,10 +99,6 @@ const GlobalStyle = createGlobalStyle`
     }
     p {
       font-size: 14px;
-      margin-bottom: 12px;
-    }
-    span {
-      font-size: 12px;
       margin-bottom: 12px;
     }
   }
@@ -140,10 +130,6 @@ const GlobalStyle = createGlobalStyle`
     }
     p {
       font-size: 12px;
-      margin-bottom: 8px;
-    }
-    span {
-      font-size: 10px;
       margin-bottom: 8px;
     }
   }
