@@ -10,6 +10,10 @@ import upsertResource from '../../utils/todos';
 const Container = styled.div`
   width: 90%;
   margin: 10px auto;
+  
+  ${(props) => props.theme.media.phone`
+    width: 100%;
+  `}
 `;
 
 

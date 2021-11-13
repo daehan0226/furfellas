@@ -14,6 +14,10 @@ const Container = styled.div`
   margin: 30px;
   ${FlexCenterBox}
   flex-direction: column;
+  
+  ${(props) => props.theme.media.phone`
+    margin: 5px;
+  `}
 `;
 
 
