@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import styled from "styled-components";
 import { FlexCenterBox } from "../styles/common-styles";
 
-
 const Container = styled.div`
   ${FlexCenterBox}
   flex-direction: column;
@@ -15,8 +14,14 @@ const Container = styled.div`
   margin-top: auto;
   ${({ admin }) =>
     admin &&
-    `min-width: 600px;
+    `
+    position: fixed;
+    bottom: 0;
   `};
+`;
+
+const Spacer = styled.div`
+  height: 60px;
 `;
 
 const LinkBox = styled.div`
@@ -28,15 +33,19 @@ const Footer = () => {
   const router = useRouter();
 
   return (
-    <Container admin={router.pathname.includes('admin')}>
-      <LinkBox>
-        <Link href={"/member/signin"}>Admin</Link>
-      </LinkBox>
-      <LinkBox>
-        {`©${new Date().getFullYear()} Copyright : `}
-        <Link href={"/"}>furfellas.foxlee.kr</Link>
-      </LinkBox>
-    </Container>
+    <>
+
+      {router.pathname.includes('admin') && <Spacer />}
+      <Container admin={router.pathname.includes('admin')}>
+        <LinkBox>
+          <Link href={"/member/signin"}>Admin</Link>
+        </LinkBox>
+        <LinkBox>
+          {`©${new Date().getFullYear()} Copyright : `}
+          <Link href={"/"}>furfellas.foxlee.kr</Link>
+        </LinkBox>
+      </Container>
+    </>
   );
 };
 
