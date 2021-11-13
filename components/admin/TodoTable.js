@@ -171,7 +171,7 @@ const TodoTable = () => {
                 const editable = isEditing(record);
                 return editable ? (
                     <DatePicker
-                        onChange={onDatetimeEndChange}
+                        onChange={onDatetimeEndChange} defaultValue={moment(record.finish_datetime, 'YYYY-MM-DD')}
                     />
                 ) : (
                     <p>{record.finish_datetime}</p>
