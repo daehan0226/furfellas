@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Table, Input, InputNumber, Popconfirm, Form, Typography, DatePicker, Button } from 'antd';
 import { useFetch } from '../../hooks';
 import { getCurrentStringDatetime } from '../../utils/utils';
+import deleteResources from "../../utils/deleteResources";
 import upsertResource from '../../utils/todos';
 
 const Container = styled.div`
@@ -102,8 +103,19 @@ const TodoTable = () => {
         setData([{ ...initialValues, start_datetime: today, key: lastKey + 1 }, ...data])
     };
 
-    const handleDelete = (key) => {
-        setData([...data.filter((item) => item.key !== key)]);
+    const handleDelete = (id, key) => {
+        if (id) {
+            deleteResources({
+                id,
+                resource: "todo-groups",
+                successCallback: () => {
+                    setEditingKey('');
+                    refreshTodos()
+                }
+            })
+        } else {
+            setData([...data.filter(item => item.key !== key)])
+        }
     };
 
     const onDatetimeStartChange = (_, dateString) => {
@@ -210,7 +222,7 @@ const TodoTable = () => {
             dataIndex: 'delete',
             render: (_, record) =>
                 data.length >= 1 ? (
-                    <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.key)}>
+                    <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.id, record.key)}>
                         <a>Delete</a>
                     </Popconfirm>
                 ) : null,
