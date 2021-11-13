@@ -9,6 +9,10 @@ import PhotoGallery from "./gallery/PhotoGallery";
 import SlideGallery from "./gallery/SlideGallery";
 import { FlexCenterBox } from "../styles/common-styles";
 
+import { Menu, Dropdown } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+
+
 
 const ImageContainer = styled.div`
   display: flex;
@@ -97,6 +101,21 @@ const Gallery = () => {
     setDisplayType(e.target.value)
   }
 
+  const handleMenuClick = (e) => {
+    setSort(e.key)
+  }
+
+  const menu = (
+    <Menu onClick={handleMenuClick}>
+      <Menu.Item key="asc">
+        <span>from old photos</span>
+      </Menu.Item>
+      <Menu.Item key="desc">
+        <span>from new photos</span>
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <SectionContainer>
       <SectionTitle text={"Gallery"} />
@@ -112,7 +131,11 @@ const Gallery = () => {
             <Radio.Button value="gallery">Gallery</Radio.Button>
           </Radio.Group>
         </RadioBox>
-        <Sort title={"Date time"} sort={sort} setSort={setSort} />
+        <Dropdown overlay={menu} trigger={['click']} >
+          <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+            Sort by <DownOutlined />
+          </a>
+        </Dropdown>
       </DisplayOptionBox>
       <ImageContainer>
         {images.length > 0 && (
