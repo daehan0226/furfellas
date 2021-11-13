@@ -65,6 +65,7 @@ const TodoTable = () => {
             title: 'Date',
             dataIndex: 'datetime',
             width: '40%',
+            sorter: true,
         }
     ];
 
@@ -73,6 +74,22 @@ const TodoTable = () => {
     }
     const onDatetimeToChange = (date, dateString) => {
         setDatetimeTo(dateString)
+    }
+
+    const sortTodos = (order) => {
+
+        let sorted = [];
+        if (order === "descend") {
+            sorted = data.sort((a, b) => (a.datetime < b.datetime ? 1 : -1));
+        } else {
+            sorted = data.sort((a, b) => (a.datetime > b.datetime ? 1 : -1));
+        }
+        setData([...sorted]);
+    }
+
+    const handleChange = (pagination, filters, sorter) => {
+        sortTodos(sorter.order)
+        console.log(pagination, filters, sorter)
     }
 
     const dateFormat = 'YYYY-MM-DD';
@@ -97,6 +114,7 @@ const TodoTable = () => {
                 dataSource={data}
                 columns={columns}
                 rowClassName="editable-row"
+                onChange={handleChange}
             />
         </SectionContainer>
     );
