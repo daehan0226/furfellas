@@ -7,6 +7,7 @@ import { createQueryParams } from "../utils";
 import { Radio } from 'antd';
 import PhotoGallery from "./gallery/PhotoGallery";
 import SlideGallery from "./gallery/SlideGallery";
+import { FlexCenterBox } from "../styles/common-styles";
 
 
 const ImageContainer = styled.div`
@@ -23,6 +24,12 @@ const Container = styled.div`
   margin: 20px;
   background-color: ${({ theme }) => theme.colors.primary.text};
 `;
+
+const DisplayOptionBox = styled.div`
+  ${FlexCenterBox}
+  justify-content: space-between;
+  margin: 0px 30px;
+`
 
 const Gallery = () => {
   const [images, setImages] = useState([]);
@@ -98,13 +105,15 @@ const Gallery = () => {
         <AntSelect placeholder="Choose locations" onChange={handleSelectedItemChange} selectKey={"locations"} options={locations.data} />
         <AntSelect placeholder="Choose photo types" onChange={handleSelectedItemChange} selectKey={"photoTypes"} options={photoTypes.data} />
       </Container>
-      <Sort title={"Date time"} sort={sort} setSort={setSort} />
-      <RadioBox>
-        <Radio.Group defaultValue="slide" buttonStyle="solid" onChange={handleTypeChange} >
-          <Radio.Button value="slide">Slide</Radio.Button>
-          <Radio.Button value="gallery">Gallery</Radio.Button>
-        </Radio.Group>
-      </RadioBox>
+      <DisplayOptionBox>
+        <RadioBox>
+          <Radio.Group defaultValue="slide" buttonStyle="solid" onChange={handleTypeChange} >
+            <Radio.Button value="slide">Slide</Radio.Button>
+            <Radio.Button value="gallery">Gallery</Radio.Button>
+          </Radio.Group>
+        </RadioBox>
+        <Sort title={"Date time"} sort={sort} setSort={setSort} />
+      </DisplayOptionBox>
       <ImageContainer>
         {images.length > 0 && (
           <>
