@@ -89,7 +89,6 @@ const TodoTable = () => {
 
     const handleChange = (pagination, filters, sorter) => {
         sortTodos(sorter.order)
-        console.log(pagination, filters, sorter)
     }
 
     const dateFormat = 'YYYY-MM-DD';

@@ -5,6 +5,8 @@ import { useSelect, useFetch } from "../hooks";
 import { useAction, useLocation, usePhotoType } from "../contexts";
 import { SectionContainer, SectionTitle, Select, Sort, Skeletons } from "./common";
 import { createQueryParams } from "../utils";
+import { Radio } from 'antd';
+
 
 const ImageContainer = styled.div`
   display: flex;
@@ -12,16 +14,42 @@ const ImageContainer = styled.div`
   min-height: 200px;
 `;
 
-const ImageWrapper = styled.div``;
+const GalleryContainer = styled.div`
+    /* Prevent vertical gaps */
+    line-height: 0;
+    
+    -webkit-column-count: 5;
+    -webkit-column-gap:   0px;
+    -moz-column-count:    5;
+    -moz-column-gap:      0px;
+    column-count:         5;
+    column-gap:           0px;  
+
+  ${(props) => props.theme.media.desktop`
+    -moz-column-count:    4;
+    -webkit-column-count: 4;
+    column-count:         4;
+  `}
+  ${(props) => props.theme.media.tablet`
+    -moz-column-count:    3;
+    -webkit-column-count: 3;
+    column-count:         3s;
+  `}
+  ${(props) => props.theme.media.phone`
+    -moz-column-count:    2;
+    -webkit-column-count: 2;
+    column-count:         2;
+  `}
+`
+
+const GalleryImage = styled.img`
+  width: 100% !important;
+  height: auto !important;
+`
 
 
-const ImageGalleryWrapper = styled(ImageGallery)`
-  display: 'none';
-`;
-
-const Image = styled.img`
-  width: auto;
-  height: 200px;
+const RadioBox = styled.div`
+  margin: 10px 0;
 `;
 
 const Container = styled.div`
@@ -36,7 +64,9 @@ const SelectWrap = styled.div`
 `;
 
 const Gallery = () => {
-  const [images, setImages] = useState([]);
+  const [slideImages, setSlideImages] = useState([]);
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [displayType, setDisplayType] = useState('slide');
   const [sort, setSort] = useState("asc");
   const typeSelect = useSelect("Who", usePhotoType);
   const actionSelect = useSelect("What", useAction);
@@ -65,7 +95,7 @@ const Gallery = () => {
     locationSelect.selectedItems,
   ]);
 
-  const addSlideProperties = (item) => {
+  const setSlideProperties = (item) => {
     return ({
       ...item,
       originalHeight: 400,
@@ -73,23 +103,41 @@ const Gallery = () => {
     })
   }
 
+  const setGalleryProperties = (item) => {
+    return ({
+      src: item.original,
+      ...item
+    })
+  }
+
   useEffect(() => {
-    let sorted = [];
+    let sortedSlideImages = [];
+    let sortedGalleryImages = [];
     if (sort === "asc") {
-      sorted = images.sort((a, b) => (a.datetime > b.datetime ? 1 : -1));
+      sortedSlideImages = slideImages.sort((a, b) => (a.datetime > b.datetime ? 1 : -1));
+      sortedGalleryImages = galleryImages.sort((a, b) => (a.datetime > b.datetime ? 1 : -1));
     } else {
-      sorted = images.sort((a, b) => (a.datetime < b.datetime ? 1 : -1));
+      sortedSlideImages = slideImages.sort((a, b) => (a.datetime < b.datetime ? 1 : -1));
+      sortedGalleryImages = galleryImages.sort((a, b) => (a.datetime < b.datetime ? 1 : -1));
     }
-    setImages([...sorted]);
+    setSlideImages([...sortedSlideImages]);
+    setGalleryImages([...sortedGalleryImages]);
   }, [sort]);
 
   useEffect(() => {
     if (fetchPhotos.data.length > 0) {
-      setImages([...fetchPhotos.data.map(addSlideProperties)]);
+      setSlideImages([...fetchPhotos.data.map(setSlideProperties)]);
+      setGalleryImages([...fetchPhotos.data.map(setGalleryProperties)]);
     } else {
-      setImages([]);
+      setSlideImages([]);
+      setGalleryImages([]);
     }
   }, [fetchPhotos.data]);
+
+
+  const handleTypeChange = (e) => {
+    setDisplayType(e.target.value)
+  }
 
   return (
     <SectionContainer>
@@ -106,23 +154,38 @@ const Gallery = () => {
         </SelectWrap>
       </Container>
       <Sort title={"Date time"} sort={sort} setSort={setSort} />
+      <RadioBox>
+        <Radio.Group defaultValue="slide" buttonStyle="solid" onChange={handleTypeChange} >
+          <Radio.Button value="slide">Slide</Radio.Button>
+          <Radio.Button value="gallery">Gallery</Radio.Button>
+        </Radio.Group>
+      </RadioBox>
+
       <ImageContainer>
         {fetchPhotos.loading && (
           <Skeletons />
         )}
-        {images && images.length > 0 && (
-          <ImageGalleryWrapper
-            items={images}
-          />
+        {fetchPhotos.data && fetchPhotos.data.length > 0 && (
+          <>
+            {displayType === 'slide' &&
+              <ImageGallery
+                items={slideImages}
+              />}
+            {displayType === 'gallery' &&
+              <GalleryContainer>
+                {galleryImages.map(({ id, src, name }) => (
+                  <div key={id}>
+                    <GalleryImage
+                      src={src}
+                      alt={name}
+                    />
+                  </div>
+                ))}
+              </GalleryContainer>
+            }
+          </>
         )}
-        {/* {images.map(({ id, image_id, name }) => (
-          <ImageWrapper key={id}>
-            <Image
-              src={`https://drive.google.com/thumbnail?id=${image_id}`}
-              alt={name}
-            />
-          </ImageWrapper>
-        ))} */}
+
       </ImageContainer>
     </SectionContainer>
   );
