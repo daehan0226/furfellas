@@ -6,8 +6,10 @@ import { FlexCenterBox } from "../../styles/common-styles";
 import { useAction, usePhotoType, useLocation } from "../../contexts";
 import { BasicFormList } from "../../components/form";
 import { PhotoFormList } from "../../components/photo";
+import TodoTable from "../../components/admin/TodoTable";
 
 const Container = styled.div`
+  width: 100%;
   min-height: 80px;
   margin: 30px;
   ${FlexCenterBox}
@@ -15,7 +17,7 @@ const Container = styled.div`
 `;
 
 
-export default function Index() {
+export default function Admin() {
   const auth = useSelector((state) => state.auth);
   const router = useRouter();
   const actions = useAction();
@@ -47,6 +49,7 @@ export default function Index() {
         refresh={photoTypes.refresh}
         items={photoTypes.data}
       ></BasicFormList>
+      <TodoTable />
       <PhotoFormList />
     </Container>
   );

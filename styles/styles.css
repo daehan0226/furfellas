@@ -1,1 +1,15 @@
 @import "~antd/dist/antd.css";
+@import "react-image-gallery/styles/css/image-gallery.css";
+
+.ant-select-selection-item-content, 
+.ant-select-item-option-state, 
+.ant-dropdown-menu-title-content {
+    margin-bottom: 0px;
+    font-size: 12px;
+    line-height: inherit;
+}
+
+.image-gallery {
+    width: 80%;
+    margin: 0 auto;
+}
