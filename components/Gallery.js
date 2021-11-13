@@ -13,7 +13,6 @@ import { Menu, Dropdown } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
 
-
 const ImageContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
