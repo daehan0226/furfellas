@@ -3,12 +3,15 @@ import styled from "styled-components";
 import BasicForm from "./BasicForm";
 
 const Container = styled.div`
-  width: 100%;
+  width: 500px;
   min-height: 80px;
-  margin: 15px;
+  margin: 20px;
   box-sizing: border-box;
   ${(props) => props.theme.media.tablet`  
     margin: 15px;
+  `}
+  ${(props) => props.theme.media.phone`  
+    margin: 10px;
   `}
 `;
 
@@ -102,7 +105,6 @@ const Comment = styled.span`
 
 
 export default function BasicFormList({ resource, items, refresh }) {
-  const [show, setShow] = useState(false);
   const [searchKey, setSearchKey] = useState("");
 
   const includesSting = (src, target) => {
@@ -113,20 +115,18 @@ export default function BasicFormList({ resource, items, refresh }) {
     <Container>
       <SubContainer>
         <TitleBox>
-          <Title onClick={() => { setShow(!show) }}>{resource} {items.length}</Title>
+          <Title>{resource} {items.length}</Title>
         </TitleBox>
-        {show && (
-          <ListBox>
-            <BasicForm resource={resource} refresh={refresh} setSearchKey={setSearchKey} />
-            {searchKey !== "" && items.find(item => (includesSting(item.name, searchKey))) && (<Comment>{`Already have this(these) with keword: "${searchKey}"`}</Comment>)}
-            <List>
-              {items.length > 0 &&
-                items.filter(item => (includesSting(item.name, searchKey))).map((item) => (
-                  <BasicForm key={item.id} data={item} resource={resource} refresh={refresh} />
-                ))}
-            </List>
-          </ListBox>
-        )}
+        <ListBox>
+          <BasicForm resource={resource} refresh={refresh} setSearchKey={setSearchKey} />
+          {searchKey !== "" && items.find(item => (includesSting(item.name, searchKey))) && (<Comment>{`Already have this(these) with keword: "${searchKey}"`}</Comment>)}
+          <List>
+            {items.length > 0 &&
+              items.filter(item => (includesSting(item.name, searchKey))).map((item) => (
+                <BasicForm key={item.id} data={item} resource={resource} refresh={refresh} />
+              ))}
+          </List>
+        </ListBox>
       </SubContainer>
     </Container>
   );

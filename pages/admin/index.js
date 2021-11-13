@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import styled from "styled-components";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { FlexCenterBox } from "../../styles/common-styles";
 import { useAction, usePhotoType, useLocation } from "../../contexts";
 import { BasicFormList } from "../../components/form";
 import { PhotoFormList } from "../../components/photo";
@@ -11,22 +9,7 @@ import TodoTable from "../../components/admin/TodoTable";
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-
-
-
-const Container = styled.div`
-  width: 100%;
-  min-height: 80px;
-  margin: 30px;
-  ${FlexCenterBox}
-  flex-direction: column;
-  
-  ${(props) => props.theme.media.phone`
-    margin: 5px;
-  `}
-`;
 
 
 export default function Admin() {
@@ -103,7 +86,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box>
           <>{children}</>
         </Box>
       )}

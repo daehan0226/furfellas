@@ -5,6 +5,7 @@ import { Nav } from "../nav";
 const Main = styled.main`
   width: 100%;
   min-height: 800px;
+  min-width: 600px;
 `;
 
 const Layout = ({ children }) => {
