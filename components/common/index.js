@@ -8,6 +8,7 @@ import Loading from "./Loading";
 import Sort from "./Sort";
 import ArrowIcon from "./ArrowIcon";
 import Skeletons from "./Skeletons";
+import AntSelect from "./AntSelect";
 
 export {
   Select,
@@ -19,5 +20,6 @@ export {
   Loading,
   Sort,
   ArrowIcon,
-  Skeletons
+  Skeletons,
+  AntSelect
 };
