@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
 import { useAction, usePhotoType, useLocation } from "../../contexts";
 import { BasicFormList } from "../../components/form";
-import { PhotoFormList } from "../../components/photo";
 import TodoTable from "../../components/admin/TodoTable";
 import PhotoTable from "../../components/admin/PhotoTable";
 
@@ -42,7 +41,6 @@ export default function Admin() {
           <Tab label="Photo Types" {...a11yProps(2)} />
           <Tab label="Photos" {...a11yProps(3)} />
           <Tab label="Todos" {...a11yProps(4)} />
-          <Tab label="Temp" {...a11yProps(5)} />
         </Tabs>
       </Box>
       <TabPanel value={value} index={0}>
@@ -71,9 +69,6 @@ export default function Admin() {
       </TabPanel>
       <TabPanel value={value} index={4}>
         <TodoTable />
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        <PhotoFormList />
       </TabPanel>
     </Box>
   );

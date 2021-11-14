@@ -8,9 +8,8 @@ import { useAction, useLocation, usePhotoType } from "../../contexts";
 import deleteResources from "../../utils/deleteResources";
 import uploadService from "../../utils/uploadService";
 import { InputFile } from "../common";
-import { Select } from 'antd';
 
-const { Option } = Select;
+import AntSelect from "./AntSelect"
 
 const Container = styled.div`
   width: 90%;
@@ -21,39 +20,10 @@ const Container = styled.div`
   `}
 `;
 
-const Title = styled.a`
-    color: ${({ theme }) => theme.colors.primary.light};
-`;
-
 const Image = styled.img`
   width: 80px;
   height: auto;
 `;
-const AntSelect = ({ options, placeholder, mode = null, selectedIds = null, setSelctedItems }) => {
-
-    const onChange = (value) => {
-        setSelctedItems(value)
-    }
-
-    return (
-        <Select
-            showSearch
-            style={{ width: 200 }}
-            mode={mode}
-            placeholder={placeholder}
-            defaultValue={selectedIds}
-            optionFilterProp="children"
-            onChange={onChange}
-            filterOption={(input, option) =>
-                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }
-        >
-            {options.map(item => (
-                <Option key={item.name} value={item.id}>{item.name}</Option>
-            ))}
-        </Select>
-    )
-}
 
 const EditableCell = ({
     editing,
@@ -116,22 +86,23 @@ const PhotoTable = () => {
     const [file, setFile] = useState(null);
     const [fetchData, doFetchData] = useFetch([])
     const [editingKey, setEditingKey] = useState('');
+    const [saveOpen, setSaveOpen] = useState(false);
 
     const actions = useAction();
     const locations = useLocation();
     const photoTypes = usePhotoType();
 
-    const [selectedActionIds, setSelectedActionIds] = useState(null);
-    const [selectedLocationId, setSelectedLocationId] = useState(null);
-    const [selectedPhotoTypeId, setSelectedPhotoTypeId] = useState(null);
-
-    const refreshTodos = () => {
-        doFetchData('photos/')
-    }
+    const [selectedActionIds, setSelectedActionIds] = useState([]);
+    const [selectedLocationId, setSelectedLocationId] = useState('');
+    const [selectedPhotoTypeId, setSelectedPhotoTypeId] = useState('');
 
     useEffect(() => {
         refreshTodos()
     }, [])
+
+    const refreshTodos = () => {
+        doFetchData('photos/')
+    }
 
     useEffect(() => {
         if (fetchData.data.length > 0) {
@@ -142,6 +113,7 @@ const PhotoTable = () => {
     }, [fetchData.data])
 
     const isEditing = (record) => record.key === editingKey;
+    const cancel = () => { setEditingKey(''); };
 
     const edit = (record) => {
         form.setFieldsValue({
@@ -154,10 +126,6 @@ const PhotoTable = () => {
             setSelectedActionIds(record.actions.map(item => item.id));
         }
         setEditingKey(record.key);
-    };
-
-    const cancel = () => {
-        setEditingKey('');
     };
 
     const handleAdd = () => {
@@ -187,13 +155,35 @@ const PhotoTable = () => {
         });
     }
 
+    useEffect(() => {
+        setSaveOpen(false)
+        const validateSelects = () => {
+            if (selectedLocationId === '') {
+                return false
+            }
+            if (selectedActionIds && Object.keys(selectedActionIds).length === 0) {
+                return false
+            }
+            if (selectedPhotoTypeId === '') {
+                return false
+            }
+            return true
+        }
+
+        const validateFile = () => {
+            return ((data[editingKey] && data[editingKey].id) || file) ? true : false
+        }
+
+        if (validateSelects() && validateFile()) {
+            setSaveOpen(true)
+        }
+
+    }, [selectedActionIds, selectedLocationId, selectedPhotoTypeId, editingKey, file])
+
 
     const save = async () => {
         try {
             const { id, description, create_datetime } = await form.getFieldValue();
-            // validate
-            // if not id - file 
-            // type, actions, location
             uploadService({
                 id,
                 file,
@@ -250,7 +240,8 @@ const PhotoTable = () => {
                     <AntSelect
                         options={photoTypes.data}
                         placeholder={"Select a photo type"}
-                        selectedIds={[record.type.id]}
+                        defaultValues={record.id ? [record.type.id] : []}
+                        selctedItems={selectedPhotoTypeId}
                         setSelctedItems={setSelectedPhotoTypeId}
                     />
                 ) : (
@@ -269,7 +260,8 @@ const PhotoTable = () => {
                         options={actions.data}
                         placeholder={"Select actions"}
                         mode="tags"
-                        selectedIds={record.id ? record.actions.map(item => item.id) : []}
+                        defaultValues={record.id ? record.actions.map(item => item.id) : []}
+                        selctedItems={selectedActionIds}
                         setSelctedItems={setSelectedActionIds}
                     />
                 ) : (
@@ -287,7 +279,8 @@ const PhotoTable = () => {
                     <AntSelect
                         options={locations.data}
                         placeholder={"Select a location"}
-                        selectedIds={[record.location.id]}
+                        defaultValues={record.id ? [record.location.id] : []}
+                        selctedItems={selectedLocationId}
                         setSelctedItems={setSelectedLocationId}
                     />
                 ) : (
@@ -319,7 +312,7 @@ const PhotoTable = () => {
                 return editable ? (
                     <span>
                         <a
-                            href="javascript:;"
+                            disabled={!saveOpen}
                             onClick={() => save(record.key)}
                             style={{
                                 marginRight: 8,
