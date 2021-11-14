@@ -19,7 +19,7 @@ const AntSelect = ({ options, placeholder, defaultValues, selctedItems, setSelct
     const onBlur = () => {
         setErr("")
         if (selctedItems === '' || Object.keys(selctedItems).length === 0) {
-            setErr("must select at least one")
+            setErr("Must select at least one!")
         }
     }
 
