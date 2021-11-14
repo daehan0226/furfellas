@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
+import styled from "styled-components";
 import { Select } from 'antd';
 
 const { Option } = Select;
+
+
+const Span = styled.span`
+    color: ${({ theme }) => theme.colors.common.error};
+`;
 
 const AntSelect = ({ options, placeholder, defaultValues, selctedItems, setSelctedItems, mode = null, }) => {
     const [err, setErr] = useState("")
@@ -36,7 +42,7 @@ const AntSelect = ({ options, placeholder, defaultValues, selctedItems, setSelct
                     <Option key={item.name} value={item.id}>{item.name}</Option>
                 ))}
             </Select>
-            {err !== "" && <span>{err}</span>}
+            {err !== "" && <Span>{err}</Span>}
         </>
     )
 }

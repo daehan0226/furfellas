@@ -39,6 +39,9 @@ const colors = {
     dark: "#ba000d",
     text: "#000",
   },
+  common: {
+    error: "#ff4d4f"
+  }
 };
 
 const theme = {
