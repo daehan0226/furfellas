@@ -4,29 +4,39 @@ import { Select } from 'antd';
 
 const { Option } = Select;
 
+const CustomSelect = styled(Select)`
+    ${({ err, theme }) =>
+        (err !== "") && `
+        .ant-select-selector {
+            border-color: ${theme.colors.common.error} !important;
+        }
+    `};
+`
 
 const Span = styled.span`
     color: ${({ theme }) => theme.colors.common.error};
 `;
 
-const AntSelect = ({ options, placeholder, defaultValues, selctedItems, setSelctedItems, mode = null, }) => {
+const AntSelect = ({ options, placeholder, defaultValues, selectedItems, setSelectedItems, mode = "-", }) => {
     const [err, setErr] = useState("")
 
     const onChange = (value) => {
-        setSelctedItems(value)
+        setSelectedItems(value)
+        setErr("")
     }
 
     const onBlur = () => {
         setErr("")
-        if (selctedItems === '' || Object.keys(selctedItems).length === 0) {
+        if (selectedItems === '' || (typeof selectedItems === 'object' && Object.keys(selectedItems).length === 0)) {
             setErr("Must select at least one!")
         }
     }
 
     return (
         <>
-            <Select
+            <CustomSelect
                 showSearch
+                err={err}
                 style={{ width: 200 }}
                 mode={mode}
                 placeholder={placeholder}
@@ -41,7 +51,7 @@ const AntSelect = ({ options, placeholder, defaultValues, selctedItems, setSelct
                 {options.map(item => (
                     <Option key={item.name} value={item.id}>{item.name}</Option>
                 ))}
-            </Select>
+            </CustomSelect>
             {err !== "" && <Span>{err}</Span>}
         </>
     )

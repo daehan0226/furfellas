@@ -242,8 +242,8 @@ const PhotoTable = () => {
                         options={photoTypes.data}
                         placeholder={"Select a photo type"}
                         defaultValues={record.id ? [record.type.id] : []}
-                        selctedItems={selectedPhotoTypeId}
-                        setSelctedItems={setSelectedPhotoTypeId}
+                        selectedItems={selectedPhotoTypeId}
+                        setSelectedItems={setSelectedPhotoTypeId}
                     />
                 ) : (
                     <p>{record.type.name}</p>
@@ -262,8 +262,8 @@ const PhotoTable = () => {
                         placeholder={"Select actions"}
                         mode="tags"
                         defaultValues={record.id ? record.actions.map(item => item.id) : []}
-                        selctedItems={selectedActionIds}
-                        setSelctedItems={setSelectedActionIds}
+                        selectedItems={selectedActionIds}
+                        setSelectedItems={setSelectedActionIds}
                     />
                 ) : (
                     <>
@@ -287,8 +287,8 @@ const PhotoTable = () => {
                         options={locations.data}
                         placeholder={"Select a location"}
                         defaultValues={record.id ? [record.location.id] : []}
-                        selctedItems={selectedLocationId}
-                        setSelctedItems={setSelectedLocationId}
+                        selectedItems={selectedLocationId}
+                        setSelectedItems={setSelectedLocationId}
                     />
                 ) : (
                     <p>{record.location.name}</p>
