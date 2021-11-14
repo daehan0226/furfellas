@@ -3,7 +3,7 @@ import moment from 'moment';
 import styled from "styled-components";
 import { Table, Input, InputNumber, Popconfirm, Form, Typography, DatePicker, Button } from 'antd';
 import { useFetch } from '../../hooks';
-import { getCurrentStringDatetime } from '../../utils/utils';
+import { getCurrentStringDatetime, changeToDisplayStringDatetime } from '../../utils/utils';
 import deleteResources from "../../utils/deleteResources";
 import upsertResource from '../../utils/todos';
 
@@ -175,7 +175,7 @@ const TodoTable = () => {
                         onChange={onDatetimeStartChange} defaultValue={moment(record.start_datetime, 'YYYY-MM-DD')}
                     />
                 ) : (
-                    <p>{record.start_datetime}</p>
+                    <p>{changeToDisplayStringDatetime(record.start_datetime)}</p>
                 )
             }
         },
@@ -190,7 +190,7 @@ const TodoTable = () => {
                         onChange={onDatetimeEndChange} defaultValue={moment(record.finish_datetime, 'YYYY-MM-DD')}
                     />
                 ) : (
-                    <p>{record.finish_datetime}</p>
+                    <p>{changeToDisplayStringDatetime(record.finish_datetime)}</p>
                 )
             }
         },
@@ -227,7 +227,7 @@ const TodoTable = () => {
             render: (_, record) =>
                 data.length >= 1 ? (
                     <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.id, record.key)}>
-                        <a>Delete</a>
+                        <Typography.Link >Delete</Typography.Link >
                     </Popconfirm>
                 ) : null,
         },

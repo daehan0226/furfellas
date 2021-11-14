@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import styled from "styled-components";
-import { Table, Input, InputNumber, Popconfirm, Form, Typography, DatePicker, Button } from 'antd';
+import { Table, Input, InputNumber, Popconfirm, Form, Typography, DatePicker, Button, Tag } from 'antd';
 import { useFetch } from '../../hooks';
-import { getCurrentStringDatetime } from '../../utils/utils';
+import { getCurrentStringDatetime, changeToDisplayStringDatetime } from '../../utils/utils';
 import { useAction, useLocation, usePhotoType } from "../../contexts";
 import deleteResources from "../../utils/deleteResources";
 import uploadService from "../../utils/uploadService";
@@ -24,6 +24,7 @@ const Image = styled.img`
   width: 80px;
   height: auto;
 `;
+
 
 const EditableCell = ({
     editing,
@@ -265,7 +266,13 @@ const PhotoTable = () => {
                         setSelctedItems={setSelectedActionIds}
                     />
                 ) : (
-                    <p>{record.actions.map(item => item.name).join(", ")}</p>
+                    <>
+                        {record.actions.map(({ name }) => (
+                            <Tag color="blue" key={name} style={{ marginBottom: 4 }}>
+                                {name}
+                            </Tag>
+                        ))}
+                    </>
                 )
             }
         },
@@ -299,7 +306,7 @@ const PhotoTable = () => {
                         onChange={onDatetimeChange} defaultValue={moment(record.create_datetime, 'YYYY-MM-DD')}
                     />
                 ) : (
-                    <p>{record.create_datetime}</p>
+                    <p>{changeToDisplayStringDatetime(record.create_datetime)}</p>
                 )
             }
         },
@@ -338,7 +345,7 @@ const PhotoTable = () => {
             render: (_, record) =>
                 data.length >= 1 ? (
                     <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(record.id, record.key)}>
-                        <a>Delete</a>
+                        <Typography.Link>Delete</Typography.Link>
                     </Popconfirm>
                 ) : null,
         },
