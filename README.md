@@ -1,5 +1,7 @@
 ## Furfellas
-![furfellas](https://github.com/daehan0226/daehan0226/blob/main/images/furfellas_s.png?raw=true)
+![furfellas_gallery](https://user-images.githubusercontent.com/47915302/141677916-f793a3a8-cdce-4297-b354-f360994bb4f7.png)
+![furfellas_photo_form](https://user-images.githubusercontent.com/47915302/141677919-00244bc0-53ea-4b5f-89bc-6a6c5aa93cea.png)
+
 ### 소개
 * Sevi 와 Aibi의 소개 및 사진과 해야할 일들을 기록하는 프로젝트
 
