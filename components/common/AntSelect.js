@@ -16,9 +16,10 @@ const AntSelect = ({ placeholder, onChange, options, selectKey }) => {
 
     return (
         <Container>
-            <Select mode="tags" style={{ width: '100%' }} placeholder={placeholder} onChange={handleChange}>
-                {options.map(({ id, name }) => (
-                    <Option key={`${id}-${name}`} value={id.toString()} >{name}</Option>
+            <Select mode="tags" style={{ width: '100%' }} placeholder={placeholder} onChange={handleChange}
+            >
+                {options.map(({ id, name, color }) => (
+                    <Option key={`${id}-${name}`} value={id.toString()} style={{ color: `#${color}` }} >{name}</Option>
                 ))}
             </Select>
         </Container>
@@ -26,5 +27,3 @@ const AntSelect = ({ placeholder, onChange, options, selectKey }) => {
 };
 
 export default AntSelect;
-
-

@@ -72,9 +72,7 @@ const Gallery = () => {
       location_ids: selectedItems.locations,
     });
     getPhotos(params);
-  }, [
-    selectedItems
-  ]);
+  }, [selectedItems]);
 
 
   useEffect(() => {
@@ -121,7 +119,7 @@ const Gallery = () => {
       <Container>
         <AntSelect placeholder="Choose actions" onChange={handleSelectedItemChange} selectKey={"actions"} options={actions.data} />
         <AntSelect placeholder="Choose locations" onChange={handleSelectedItemChange} selectKey={"locations"} options={locations.data} />
-        <AntSelect placeholder="Choose photo types" onChange={handleSelectedItemChange} selectKey={"pets"} options={pets.data} />
+        <AntSelect placeholder="Choose pets" onChange={handleSelectedItemChange} selectKey={"pets"} options={pets.data} />
       </Container>
       <DisplayOptionBox>
         <RadioBox>
