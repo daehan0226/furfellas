@@ -17,7 +17,8 @@ const Spacer = styled.div`
 
 const Container = styled(Spacer)`
   ${FlexCenterBox}
-  justify-content: flex-end;
+  justify-content: flex-start;
+  box-sizing: border-box;
   width: 100%;
   position: fixed;
   background-color: ${({ theme }) => theme.colors.primary.dark};
