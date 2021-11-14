@@ -8,7 +8,7 @@ import { Layout, AdminLayout } from "../components/layout";
 import {
   LocationContextProvider,
   ActionContextProvider,
-  PhotoTypeContextProvider,
+  PetContextProvider,
 } from "../contexts";
 import "../styles/styles.css";
 
@@ -16,9 +16,9 @@ function withContext(Component) {
   return (props) => (
     <LocationContextProvider>
       <ActionContextProvider>
-        <PhotoTypeContextProvider>
+        <PetContextProvider>
           <Component {...props} />
-        </PhotoTypeContextProvider>
+        </PetContextProvider>
       </ActionContextProvider>
     </LocationContextProvider>
   );

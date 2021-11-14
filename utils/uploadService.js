@@ -4,7 +4,7 @@ import http from "./http-common";
 const uploadService = async ({
   id,
   file,
-  type,
+  pets,
   actions,
   location,
   description,
@@ -15,7 +15,7 @@ const uploadService = async ({
   let formData = new FormData();
 
   formData.append("file", file);
-  formData.append("type_id", type);
+  formData.append("pet_ids", pets);
   formData.append("action_ids", actions);
   formData.append("location_id", location);
   formData.append("description", description);

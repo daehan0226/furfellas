@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { Table, Input, InputNumber, Popconfirm, Form, Typography, DatePicker, Button, Tag } from 'antd';
 import { useFetch } from '../../hooks';
 import { getCurrentStringDatetime, changeToDisplayStringDatetime } from '../../utils/utils';
-import { useAction, useLocation, usePhotoType } from "../../contexts";
+import { useAction, useLocation, usePet } from "../../contexts";
 import deleteResources from "../../utils/deleteResources";
 import uploadService from "../../utils/uploadService";
 import { InputFile } from "../common";
@@ -73,10 +73,12 @@ const initialValues = {
         id: null,
         name: ""
     },
-    type: {
-        id: null,
-        name: ""
-    },
+    pets: [
+        {
+            id: null,
+            name: ""
+        }
+    ],
     description: "",
     create_datetime: ""
 }
@@ -91,11 +93,11 @@ const PhotoTable = () => {
 
     const actions = useAction();
     const locations = useLocation();
-    const photoTypes = usePhotoType();
+    const pets = usePet();
 
     const [selectedActionIds, setSelectedActionIds] = useState([]);
     const [selectedLocationId, setSelectedLocationId] = useState('');
-    const [selectedPhotoTypeId, setSelectedPhotoTypeId] = useState('');
+    const [selectedPetIds, setSelectedPetIds] = useState([]);
 
     useEffect(() => {
         refreshTodos()
@@ -123,7 +125,7 @@ const PhotoTable = () => {
         });
         if (record.id) {
             setSelectedLocationId(record.location.id);
-            setSelectedPhotoTypeId(record.type.id);
+            setSelectedPetIds(record.pets.map(item => item.id));
             setSelectedActionIds(record.actions.map(item => item.id));
         }
         setEditingKey(record.key);
@@ -165,7 +167,7 @@ const PhotoTable = () => {
             if (selectedActionIds && Object.keys(selectedActionIds).length === 0) {
                 return false
             }
-            if (selectedPhotoTypeId === '') {
+            if (selectedPetIds && Object.keys(selectedPetIds).length === 0) {
                 return false
             }
             return true
@@ -179,7 +181,7 @@ const PhotoTable = () => {
             setSaveOpen(true)
         }
 
-    }, [selectedActionIds, selectedLocationId, selectedPhotoTypeId, editingKey, file])
+    }, [selectedActionIds, selectedLocationId, selectedPetIds, editingKey, file])
 
 
     const save = async () => {
@@ -188,7 +190,7 @@ const PhotoTable = () => {
             uploadService({
                 id,
                 file,
-                type: selectedPhotoTypeId,
+                pets: selectedPetIds,
                 actions: selectedActionIds,
                 location: selectedLocationId,
                 description,
@@ -232,21 +234,28 @@ const PhotoTable = () => {
             editable: true,
         },
         {
-            title: 'Type',
-            dataIndex: 'type.name',
+            title: 'Pets',
+            dataIndex: 'pets.name',
             width: '5%',
             render: (_, record) => {
                 const editable = isEditing(record);
                 return editable ? (
                     <AntSelect
-                        options={photoTypes.data}
-                        placeholder={"Select a photo type"}
-                        defaultValues={record.id ? [record.type.id] : []}
-                        selectedItems={selectedPhotoTypeId}
-                        setSelectedItems={setSelectedPhotoTypeId}
+                        options={pets.data}
+                        placeholder={"Select pets"}
+                        mode="tags"
+                        defaultValues={record.id ? record.pets.map(item => item.id) : []}
+                        selectedItems={selectedPetIds}
+                        setSelectedItems={setSelectedPetIds}
                     />
                 ) : (
-                    <p>{record.type.name}</p>
+                    <>
+                        {record.pets.map(({ name }) => (
+                            <Tag color="blue" key={name} style={{ marginBottom: 4 }}>
+                                {name}
+                            </Tag>
+                        ))}
+                    </>
                 )
             }
         },

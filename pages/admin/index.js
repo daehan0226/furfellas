@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { useAction, usePhotoType, useLocation } from "../../contexts";
+import { useAction, usePet, useLocation } from "../../contexts";
 import { BasicFormList } from "../../components/form";
 import TodoTable from "../../components/admin/TodoTable";
 import PhotoTable from "../../components/admin/PhotoTable";
@@ -17,7 +17,7 @@ export default function Admin() {
   const router = useRouter();
   const actions = useAction();
   const locations = useLocation();
-  const photoTypes = usePhotoType();
+  const pets = usePet();
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -38,7 +38,7 @@ export default function Admin() {
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Actions" {...a11yProps(0)} />
           <Tab label="Locations" {...a11yProps(1)} />
-          <Tab label="Photo Types" {...a11yProps(2)} />
+          <Tab label="Pets" {...a11yProps(2)} />
           <Tab label="Photos" {...a11yProps(3)} />
           <Tab label="Todos" {...a11yProps(4)} />
         </Tabs>
@@ -59,9 +59,9 @@ export default function Admin() {
       </TabPanel>
       <TabPanel value={value} index={2}>
         <BasicFormList
-          resource="photo-types"
-          refresh={photoTypes.refresh}
-          items={photoTypes.data}
+          resource="pets"
+          refresh={pets.refresh}
+          items={pets.data}
         ></BasicFormList>
       </TabPanel>
       <TabPanel value={value} index={3}>

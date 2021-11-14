@@ -1,12 +1,12 @@
 import { LocationContextProvider, useLocation } from "./location";
 import { ActionContextProvider, useAction } from "./action";
-import { PhotoTypeContextProvider, usePhotoType } from "./photoType";
+import { PetContextProvider, usePet } from "./pet";
 
 export {
   LocationContextProvider,
   ActionContextProvider,
   useAction,
   useLocation,
-  PhotoTypeContextProvider,
-  usePhotoType,
+  PetContextProvider,
+  usePet,
 };

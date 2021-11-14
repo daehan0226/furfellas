@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useFetch } from "../hooks";
-import { useAction, useLocation, usePhotoType } from "../contexts";
-import { SectionContainer, SectionTitle, AntSelect, Sort } from "./common";
+import { useAction, useLocation, usePet } from "../contexts";
+import { SectionContainer, SectionTitle, AntSelect } from "./common";
 import { createQueryParams } from "../utils";
 import { Radio } from 'antd';
 import PhotoGallery from "./gallery/PhotoGallery";
@@ -41,7 +41,7 @@ const Gallery = () => {
   const [selectedItems, setSelectedItems] = useState({
     actions: "",
     locations: "",
-    photoTypes: ""
+    pets: ""
   })
 
   const handleSelectedItemChange = (key, value) => {
@@ -53,7 +53,7 @@ const Gallery = () => {
 
   const actions = useAction();
   const locations = useLocation();
-  const photoTypes = usePhotoType();
+  const pets = usePet();
 
   const [fetchPhotos, doFfetchPhotos] = useFetch([]);
 
@@ -67,7 +67,7 @@ const Gallery = () => {
 
   useEffect(() => {
     const params = createQueryParams({
-      type_ids: selectedItems.photoTypes,
+      pet_ids: selectedItems.pets,
       action_ids: selectedItems.actions,
       location_ids: selectedItems.locations,
     });
@@ -121,7 +121,7 @@ const Gallery = () => {
       <Container>
         <AntSelect placeholder="Choose actions" onChange={handleSelectedItemChange} selectKey={"actions"} options={actions.data} />
         <AntSelect placeholder="Choose locations" onChange={handleSelectedItemChange} selectKey={"locations"} options={locations.data} />
-        <AntSelect placeholder="Choose photo types" onChange={handleSelectedItemChange} selectKey={"photoTypes"} options={photoTypes.data} />
+        <AntSelect placeholder="Choose photo types" onChange={handleSelectedItemChange} selectKey={"pets"} options={pets.data} />
       </Container>
       <DisplayOptionBox>
         <RadioBox>

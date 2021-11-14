@@ -1,14 +1,14 @@
 import React, { createContext, useEffect, useContext, useState } from "react";
 import { useFetch } from "../hooks";
 
-const PhotoTypeContext = createContext();
+const PetContext = createContext();
 
-export const PhotoTypeContextProvider = (props) => {
+export const PetContextProvider = (props) => {
   const [fetchData, doFetchData] = useFetch([]);
   const [data, setData] = useState([]);
 
   const refresh = () => {
-    doFetchData("photo-types/");
+    doFetchData("pets/");
   };
 
   useEffect(() => {
@@ -22,12 +22,12 @@ export const PhotoTypeContextProvider = (props) => {
   }, [fetchData.data]);
 
   return (
-    <PhotoTypeContext.Provider value={{ data, refresh }}>
+    <PetContext.Provider value={{ data, refresh }}>
       {props.children}
-    </PhotoTypeContext.Provider>
+    </PetContext.Provider>
   );
 };
 
-export const usePhotoType = () => {
-  return useContext(PhotoTypeContext);
+export const usePet = () => {
+  return useContext(PetContext);
 };
