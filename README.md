@@ -25,5 +25,5 @@
   * 행동, 위치, 사진 유형 등의 데이터 관리
 * Redux
   * 관리자 로그인 유지
- * AntDesign - Form, Table
+* AntDesign - Form, Table
   * Photo, todo crud customizing
