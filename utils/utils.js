@@ -20,6 +20,21 @@ export const getCurrentStringDate = () => {
 }
 
 
+export const addMonthToCurrentDate = ({ months = 0 }) => {
+  const today = new Date();
+  const d = today.getDate();
+  today.setMonth(today.getMonth() + months);
+  if (today.getDate() != d) {
+    today.setDate(0);
+  }
+  return today;
+}
+
+export const strfDatetime = (datetime) => {
+  return datetime.getFullYear() + '-' + (datetime.getMonth() + 1) + '-' + datetime.getDate();
+}
+
+
 export const capitalizeFirstLetter = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }

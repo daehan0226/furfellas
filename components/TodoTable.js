@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Table, DatePicker } from 'antd';
 import moment from "moment";
 import { useFetch } from '../hooks';
-import { createQueryParams, getCurrentStringDatetime, capitalizeFirstLetter, changeToDisplayStringDatetime, getCurrentStringDate } from '../utils/utils';
+import { createQueryParams, capitalizeFirstLetter, changeToDisplayStringDatetime, getCurrentStringDate, addMonthToCurrentDate, strfDatetime } from '../utils/utils';
 import { SectionTitle, SectionContainer } from './common';
 
 
@@ -26,19 +26,23 @@ const TodoTable = () => {
     const [fetchData, doFetchData] = useFetch([]);
     const [data, setData] = useState([]);
     const [datetiemFrom, setDatetimeFrom] = useState(getCurrentStringDate());
-    const [datetiemTo, setDatetimeTo] = useState("");
+    const [datetiemTo, setDatetimeTo] = useState(strfDatetime(addMonthToCurrentDate({ months: 1 })));
 
-    useEffect(() => {
-        doFetchData(`todos/?datetime_from=${getCurrentStringDatetime()}`)
-    }, [])
-
-
-    useEffect(() => {
+    const refreshTodos = () => {
         const params = createQueryParams({
             datetime_from: datetiemFrom,
             datetime_to: datetiemTo
         });
         doFetchData(`todos/?${params}`)
+    }
+
+    useEffect(() => {
+        refreshTodos()
+    }, [])
+
+
+    useEffect(() => {
+        refreshTodos()
     }, [datetiemFrom, datetiemTo])
 
     useEffect(() => {
@@ -69,10 +73,10 @@ const TodoTable = () => {
         }
     ];
 
-    const onDatetimeFromChange = (date, dateString) => {
+    const onDatetimeFromChange = (_, dateString) => {
         setDatetimeFrom(dateString)
     }
-    const onDatetimeToChange = (date, dateString) => {
+    const onDatetimeToChange = (_, dateString) => {
         setDatetimeTo(dateString)
     }
 
@@ -105,7 +109,7 @@ const TodoTable = () => {
                 </DateContainer>
                 <DateContainer>
                     <Title>End Date</Title>
-                    <DatePicker onChange={onDatetimeToChange} />
+                    <DatePicker onChange={onDatetimeToChange} defaultValue={moment(datetiemTo, dateFormat)} />
                 </DateContainer>
             </DateContainer>
             <Table
