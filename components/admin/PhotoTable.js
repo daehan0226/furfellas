@@ -250,8 +250,8 @@ const PhotoTable = () => {
                     />
                 ) : (
                     <>
-                        {record.pets.map(({ name }) => (
-                            <Tag color="blue" key={name} style={{ marginBottom: 4 }}>
+                        {record.pets.map(({ name, color }) => (
+                            <Tag color={`#${color}`} key={name} style={{ marginBottom: 4 }}>
                                 {name}
                             </Tag>
                         ))}
