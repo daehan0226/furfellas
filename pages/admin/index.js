@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+import AdminPet from "../../components/admin/pet/AdminPet";
 
 
 export default function Admin() {
@@ -63,6 +64,7 @@ export default function Admin() {
           refresh={pets.refresh}
           items={pets.data}
         ></BasicFormList>
+        <AdminPet />
       </TabPanel>
       <TabPanel value={value} index={3}>
         <PhotoTable />

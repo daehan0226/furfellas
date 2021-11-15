@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { Card } from "./card";
 import { FlexCenterBox } from "../styles/common-styles";
+import { useFetch } from "../hooks";
+import { useEffect } from "react";
 
 const data = {
   sevi: {
@@ -31,6 +33,22 @@ const CardContainer = styled.div`
 `;
 
 const Desc = () => {
+  const [fetchSeviData, doFetchSeviData] = useFetch({});
+  const [fetchAlbiData, doFetchAlbiData] = useFetch({});
+
+  useEffect(() => {
+    doFetchSeviData('pets/1')
+    doFetchAlbiData('pets/2')
+  }, [])
+
+  useEffect(() => {
+    console.log(fetchSeviData)
+  }, [fetchSeviData.data])
+
+  useEffect(() => {
+    console.log(fetchAlbiData)
+  }, [fetchAlbiData.data])
+
   return (
     <CardContainer>
       <Card data={data.sevi} />
