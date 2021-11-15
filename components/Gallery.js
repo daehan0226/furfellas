@@ -55,10 +55,10 @@ const Gallery = () => {
   const locations = useLocation();
   const pets = usePet();
 
-  const [fetchPhotos, doFfetchPhotos] = useFetch([]);
+  const [fetchPhotos, doFetchPhotos] = useFetch([]);
 
   const getPhotos = (params = "") => {
-    doFfetchPhotos(`photos/?${params}`);
+    doFetchPhotos(`photos/?${params}`);
   };
 
   useEffect(() => {

@@ -3,18 +3,10 @@ import { Modal, Button, List, Avatar } from 'antd';
 import AdminPetForm from "./AdminPetForm";
 import { useFetch } from '../../../hooks';
 
-const initialValues = {
-    id: null,
-    name: "",
-    intro: "",
-    weight: 0,
-    birthday: "2021-01-01",
-    color: "000000"
-}
-
 const AdminPet = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [editKey, seEditKey] = useState(null);
+    const [editKey, setEditKey] = useState(null);
+    const [formValues, setFormValues] = useState(null);
     const [pets, setPets] = useState([]);
     const [fetchData, doFetchData] = useFetch([]);
 
@@ -35,23 +27,24 @@ const AdminPet = () => {
     };
 
     const handleOk = () => {
+        console.log(formValues)
         setIsModalVisible(false);
-        seEditKey(null)
+        setEditKey(null)
     };
 
     const handleCancel = () => {
         setIsModalVisible(false);
-        seEditKey(null)
+        setEditKey(null)
     };
 
 
     const handleEdit = (id) => {
         setIsModalVisible(true);
-        seEditKey(id)
+        setEditKey(id)
     };
 
     const handleDelete = () => {
-        seEditKey(null)
+        setEditKey(null)
     };
 
 
@@ -77,8 +70,8 @@ const AdminPet = () => {
                 )}
             />
 
-            <Modal title="Pet" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <AdminPetForm data={editKey ? pets.find(item => item.id === editKey) : initialValues} />
+            <Modal title="Pet" visible={isModalVisible} onCancel={handleCancel} onOk={handleOk} >
+                <AdminPetForm data={pets.find(item => item.id === editKey)} setFormValues={setFormValues} />
             </Modal>
         </>
     );
