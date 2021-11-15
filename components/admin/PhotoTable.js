@@ -197,6 +197,7 @@ const PhotoTable = () => {
                 create_datetime,
                 successCallback: () => {
                     setEditingKey('');
+                    setFile(null);
                     refreshTodos()
                 },
                 failCallback: () => {
