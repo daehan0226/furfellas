@@ -90,6 +90,7 @@ const PhotoTable = () => {
     const [fetchData, doFetchData] = useFetch([])
     const [editingKey, setEditingKey] = useState('');
     const [saveOpen, setSaveOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const actions = useAction();
     const locations = useLocation();
@@ -106,6 +107,7 @@ const PhotoTable = () => {
     const refreshTodos = () => {
         doFetchData('photos/')
     }
+
 
     useEffect(() => {
         if (fetchData.data.length > 0) {
@@ -139,12 +141,17 @@ const PhotoTable = () => {
 
     const handleDelete = (id, key) => {
         if (id) {
+            setLoading(true)
             deleteResources({
                 id,
                 resource: "photos",
                 successCallback: () => {
                     setEditingKey('');
                     refreshTodos()
+                    setLoading(false)
+                },
+                failCallback: () => {
+                    setLoading(false)
                 }
             })
         } else {
@@ -187,6 +194,7 @@ const PhotoTable = () => {
     const save = async () => {
         try {
             const { id, description, create_datetime } = await form.getFieldValue();
+            setLoading(true)
             uploadService({
                 id,
                 file,
@@ -199,8 +207,10 @@ const PhotoTable = () => {
                     setEditingKey('');
                     setFile(null);
                     refreshTodos()
+                    setLoading(false)
                 },
                 failCallback: () => {
+                    setLoading(false)
                 },
             });
 
@@ -394,6 +404,7 @@ const PhotoTable = () => {
                             cell: EditableCell,
                         },
                     }}
+                    loading={loading}
                     bordered
                     dataSource={data}
                     columns={mergedColumns}
