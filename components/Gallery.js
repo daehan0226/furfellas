@@ -9,7 +9,8 @@ import PhotoGallery from "./gallery/PhotoGallery";
 import SlideGallery from "./gallery/SlideGallery";
 import { FlexCenterBox } from "../styles/common-styles";
 
-import { Menu } from 'antd';
+import { Menu, Dropdown } from 'antd';
+import { DownOutlined } from '@ant-design/icons'
 
 const DateContainer = styled.div`
   display: flex;
@@ -131,6 +132,10 @@ const Gallery = () => {
         <AntSelect placeholder="Choose locations" onChange={handleSelectedItemChange} selectKey={"locations"} options={locations.data} />
         <AntSelect placeholder="Choose pets" onChange={handleSelectedItemChange} selectKey={"pets"} options={pets.data} />
       </Container>
+      <DateContainer>
+        <DateSelect title="Start Date" date={datetiemFrom} setDate={setDatetimeFrom} />
+        <DateSelect title="End Date" date={datetiemTo} setDate={setDatetimeTo} />
+      </DateContainer>
       <DisplayOptionBox>
         <RadioBox>
           <Radio.Group defaultValue="slide" buttonStyle="solid" onChange={handleTypeChange} >
@@ -138,11 +143,13 @@ const Gallery = () => {
             <Radio.Button value="gallery">Gallery</Radio.Button>
           </Radio.Group>
         </RadioBox>
-        <DateContainer>
-          <DateSelect title="Start Date" date={datetiemFrom} setDate={setDatetimeFrom} />
-          <DateSelect title="End Date" date={datetiemTo} setDate={setDatetimeTo} />
-        </DateContainer>
+        <Dropdown overlay={menu} trigger={['click']} >
+          <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+            Sort by <DownOutlined />
+          </a>
+        </Dropdown>
       </DisplayOptionBox>
+
       <ImageContainer>
         {images.length > 0 && (
           <>
