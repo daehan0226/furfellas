@@ -57,6 +57,7 @@ const PhotoGallery = ({ items }) => {
           <GalleryImage
             src={src}
             alt={name}
+            loading={'lazy'}
           />
         </div>
       ))}
