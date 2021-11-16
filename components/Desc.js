@@ -37,14 +37,14 @@ const Desc = () => {
   const [fetchAlbiData, doFetchAlbiData] = useFetch({});
 
   useEffect(() => {
-    doFetchSeviData('pets/1')
-    doFetchAlbiData('pets/2')
+    doFetchSeviData('pets/?name=sevi')
+    doFetchAlbiData('pets/?name=albi')
   }, [])
 
   return (
     <CardContainer>
-      <Card data={data.sevi} />
-      <Card data={data.aibi} />
+      <Card data={fetchSeviData.data} />
+      <Card data={fetchAlbiData.data} />
     </CardContainer>
   );
 };

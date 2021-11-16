@@ -11,11 +11,16 @@ const Container = styled.div`
   border-radius: 10px;
 `;
 
+
 const Card = ({ data }) => {
   return (
     <Container>
-      <CardHead title={data.name} />
-      <CardBody data={data} />
+      {data && data.name && (
+        <>
+          <CardHead title={data.name} />
+          <CardBody data={data} />
+        </>
+      )}
     </Container>
   );
 };

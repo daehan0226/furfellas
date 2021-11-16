@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { FlexCenterBox } from "../../styles/common-styles";
+import { changeToDisplayStringDatetime } from "../../utils/utils";
 
 const Container = styled.div``;
 
@@ -21,21 +22,19 @@ const ImageWrapper = styled.div`
 const Image = styled.img`
   width: 200px;
   height: 200px;
+  border-radius: 50%;
 `;
 
 const CardBody = ({ data }) => {
   return (
     <Container>
-      <Text>Brithday : {data.birthdate}</Text>
-      <Text>Color : {data.color}</Text>
+      <Text>Brithday : {changeToDisplayStringDatetime(data.birthday)}</Text>
       <Text>Weight : {data.weight}kg</Text>
       <Wrapper>
-        {data.personality.map((item) => (
-          <p key={item}>{item}</p>
-        ))}
+        <p>{data.intro}</p>
       </Wrapper>
       <ImageWrapper>
-        <Image src={data.profilePic} alt={`${data.name}'s photo`} />
+        <Image src={data.photo_url} alt={`${data.name}'s photo`} />
       </ImageWrapper>
     </Container>
   );
