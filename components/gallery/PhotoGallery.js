@@ -58,6 +58,7 @@ const PhotoGallery = ({ items }) => {
             src={src}
             alt={name}
             loading={'lazy'}
+            data-index={id}
           />
         </div>
       ))}
