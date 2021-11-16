@@ -17,6 +17,7 @@ const ImageContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   min-height: 200px;
+  justify-content: center;
 `;
 
 const RadioBox = styled.div`

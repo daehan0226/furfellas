@@ -34,7 +34,6 @@ const uploadService = async ({
     }
     successCallback();
   } catch (err) {
-    console.log(err);
     failCallback();
   }
 };
