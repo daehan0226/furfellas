@@ -15,7 +15,7 @@ const initialValues = {
     intro: "",
     weight: 0,
     sex: "m",
-    image_id: "",
+    photo_id: null,
     birthday: "",
     color: "000000",
 
@@ -55,7 +55,8 @@ const AdminPet = () => {
 
     useEffect(() => {
         if (editKey) {
-            setPet({ ...fetchData.data.find(item => item.id === editKey) })
+            const editPet = fetchData.data.find(item => item.id === editKey)
+            setPet({ ...editPet, photo_id: editPet.photo.id })
         } else {
             setPet({ ...initialValues })
         }
@@ -81,7 +82,7 @@ const AdminPet = () => {
                 renderItem={item => (
                     <List.Item>
                         <List.Item.Meta
-                            avatar={<Avatar src={item.photo_url} />}
+                            avatar={<Avatar src={item.photo.url} size={64} />}
                             title={<p>{item.name}</p>}
                             description={item.intro}
                         />
