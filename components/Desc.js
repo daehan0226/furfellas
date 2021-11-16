@@ -41,14 +41,6 @@ const Desc = () => {
     doFetchAlbiData('pets/2')
   }, [])
 
-  useEffect(() => {
-    console.log(fetchSeviData)
-  }, [fetchSeviData.data])
-
-  useEffect(() => {
-    console.log(fetchAlbiData)
-  }, [fetchAlbiData.data])
-
   return (
     <CardContainer>
       <Card data={data.sevi} />
