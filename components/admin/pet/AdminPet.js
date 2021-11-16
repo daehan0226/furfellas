@@ -9,34 +9,43 @@ const Container = styled.div`
     margin: 10px auto;
 `;
 
+const initialValues = {
+    id: null,
+    name: "",
+    intro: "",
+    weight: 0,
+    sex: "m",
+    image_id: "",
+    birthday: "",
+    color: "000000",
+
+}
 
 const AdminPet = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [editKey, setEditKey] = useState(null);
     const [formValues, setFormValues] = useState(null);
-    const [pets, setPets] = useState([]);
+    const [pet, setPet] = useState({});
     const [fetchData, doFetchData] = useFetch([]);
 
+    const refreshPets = () => {
+        doFetchData("pets/")
+    }
+
     useEffect(() => {
-        doFetchData('pets/')
+        setEditKey(null)
+        refreshPets()
     }, [])
 
-    useEffect(() => {
-        setPets([])
-        if (fetchData.data.length > 0) {
-            setPets([...fetchData.data])
-        }
-    }, [fetchData.data])
-
-
     const showModal = () => {
+        setEditKey(null)
         setIsModalVisible(true);
     };
 
     const handleOk = () => {
-        console.log(formValues)
         setIsModalVisible(false);
         setEditKey(null)
+        refreshPets()
     };
 
     const handleCancel = () => {
@@ -44,16 +53,22 @@ const AdminPet = () => {
         setEditKey(null)
     };
 
+    useEffect(() => {
+        if (editKey) {
+            setPet({ ...fetchData.data.find(item => item.id === editKey) })
+        } else {
+            setPet({ ...initialValues })
+        }
+    }, [editKey])
 
     const handleEdit = (id) => {
-        setIsModalVisible(true);
         setEditKey(id)
+        setIsModalVisible(true);
     };
 
     const handleDelete = () => {
         setEditKey(null)
     };
-
 
     return (
         <Container>
@@ -62,7 +77,7 @@ const AdminPet = () => {
             </Button>
             <List
                 itemLayout="horizontal"
-                dataSource={pets}
+                dataSource={fetchData.data}
                 renderItem={item => (
                     <List.Item>
                         <List.Item.Meta
@@ -78,7 +93,7 @@ const AdminPet = () => {
             />
 
             <Modal title="Pet" visible={isModalVisible} onCancel={handleCancel} onOk={handleOk} >
-                <AdminPetForm data={pets.find(item => item.id === editKey)} setFormValues={setFormValues} />
+                <AdminPetForm data={pet} setFormValues={setFormValues} />
             </Modal>
         </Container>
     );

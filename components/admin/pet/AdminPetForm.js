@@ -18,8 +18,10 @@ const initialValues = {
     intro: "",
     weight: 0,
     sex: "m",
-    birthday: '',
-    color: "000000"
+    image_id: "",
+    birthday: "",
+    color: "000000",
+
 }
 
 
@@ -50,7 +52,6 @@ const AdminPetForm = ({ data, setFormValues }) => {
         setFormValues({ ...form.getFieldsValue() })
     }
 
-
     return (
         <>
             <Form
@@ -71,8 +72,8 @@ const AdminPetForm = ({ data, setFormValues }) => {
                 <Form.Item name="intro" label="Introdction">
                     <Input />
                 </Form.Item>
-                <Form.Item label="Image">
-                    <Select>
+                <Form.Item label="Image" name="image_id">
+                    <Select size="large">
                         <Select.Option value={null}>no image</Select.Option>
                         {photoOptions.map(option => (
                             <Select.Option key={option.id} value={option.id}><Avatar src={option.thumbnail} /></Select.Option>
