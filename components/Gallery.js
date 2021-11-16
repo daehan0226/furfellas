@@ -2,16 +2,21 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useFetch } from "../hooks";
 import { useAction, useLocation, usePet } from "../contexts";
-import { SectionContainer, SectionTitle, AntSelect } from "./common";
-import { createQueryParams } from "../utils";
+import { SectionContainer, SectionTitle, AntSelect, DateSelect } from "./common";
+import { createQueryParams, getCurrentStringDate, addMonthToCurrentDate, strfDatetime } from "../utils/utils";
 import { Radio } from 'antd';
 import PhotoGallery from "./gallery/PhotoGallery";
 import SlideGallery from "./gallery/SlideGallery";
 import { FlexCenterBox } from "../styles/common-styles";
 
-import { Menu, Dropdown } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { Menu } from 'antd';
 
+const DateContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px;
+  align-items: center;
+`;
 
 const ImageContainer = styled.div`
   display: flex;
@@ -38,6 +43,8 @@ const DisplayOptionBox = styled.div`
 const Gallery = () => {
   const [images, setImages] = useState([]);
   const [displayType, setDisplayType] = useState('slide');
+  const [datetiemFrom, setDatetimeFrom] = useState(strfDatetime(addMonthToCurrentDate({ months: -1 })));
+  const [datetiemTo, setDatetimeTo] = useState(getCurrentStringDate());
   const [sort, setSort] = useState("asc");
   const [selectedItems, setSelectedItems] = useState({
     actions: "",
@@ -71,9 +78,11 @@ const Gallery = () => {
       pet_ids: selectedItems.pets,
       action_ids: selectedItems.actions,
       location_ids: selectedItems.locations,
+      start_datetime: datetiemFrom,
+      end_datetime: datetiemTo
     });
     getPhotos(params);
-  }, [selectedItems]);
+  }, [selectedItems, datetiemTo, datetiemFrom]);
 
 
   useEffect(() => {
@@ -129,11 +138,10 @@ const Gallery = () => {
             <Radio.Button value="gallery">Gallery</Radio.Button>
           </Radio.Group>
         </RadioBox>
-        <Dropdown overlay={menu} trigger={['click']} >
-          <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-            Sort by <DownOutlined />
-          </a>
-        </Dropdown>
+        <DateContainer>
+          <DateSelect title="Start Date" date={datetiemFrom} setDate={setDatetimeFrom} />
+          <DateSelect title="End Date" date={datetiemTo} setDate={setDatetimeTo} />
+        </DateContainer>
       </DisplayOptionBox>
       <ImageContainer>
         {images.length > 0 && (

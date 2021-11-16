@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
-import { Table, DatePicker } from 'antd';
-import moment from "moment";
+import { Table } from 'antd';
 import { useFetch } from '../hooks';
 import { createQueryParams, capitalizeFirstLetter, changeToDisplayStringDatetime, getCurrentStringDate, addMonthToCurrentDate, strfDatetime } from '../utils/utils';
-import { SectionTitle, SectionContainer } from './common';
+import { SectionTitle, SectionContainer, DateSelect } from './common';
 
 
 const DateContainer = styled.div`
@@ -12,13 +11,6 @@ const DateContainer = styled.div`
   flex-wrap: wrap;
   margin: 10px;
   align-items: center;
-`;
-
-
-const Title = styled.h6`
-    margin-bottom: 0px;
-    margin-right: 6px;
-    width: 120px;
 `;
 
 
@@ -73,15 +65,7 @@ const TodoTable = () => {
         }
     ];
 
-    const onDatetimeFromChange = (_, dateString) => {
-        setDatetimeFrom(dateString)
-    }
-    const onDatetimeToChange = (_, dateString) => {
-        setDatetimeTo(dateString)
-    }
-
     const sortTodos = (order) => {
-
         let sorted = [];
         if (order === "descend") {
             sorted = data.sort((a, b) => (a.datetime < b.datetime ? 1 : -1));
@@ -95,22 +79,12 @@ const TodoTable = () => {
         sortTodos(sorter.order)
     }
 
-    const dateFormat = 'YYYY-MM-DD';
-
     return (
         <SectionContainer>
             <SectionTitle text={"Todo"} />
             <DateContainer>
-                <DateContainer>
-                    <Title>Start Date</Title>
-                    <DatePicker
-                        onChange={onDatetimeFromChange} defaultValue={moment(datetiemFrom, dateFormat)}
-                    />
-                </DateContainer>
-                <DateContainer>
-                    <Title>End Date</Title>
-                    <DatePicker onChange={onDatetimeToChange} defaultValue={moment(datetiemTo, dateFormat)} />
-                </DateContainer>
+                <DateSelect title="Start Date" date={datetiemFrom} setDate={setDatetimeFrom} />
+                <DateSelect title="End Date" date={datetiemTo} setDate={setDatetimeTo} />
             </DateContainer>
             <Table
                 bordered

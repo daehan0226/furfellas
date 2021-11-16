@@ -9,6 +9,7 @@ import Sort from "./Sort";
 import ArrowIcon from "./ArrowIcon";
 import Skeletons from "./Skeletons";
 import AntSelect from "./AntSelect";
+import DateSelect from "./DateSelect";
 
 export {
   Select,
@@ -21,5 +22,6 @@ export {
   Sort,
   ArrowIcon,
   Skeletons,
-  AntSelect
+  AntSelect,
+  DateSelect
 };
