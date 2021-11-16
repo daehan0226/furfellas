@@ -9,7 +9,7 @@ import { SectionTitle, SectionContainer, DateSelect } from './common';
 const DateContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin: 10px;
+  margin: 10px 0px;
   align-items: center;
 `;
 

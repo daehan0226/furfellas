@@ -15,7 +15,7 @@ import { DownOutlined } from '@ant-design/icons'
 const DateContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin: 10px;
+  margin: 10px 0px;
   align-items: center;
 `;
 
@@ -27,18 +27,17 @@ const ImageContainer = styled.div`
 `;
 
 const RadioBox = styled.div`
-  margin: 10px 0;
 `;
 
 const Container = styled.div`
-  margin: 20px;
+  margin: 0px;
   background-color: ${({ theme }) => theme.colors.primary.text};
 `;
 
 const DisplayOptionBox = styled.div`
   ${FlexCenterBox}
   justify-content: space-between;
-  margin: 0px 30px;
+  margin: 10px 0px;
 `
 
 const Gallery = () => {

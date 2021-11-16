@@ -4,7 +4,7 @@ import { Select } from 'antd';
 const { Option } = Select;
 
 const Container = styled.div`
-    margin: 10px;
+    margin: 10px 0px;
     display: 
 `;
 
