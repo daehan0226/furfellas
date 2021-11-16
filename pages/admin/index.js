@@ -18,7 +18,6 @@ export default function Admin() {
   const router = useRouter();
   const actions = useAction();
   const locations = useLocation();
-  const pets = usePet();
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -59,11 +58,6 @@ export default function Admin() {
         ></BasicFormList>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <BasicFormList
-          resource="pets"
-          refresh={pets.refresh}
-          items={pets.data}
-        ></BasicFormList>
         <AdminPet />
       </TabPanel>
       <TabPanel value={value} index={3}>

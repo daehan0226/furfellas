@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { Modal, Button, List, Avatar } from 'antd';
 import AdminPetForm from "./AdminPetForm";
 import { useFetch } from '../../../hooks';
+import styled from "styled-components";
+
+const Container = styled.div`
+    width: 90%;
+    margin: 10px auto;
+`;
+
 
 const AdminPet = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
@@ -49,7 +56,7 @@ const AdminPet = () => {
 
 
     return (
-        <>
+        <Container>
             <Button type="primary" onClick={showModal}>
                 Add a new pet
             </Button>
@@ -59,8 +66,8 @@ const AdminPet = () => {
                 renderItem={item => (
                     <List.Item>
                         <List.Item.Meta
-                            avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-                            title={<a href="https://ant.design">{item.name}</a>}
+                            avatar={<Avatar src={item.photo_url} />}
+                            title={<p>{item.name}</p>}
                             description={item.intro}
                         />
                         <List.Item
@@ -73,7 +80,7 @@ const AdminPet = () => {
             <Modal title="Pet" visible={isModalVisible} onCancel={handleCancel} onOk={handleOk} >
                 <AdminPetForm data={pets.find(item => item.id === editKey)} setFormValues={setFormValues} />
             </Modal>
-        </>
+        </Container>
     );
 };
 
