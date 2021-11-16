@@ -1,32 +1,23 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
+import { Form, Input, Button } from 'antd';
 
 import { authenticate, reauthenticate } from "../../redux/actions/authActions";
 import { FlexCenterBox } from "../../styles/common-styles";
-import { Button } from "../../components/common";
 
 const Container = styled.div`
   margin-top: 100px;
+  min-width: 320px;
   ${FlexCenterBox}
-  flex-direction: column;
-`;
-const Span = styled.span`
-  margin-bottom: 4px;
-`;
-
-const Input = styled.input`
-  margin-bottom: 14px;
 `;
 
 const Signin = ({ }) => {
+  const [form] = Form.useForm();
   const auth = useSelector((state) => state.auth);
   const router = useRouter();
   const dispatch = useDispatch();
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [err, setErr] = useState("");
 
   useEffect(() => {
     if (auth.loggedIn && auth.is_admin === 1) {
@@ -34,19 +25,12 @@ const Signin = ({ }) => {
     }
   }, [auth])
 
-
   useEffect(() => {
     dispatch(reauthenticate());
   }, []);
 
 
-  const handleSubmit = () => {
-    setErr("")
-    submit()
-  };
-
-
-  const submit = async () => {
+  const submit = async (name, password) => {
     dispatch(
       authenticate(
         {
@@ -54,21 +38,75 @@ const Signin = ({ }) => {
           password: password,
         },
         () => router.push("/"),
-        (err) => { setErr(err) },
+        (err) => {
+          form.setFields([
+            {
+              name: 'password',
+              errors: [err],
+            },
+          ]);
+        },
         () => { }
       )
     );
   };
 
 
+  const onFinish = (values) => {
+    submit(values.username, values.password)
+  };
+
   return (
     <Container>
-      <Span>Username</Span>
-      <Input value={name} onChange={(e) => setName(e.target.value)} />
-      <Span>Password</Span>
-      <Input value={password} onChange={(e) => setPassword(e.target.value)} />
-      <Button text={"Admin Login"} onClick={handleSubmit} disabled={name === "" || password === ""} />
-      <Span>{err}</Span>
+      <Form
+        form={form}
+        name="basic"
+        labelCol={{
+          span: 8,
+        }}
+        wrapperCol={{
+          span: 16,
+        }}
+        style={{ width: 320 }}
+        onFinish={onFinish}
+        autoComplete="off"
+      >
+        <Form.Item
+          label="Username"
+          name="username"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your username!',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[
+            {
+              required: true,
+              message: 'Please input your password!',
+            },
+          ]}
+        >
+          <Input.Password />
+        </Form.Item>
+        <Form.Item
+          wrapperCol={{
+            offset: 8,
+            span: 16,
+          }}
+        >
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form.Item>
+      </Form>
     </Container>
   );
 };
