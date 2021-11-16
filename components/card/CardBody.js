@@ -31,7 +31,7 @@ const CardBody = ({ data }) => {
       <Text>Brithday : {changeToDisplayStringDatetime(data.birthday)}</Text>
       <Text>Weight : {data.weight}kg</Text>
       <Wrapper>
-        <p>{data.intro}</p>
+        <h6>{data.intro}</h6>
       </Wrapper>
       <ImageWrapper>
         <Image src={data.photo_url} alt={`${data.name}'s photo`} />
