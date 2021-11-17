@@ -34,7 +34,7 @@ const CardBody = ({ data }) => {
         <h6>{data.intro}</h6>
       </Wrapper>
       <ImageWrapper>
-        <Image src={data.photo_url} alt={`${data.name}'s photo`} />
+        <Image src={data.photo.url} alt={`${data.name}'s photo`} />
       </ImageWrapper>
     </Container>
   );
