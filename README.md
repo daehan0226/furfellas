@@ -1,6 +1,7 @@
 ## [Furfellas](http://furfellas.foxlee.kr/)
 ![furfellas_gallery](https://user-images.githubusercontent.com/47915302/141996996-1fee40c1-9a20-4167-8953-c85cd0724965.png)
 ![furfellas_photo_form](https://user-images.githubusercontent.com/47915302/141684758-f2cc6da4-8bae-4e58-a6ff-2b46ab4336c4.png)
+![20211125_172800](https://user-images.githubusercontent.com/47915302/143406050-325728c4-795d-4f6e-9383-12963e4f74bc.png)
 
 ### 소개
 * Sevi 와 Aibi의 소개 및 사진과 해야할 일들을 기록하는 프로젝트
