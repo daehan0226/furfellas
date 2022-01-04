@@ -1,4 +1,4 @@
-## [Project TypeScript Repository](https://github.com/daehan0226/furfellas-ts)
+### Go to [Project TypeScript Repository](https://github.com/daehan0226/furfellas-ts)
 
 ## [Furfellas](http://furfellas.foxlee.kr/)
 ![furfellas_gallery](https://user-images.githubusercontent.com/47915302/141996996-1fee40c1-9a20-4167-8953-c85cd0724965.png)
