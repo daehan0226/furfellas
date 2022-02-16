@@ -1,1 +1,1 @@
-export const server = "http://3.38.254.137:33103";
+export const server = "http://furfellas.api.foxlee.kr/v1";

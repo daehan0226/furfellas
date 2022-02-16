@@ -13,7 +13,7 @@ export const setHeaders = () => {
 };
 
 const httpClient = axios.create({
-  baseURL: `${server}/api/`,
+  baseURL: `${server}/`,
 });
 
 httpClient.interceptors.request.use(function (config) {
